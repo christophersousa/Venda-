@@ -52,5 +52,22 @@ export function useMask(){
         return v
     }
 
-    return {maskCep, maskTelefone, maskCpf, maskDate}
+    const maskCnpj = (value: string) =>{
+        let v = value.replace(/\D/g,'').slice(0, 15);
+        if(v.length >= 14) {
+            return `${v.slice(0,3)}.${v.slice(3,6)}.${v.slice(6,9)}/${v.slice(9,13)}-${v.slice(13)}`;
+        }
+        if(v.length >= 10){
+            return `${v.slice(0,3)}.${v.slice(3,6)}.${v.slice(6,9)}/${v.slice(9)}`;
+        }
+        else if (v.length >= 7) {
+          return `${v.slice(0,3)}.${v.slice(3,6)}.${v.slice(6)}`;
+        }
+        else if (v.length >= 4) {
+            return `${v.slice(0,3)}.${v.slice(3)}`;
+        }
+        return v
+    }
+
+    return {maskCep, maskTelefone, maskCpf, maskDate, maskCnpj}
 }

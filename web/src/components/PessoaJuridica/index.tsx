@@ -25,6 +25,7 @@ export function PessoaJuridica(){
         cep: '',
         cnpj: '',
         social: '',
+        nome_empresa: '',
         email: '',
         password: '',
       } });
@@ -53,14 +54,14 @@ export function PessoaJuridica(){
             <div className="flex flex-col gap-3 mt-6">
                 <h1 className="text-2xl font-bold">CNPJ</h1>
                 <span className="text-color-gray-text text-xs">precisamos para a emissão de Notas fiscais</span>
-                <div className="w-full pr-20">
+                <div className="w-72">
                     <Input
                     value={getValues('cnpj')}
                     onChange={(e) => {
-                        setValue('cnpj', e.target.value, {shouldValidate: true})
+                        setValue('cnpj', mask.maskCnpj(e.target.value), {shouldValidate: true})
                      }}
                     variant="outlined"
-                    label="Nome completo"
+                    label="CNPJ"
                     className="bg-gray-50 border border-gray-300"
                     />
                 </div>
@@ -76,7 +77,7 @@ export function PessoaJuridica(){
                         setValue('social', e.target.value, {shouldValidate: true})
                      }}
                     variant="outlined"
-                    label="Nome completo"
+                    label="Razão social"
                     className="bg-gray-50 border border-gray-300"
                     />
                 </div>
@@ -96,6 +97,23 @@ export function PessoaJuridica(){
                     className="bg-gray-50 border border-gray-300"/>
                 </div>
             </div>
+
+            <div className="flex flex-col gap-3 mt-6">
+                <h1 className="text-2xl font-bold">Nome da empresa</h1>
+                <span className="text-color-gray-text text-xs">para que os usuários possam ter um contato melhor com a sua loja </span>
+                <div className="w-full pr-20">
+                    <Input
+                    value={getValues('nome_empresa')}
+                    onChange={(e) => {
+                        setValue('nome_empresa', e.target.value, {shouldValidate: true})
+                     }}
+                    variant="outlined"
+                    label="Nome da empresa"
+                    className="bg-gray-50 border border-gray-300"
+                    />
+                </div>
+            </div>
+
             <div className="flex flex-col gap-3 mt-6">
                 <h1 className="text-2xl font-bold">CEP</h1>
                 <div className="w-64 flex">
