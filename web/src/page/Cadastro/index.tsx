@@ -1,4 +1,6 @@
 import { Radio } from "@material-tailwind/react";
+import { PessoaFisica } from "../../components/PessoaFisica";
+import { PessoaJuridica } from "../../components/PessoaJuridica";
 export function Cadastro(){
     return (
         <div className="h-screen py-6">
@@ -14,6 +16,7 @@ export function Cadastro(){
 
                     </div>
                 </div>
+                <PessoaJuridica/>
             </div>
         </div>
     )
