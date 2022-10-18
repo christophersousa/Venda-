@@ -1,5 +1,10 @@
 import { Radio } from "@material-tailwind/react";
+import { useState } from "react";
+import { PessoaFisica } from "../../components/PessoaFisica";
+import { PessoaJuridica } from "../../components/PessoaJuridica";
 export function Cadastro(){
+    const [cadastro, setcadastro] = useState<boolean>(false)
+
     return (
         <div className="h-screen py-6">
             <div className="bg-white flex flex-col items-center p-12">
@@ -9,11 +14,12 @@ export function Cadastro(){
                     <h1 className="text-2xl font-bold">Tipo de conta</h1>
                     <div className="flex gap-3">
 
-                        <Radio id="fisica" name="type" label="Pessoa física" />
-                        <Radio id="juridica" name="type" label="Pessoa Jurídica" />
+                        <Radio id="fisica" name="type" label="Pessoa física" onClick={()=>setcadastro(false)} defaultChecked/>
+                        <Radio id="juridica" name="type" label="Pessoa Jurídica" onClick={()=>setcadastro(true)}/>
 
                     </div>
                 </div>
+                {cadastro ? <PessoaJuridica />:<PessoaFisica/>}
             </div>
         </div>
     )

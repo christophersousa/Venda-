@@ -1,6 +1,7 @@
 import logo from "../../assets/logo_venda+.png"
 
 import { BsPerson, BsCart3, BsFillCaretDownFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 export function Menu(){
     const categorias = ['Informática', 'Celulares', 'Móveis', 'Eletrodomésticos', 'Cosméticos']
@@ -22,13 +23,14 @@ export function Menu(){
                     </form>
                 </div>
                 <div className="flex gap-8 items-center">
-                    <div className="flex items-center gap-1 cursor-pointer ">
+                    <Link to="/login" className="flex items-center gap-1 cursor-pointer ">
+
                         <BsPerson size={20}/>
                         <div className=" flex flex-col text-xs">
                             <p className="text-xs">Sing In</p>
                             <span className="xl">Minha conta</span>
                         </div>
-                    </div >
+                    </Link >
                     <div className="flex items-center gap-1 cursor-pointer ">
                         <div className="bg-background-gray p-2 rounded-full">
                             <BsCart3  size={20}/>
@@ -43,7 +45,7 @@ export function Menu(){
             <div>
                 <ul className="flex gap-5 p-3">
                     <li className="flex items-center">
-                        <span>Home</span>
+                        <Link to="/">Home</Link>
                     </li>
                     {categorias.map((c) =>{
                         return <li className="flex items-center">
