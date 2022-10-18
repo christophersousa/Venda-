@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/category")
@@ -27,6 +28,11 @@ public class CategoryController {
         return categoryService.listCategory();
 
     }
+    @GetMapping("/{categoryId}")
+    public Optional<Category> getCategory(@PathVariable("categoryId") int categoryId){
+        return categoryService.getCategoryById(categoryId);
+    }
+
     @PostMapping("/update/{categoryId}")
     public ResponseEntity<ApiResponse> updateCategory(@PathVariable("categoryId") int categoryId, @RequestBody Category category){
         if(!categoryService.findById(categoryId)){

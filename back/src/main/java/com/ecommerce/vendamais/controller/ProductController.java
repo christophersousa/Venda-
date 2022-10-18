@@ -47,6 +47,12 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    @GetMapping("/{productId}")
+    public ProductDto getProductById(@PathVariable("productId") int productId){
+       return productService.getProductById(productId);
+
+    }
+
     @PostMapping("/update/{productId}")
     public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productId") int productId, @RequestBody ProductDto productDto) throws Exception {
         Optional<Category> category = categoryRepository.findById(productDto.getCategoryId());

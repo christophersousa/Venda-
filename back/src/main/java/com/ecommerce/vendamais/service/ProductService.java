@@ -39,6 +39,7 @@ public class ProductService {
         productDto.setUserId(product.getUser().getId());
         return productDto;
     }
+
     public List<ProductDto> getAllProducts(){
         List<Product> allProducts = productRepository.findAll();
 
@@ -67,5 +68,13 @@ public class ProductService {
 
     public void deleteProduct(int productId) {
         productRepository.deleteById(productId);
+    }
+
+    public ProductDto getProductById(int productId) {
+        Optional<Product> product = productRepository.findById(productId);
+        if(product.isPresent()){
+            return getProductDto(product.get());
+        }
+        return null;
     }
 }

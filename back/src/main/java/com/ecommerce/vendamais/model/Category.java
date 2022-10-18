@@ -3,7 +3,7 @@ package com.ecommerce.vendamais.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "category")
+@Table(name = "categorys")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
