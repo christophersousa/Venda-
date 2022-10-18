@@ -1,5 +1,6 @@
 import { Input } from "@material-tailwind/react";
 import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { IconType } from "react-icons";
 import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
 import { useFormatPassword } from "../../hooks/useFormatPassword";
@@ -7,6 +8,22 @@ import { useFormatPassword } from "../../hooks/useFormatPassword";
 export function Login(){
     const passwordFormat = useFormatPassword()
     const  password = useRef<HTMLInputElement>(null)
+
+    const {
+        handleSubmit,
+        setValue,
+        getValues,
+        register,
+        reset,
+        formState: { isValid, errors },
+      } = useForm({ mode: "onChange",
+      defaultValues : {
+        email: '',
+        password: '',
+      } });
+      const onSubmit = (data: any) => {
+        alert(`${data.email} logado`);
+      };
 
 
     return (
@@ -27,7 +44,7 @@ export function Login(){
                     Cadastre-se
                 </button>
             </div>
-            <div className="bg-white flex flex-col items-center justify-center gap-6 w-1/2 h-96 border-l border-black">
+            <form className="bg-white flex flex-col items-center justify-center gap-6 w-1/2 h-96 border-l border-black" onSubmit={handleSubmit(onSubmit)}>
                 <h1 className="text-gray-900 font-bold">Já sou cliente</h1>
 
                 <div className="w-1/2">
@@ -51,13 +68,13 @@ export function Login(){
                     ref={password}
                     />
                 </div>
-                <button className="bg-background-orange w-1/3 py-2 rounded-lg text-white font-weight">
+                <button type="submit" className="bg-background-orange w-1/3 py-2 rounded-lg text-white font-weight">
                     Logar
                 </button>
                 <div className="w-1/2 flex justify-start text-xs">
                     <a href="" className="underline">Esqueci a minha senha..</a>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }
