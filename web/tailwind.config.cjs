@@ -3,7 +3,8 @@ const withMT = require("@material-tailwind/react/utils/withMT");
 module.exports = withMT({
   content: [
     './src/**/*.tsx',
-    './index.html'
+    './index.html',
+    './node_modules/tw-elements/dist/js/**/*.js'
   ],
   theme: {
     fontFamily:{
@@ -23,5 +24,7 @@ module.exports = withMT({
       },
     }
   },
-  plugins: [],
+  plugins: [
+    require('tw-elements/dist/plugin')
+  ],
 })

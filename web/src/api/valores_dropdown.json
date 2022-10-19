@@ -1,0 +1,80 @@
+{
+    "valoresDropdown":[
+        {
+        "name": "Informática",
+        "values": ["Macbooks",
+            "iMac",
+            "Notebooks",
+            "Notebook Dell",
+            "Notebook Samsung",
+        "Notebook Acer",
+            "Desktop",
+            "Tablets",
+            "Monitores",
+            "Webcam",
+            "Impressoras e multifuncionais",
+            "Impressora 3D",
+            "Roteador Wi-fi",
+            "HD Externo",
+            "Notebook Gamer",
+            "Pc Gamer",
+            "Monitor Gamer",
+            "Gabinete Gamer"
+            ]
+        },
+        {
+        "name": "Celulares",
+        "values": [
+            "iPhone 13",
+            "iPhone 13 Pro",
+            "iPhone 13 Pro Max",
+            "iPhone 12",
+            "iPhone 11",
+            "iPhone SE",
+            "Galaxy A12",
+            "Galaxy A32",
+            "Galaxy A03",
+            "Galaxy A03 Core",
+            "Galaxy Z Flip",
+            "Galaxy S20 FE",
+            "Galaxy S21 FE",
+            "Galaxy S22",
+            "Galaxy S22 Ultra",
+            "Motorola G20"
+        ]
+        },
+        {
+        "name": "Móveis",
+        "values": [
+            "Guarda-roupas e Roupeiros",
+            "Cozinhas Compactas",
+            "Racks",
+            "Camas Box e Conjugados",
+            "Colchões",
+            "Sofás",
+            "Painéis para tv",
+            "Mesas para Computador e Escrivaninhas",
+            "Mesas de Jantar"
+        ]
+        },
+        {
+        "name": "Eletrodomésticos",
+        "values": [
+            "Geladeira Inox",
+            "Geladeira Duplex",
+            "Frigobar",
+            "Micro-ondas",
+            "Micro-ondas Inox",
+            "Fogão 4 bocas",
+            "Fogão 5 bocas",
+            "Fogão a lenha",
+            "Cooktop de indução",
+            "Cooktop a gás",
+            "Lava e seca",
+            "Lava e seca inox",
+            "Tanquinho",
+            "Lava Louças"
+        ]
+        }
+    ]
+}
