@@ -5,11 +5,11 @@ export function Home(){
     return(
         <div>
             <Carousel/>
-            <div className=" bg-white px-8 py-4">
+            <div className=" bg-white px-12 py-16">
                 <div>
-                    <h2 className="font-bold">Computadores</h2>
+                    <h2 className="font-bold text-xl">Computadores</h2>
                 </div>
-                <div className="py-16">
+                <div className="py-8 border-t-2">
                     <MultCarousel/>
                 </div>
             </div>

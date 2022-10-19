@@ -1,7 +1,7 @@
 export function Carousel(){
     return(
         <div className=" flex justify-center items-center px-8 py-4">
-            <div id="carouselExampleCaptions" className="w-4/5 carousel slide relative" data-bs-ride="carousel">
+            <div id="carouselExampleCaptions" className="w-4/5 max-h-[35rem] carousel slide relative overflow-hidden" data-bs-ride="carousel">
                 <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
                     <button
                     type="button"
@@ -27,8 +27,8 @@ export function Carousel(){
                 <div className="carousel-inner relative w-full overflow-hidden">
                     <div className="carousel-item active relative float-left w-full">
                     <img
-                        src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg"
-                        className="block w-full "
+                        src="https://www.fatosdesconhecidos.com.br/wp-content/uploads/2018/03/o-SMARTPHONE-facebook-1600x800.jpg"
+                        className="block w-full max-h-[35rem] object-cover"
                         alt="..."
                     />
                     <div className="carousel-caption hidden md:block absolute text-center">
@@ -38,8 +38,8 @@ export function Carousel(){
                     </div>
                     <div className="carousel-item relative float-left w-full">
                     <img
-                        src="https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg"
-                        className="block w-full"
+                        src="https://img.freepik.com/fotos-premium/familia-sorridente-sentado-no-sofa-e-apontando-para-tablet-digital_107420-39210.jpg?w=2000"
+                        className="block w-full max-h-[35rem] object-cover"
                         alt="..."
                     />
                     <div className="carousel-caption hidden md:block absolute text-center">
@@ -49,8 +49,8 @@ export function Carousel(){
                     </div>
                     <div className="carousel-item relative float-left w-full">
                     <img
-                        src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg"
-                        className="block w-full"
+                        src="https://cdn.create.vista.com/api/media/medium/265127828/stock-photo-father-son-playing-video-game?token="
+                        className="block w-full max-h-[35rem] object-cover"
                         alt="..."
                     />
                     <div className="carousel-caption hidden md:block absolute text-center">

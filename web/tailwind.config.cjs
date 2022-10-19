@@ -12,6 +12,9 @@ module.exports = withMT({
     },
     extend: {
       backgroundImage:{
+        'slide1' : 'url("https://www.fatosdesconhecidos.com.br/wp-content/uploads/2018/03/o-SMARTPHONE-facebook-1600x800.jpg")',
+        'slide2' : 'url("https://img.freepik.com/fotos-premium/familia-sorridente-sentado-no-sofa-e-apontando-para-tablet-digital_107420-39210.jpg?w=2000")',
+        'slide3' : 'url("https://cdn.create.vista.com/api/media/medium/265127828/stock-photo-father-son-playing-video-game?token=")'
       },
       backgroundColor:{
         'background': '#F0F0F0',
