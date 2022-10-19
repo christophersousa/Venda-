@@ -28,35 +28,35 @@ export function Carousel(){
                     <div className="carousel-item active relative float-left w-full">
                     <img
                         src="https://www.fatosdesconhecidos.com.br/wp-content/uploads/2018/03/o-SMARTPHONE-facebook-1600x800.jpg"
-                        className="block w-full max-h-[35rem] object-cover"
+                        className="block w-full h-[35rem] object-cover"
                         alt="..."
                     />
-                    <div className="carousel-caption hidden md:block absolute text-center">
-                        <h5 className="text-xl">First slide label</h5>
-                        <p>Some representative placeholder content for the first slide.</p>
+                    <div className="carousel-caption hidden md:block absolute text-center w-1/3 left-0 ml-32 top-[40%]">
+                        <p className="font-bold text-2xl text-black" >Curta a sua vida em familia com as melhores promoções no Venda+ </p>
+                        <button type="submit" className="bg-background-orange mt-4 w-1/3 py-2 rounded-lg text-white font-weight">Veja mais</button>
+                        </div>
                     </div>
+                        <div className="carousel-item relative float-left w-full">
+                        <img
+                            src="https://img.freepik.com/fotos-premium/familia-sorridente-sentado-no-sofa-e-apontando-para-tablet-digital_107420-39210.jpg?w=2000"
+                            className="block w-full h-[35rem] object-cover"
+                            alt="..."
+                        />
+                        <div className="carousel-caption hidden md:block absolute text-center w-1/3 left-0 ml-32 top-[40%]">
+                            <p className="font-bold text-2xl text-black">Curta a sua vida em familia com as melhores promoções no Venda+ </p>
+                            <button type="submit" className="bg-background-orange mt-4 w-1/3 py-2 rounded-lg text-white font-weight">Veja mais</button>
+                        </div>
                     </div>
                     <div className="carousel-item relative float-left w-full">
-                    <img
-                        src="https://img.freepik.com/fotos-premium/familia-sorridente-sentado-no-sofa-e-apontando-para-tablet-digital_107420-39210.jpg?w=2000"
-                        className="block w-full max-h-[35rem] object-cover"
-                        alt="..."
-                    />
-                    <div className="carousel-caption hidden md:block absolute text-center">
-                        <h5 className="text-xl">Second slide label</h5>
-                        <p>Some representative placeholder content for the second slide.</p>
-                    </div>
-                    </div>
-                    <div className="carousel-item relative float-left w-full">
-                    <img
-                        src="https://cdn.create.vista.com/api/media/medium/265127828/stock-photo-father-son-playing-video-game?token="
-                        className="block w-full max-h-[35rem] object-cover"
-                        alt="..."
-                    />
-                    <div className="carousel-caption hidden md:block absolute text-center">
-                        <h5 className="text-xl">Third slide label</h5>
-                        <p>Some representative placeholder content for the third slide.</p>
-                    </div>
+                        <img
+                            src="https://cdn.create.vista.com/api/media/medium/265127828/stock-photo-father-son-playing-video-game?token="
+                            className="block w-full h-[35rem] object-cover"
+                            alt="..."
+                        />
+                        <div className="carousel-caption hidden md:block absolute text-center w-1/3 left-0 ml-32 top-[40%]">
+                            <p className="font-bold text-2xl text-black">Curta a sua vida em familia com as melhores promoções no Venda+ </p>
+                            <button type="submit" className="bg-background-orange mt-4 w-1/3 py-2 rounded-lg text-white font-weight">Veja mais</button>
+                        </div>
                     </div>
                 </div>
                 <button
