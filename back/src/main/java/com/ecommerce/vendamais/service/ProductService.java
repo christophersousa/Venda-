@@ -2,11 +2,14 @@ package com.ecommerce.vendamais.service;
 
 import com.ecommerce.vendamais.dto.ProductDto;
 import com.ecommerce.vendamais.model.Category;
+import com.ecommerce.vendamais.model.Photo;
 import com.ecommerce.vendamais.model.Product;
 import com.ecommerce.vendamais.model.User;
+import com.ecommerce.vendamais.repository.PhotoRepository;
 import com.ecommerce.vendamais.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,9 @@ import java.util.Optional;
 public class ProductService {
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    PhotoRepository photoRepository;
 
     public void createProduct(ProductDto productDto, Category category, User user){
         Product product = new Product();
@@ -76,5 +82,18 @@ public class ProductService {
             return getProductDto(product.get());
         }
         return null;
+    }
+
+    public void savePhoto(MultipartFile photo, int productId) throws Exception {
+        Optional<Product> product = productRepository.findById(productId);
+        if(!product.isPresent()){
+            throw new Exception("produto não existe");
+        }
+        Photo productPhoto = new Photo();
+        productPhoto.setImgBytes(photo.getBytes());
+        productPhoto.setName(photo.getOriginalFilename());
+        productPhoto.setProduct(product.get());
+        photoRepository.save(productPhoto);
+
     }
 }

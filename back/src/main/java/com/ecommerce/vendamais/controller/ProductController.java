@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,6 +53,16 @@ public class ProductController {
        return productService.getProductById(productId);
 
     }
+
+    @PostMapping("/{productId}/upload")
+    public ResponseEntity<ApiResponse> uploadPhoto(@RequestParam MultipartFile photo, int productId) throws Exception {
+        if(!productService.findById(productId)){
+            return new ResponseEntity<>(new ApiResponse(false, "produto não existe"), HttpStatus.NOT_FOUND);
+        }
+        productService.savePhoto(photo, productId);
+        return new ResponseEntity<>(new ApiResponse(true, "foto do produto salva com sucesso"), HttpStatus.OK);
+    }
+
 
     @PostMapping("/update/{productId}")
     public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productId") int productId, @RequestBody ProductDto productDto) throws Exception {
