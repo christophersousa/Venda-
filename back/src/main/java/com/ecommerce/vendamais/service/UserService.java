@@ -40,10 +40,8 @@ public class UserService {
             throw new CustomException(e.getMessage());
         }
 
-        User user = new User(signUpDto.getFullName(),
-                             signUpDto.getCpf(),
-                             signUpDto.getEmail(),
-                             encryptedPassword);
+        User user = new User(signUpDto.getFullName(), signUpDto.getCpf(), signUpDto.getEmail(), encryptedPassword,
+                             signUpDto.getBirthDate(), signUpDto.getPhone(), signUpDto.getGender(), signUpDto.getCep());
 
         userRepository.save(user);
 

@@ -6,6 +6,14 @@ public class SignUpDto {
     private String email;
     private String password;
 
+    private String birthDate;
+
+    private String phone;
+
+    private String gender;
+
+    private String cep;
+
     public String getFullName() {
         return fullName;
     }
@@ -36,5 +44,37 @@ public class SignUpDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 }
