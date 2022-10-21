@@ -37,10 +37,10 @@ export default function useAuth() {
 
         const tokenUser:User|null = decodeToken(token)
         setUse(tokenUser);
-        console.log("usuario ", use?.name);
 
         api.defaults.headers.Authorization = `Bearer ${token}`;
         setAuthenticated(true);
+        window.location.href="/"
     }
 
     function handleLogout() {
