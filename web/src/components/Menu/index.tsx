@@ -6,21 +6,6 @@ import { DropDown } from "../Dropdown";
 import valores_dropdown from "../../api/valores_dropdown.json"
 
 export function Menu(){
-    const categorias = ['Informática', 'Celulares', 'Móveis', 'Eletrodomésticos', 'Cosméticos']
-    const listCategoria = [
-        {
-          nome: "Informática",
-          list: ["Hp", "Aoc", "Dell"],
-        },
-        {
-          nome: "Celulares",
-          list: ["Nokia", "Samsung", "Lg"],
-        },
-        {
-          nome: "Móveis",
-          list: ["Nokia", "Samsung", "Lg"],
-        },
-      ];
     return (
         <div className="bg-white h-36 pr-16 pl-16 flex flex-col items-center">
             <div className="h-32 w-full flex justify-between items-center">
@@ -67,9 +52,9 @@ export function Menu(){
                     <li className="flex items-center">
                         <Link to="/">Home</Link>
                     </li>
-                    {valores_dropdown.valoresDropdown.map((c) => {
+                    {valores_dropdown.valoresDropdown.map((c, index) => {
                         return (
-                        <div>
+                        <div key={index}>
                             <DropDown name={c.name} list={c.values} />
                         </div>
                         );
