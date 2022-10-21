@@ -4,8 +4,11 @@ import { BsPerson, BsCart3, BsFillCaretDownFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { DropDown } from "../Dropdown";
 import valores_dropdown from "../../api/valores_dropdown.json"
+import { useContext } from "react";
+import { Context } from "../../Context/AuthContext";
 
 export function Menu(){
+    const { use, authenticated } = useContext(Context);
     return (
         <div className="bg-white h-36 pr-16 pl-16 flex flex-col items-center">
             <div className="h-32 w-full flex justify-between items-center">
@@ -28,7 +31,7 @@ export function Menu(){
 
                         <BsPerson size={20}/>
                         <div className=" flex flex-col text-xs">
-                            <p className="text-xs">Sing In</p>
+                            <p className="text-xs">{authenticated? `${use?.name}`: "Sing In"}</p>
                             <span className="xl">Minha conta</span>
                         </div>
                     </Link >
