@@ -1,27 +1,98 @@
-export function dropDown(){
-    return(
-        <div>
-            <div className="relative inline-block text-left">
-                <div>
-                    <button type="button" className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" id="menu-button" aria-expanded="true" aria-haspopup="true">
-                    Options
-                    <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                    </svg>
-                    </button>
-                </div>
+interface ProxyDropDown {
+    name: string;
+    list: Array<string>;
+  }
 
-                <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
-                    <div className="py-1" role="none">
-                    <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem"  id="menu-item-0">Account settings</a>
-                    <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem"  id="menu-item-1">Support</a>
-                    <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem"  id="menu-item-2">License</a>
-                    <form method="POST" action="#" role="none">
-                        <button type="submit" className="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem"  id="menu-item-3">Sign out</button>
-                    </form>
-                    </div>
-                </div>
+  export function DropDown({ name, list }: ProxyDropDown) {
+    return (
+      <div>
+        <div className="flex justify-center">
+          <div>
+            <div className="dropdown relative">
+              <div
+                className="
+                  dropdown-toggle
+                  flex
+                  items-center
+                  cursor-pointer
+                  whitespace-nowrap
+                "
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {name}
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  data-prefix="fas"
+                  data-icon="caret-down"
+                  className="w-2 ml-2"
+                  role="img"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 320 512"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                  ></path>
+                </svg>
+              </div>
+              <ul
+                className="
+                  dropdown-menu
+                  min-w-max
+                  absolute
+                  hidden
+                  flex-wrap
+                  flex-col
+                  bg-white
+                  text-base
+                  z-50
+                  float-left
+                  py-2
+                  list-none
+                  text-left
+                  rounded-lg
+                  shadow-lg
+                  mt-1
+                  m-0
+                  bg-clip-padding
+                  border-none
+                  h-80
+                  overflow-y-auto
+                  overflow-x-hidden
+                "
+                aria-labelledby="dropdownMenuButton1"
+              >
+                {list.map((e) => {
+                  return (
+                    <li>
+                      <a
+                        className="
+                        dropdown-item
+                        text-sm
+                        py-2
+                        px-4
+                        font-normal
+                        block
+                        w-full
+                        whitespace-nowrap
+                        bg-transparent
+                        text-gray-700
+                        hover:bg-gray-100
+                      "
+                        href="#"
+                      >
+                        {e}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
+          </div>
         </div>
-    )
-}
+      </div>
+    );
+  }

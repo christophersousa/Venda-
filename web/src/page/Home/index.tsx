@@ -1,7 +1,18 @@
+import { Carousel } from "../../components/Carousel";
+import { MultCarousel } from "../../components/MultCarousel";
+
 export function Home(){
     return(
         <div>
-            <h1>Home</h1>
+            <Carousel/>
+            <div className=" bg-white px-12 py-16">
+                <div>
+                    <h2 className="font-bold text-xl">Computadores</h2>
+                </div>
+                <div className="py-8 border-t-2">
+                    <MultCarousel/>
+                </div>
+            </div>
         </div>
     )
 }

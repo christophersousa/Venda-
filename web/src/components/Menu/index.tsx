@@ -2,9 +2,25 @@ import logo from "../../assets/logo_venda+.png"
 
 import { BsPerson, BsCart3, BsFillCaretDownFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { DropDown } from "../Dropdown";
+import valores_dropdown from "../../api/valores_dropdown.json"
 
 export function Menu(){
     const categorias = ['Informática', 'Celulares', 'Móveis', 'Eletrodomésticos', 'Cosméticos']
+    const listCategoria = [
+        {
+          nome: "Informática",
+          list: ["Hp", "Aoc", "Dell"],
+        },
+        {
+          nome: "Celulares",
+          list: ["Nokia", "Samsung", "Lg"],
+        },
+        {
+          nome: "Móveis",
+          list: ["Nokia", "Samsung", "Lg"],
+        },
+      ];
     return (
         <div className="bg-white h-36 pr-16 pl-16 flex flex-col items-center">
             <div className="h-32 w-full flex justify-between items-center">
@@ -32,9 +48,13 @@ export function Menu(){
                         </div>
                     </Link >
                     <div className="flex items-center gap-1 cursor-pointer ">
-                        <div className="bg-background-gray p-2 rounded-full">
-                            <BsCart3  size={20}/>
-                        </div>
+                            <div className="inline-flex relative w-fit">
+                                <div className="absolute inline-block -top-1 right-0 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xs leading-none text-center whitespace-nowrap align-baseline font-bold bg-deep-orange-700 text-white rounded-full z-10">New</div>
+                                <div className="bg-background-gray p-2 rounded-full">
+                                        <BsCart3  size={20}/>
+                                </div>
+                            </div>
+
                         <div className="text-xs flex items-center">
                             Carrinho
                             <BsFillCaretDownFill/>
@@ -47,11 +67,12 @@ export function Menu(){
                     <li className="flex items-center">
                         <Link to="/">Home</Link>
                     </li>
-                    {categorias.map((c) =>{
-                        return <li className="flex items-center">
-                                    <span>{c}</span>
-                                    <BsFillCaretDownFill size={10} className="mt-2"/>
-                                </li>
+                    {valores_dropdown.valoresDropdown.map((c) => {
+                        return (
+                        <div>
+                            <DropDown name={c.name} list={c.values} />
+                        </div>
+                        );
                     })}
 
                 </ul>

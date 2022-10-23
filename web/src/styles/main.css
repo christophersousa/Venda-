@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+.react-multi-carousel-track {
+    gap: 1rem;
+}
+.react-multi-carousel-item{
+    width: 18.75rem !important;
+    padding: 1rem .5rem;
+    transition: transform .2s
+}
+
+.react-multi-carousel-item:hover{
+    transform: scale(1.05);
+}
