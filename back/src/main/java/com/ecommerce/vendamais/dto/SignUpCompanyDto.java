@@ -7,11 +7,11 @@ public class SignUpCompanyDto {
 
     private String cnpj;
 
-    private String phone;
+    private String telefone;
 
     private String email;
 
-    private String password;
+    private String senha;
 
     public String getNome() {
         return nome;
@@ -37,13 +37,6 @@ public class SignUpCompanyDto {
         this.cnpj = cnpj;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     public String getEmail() {
         return email;
@@ -53,11 +46,19 @@ public class SignUpCompanyDto {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

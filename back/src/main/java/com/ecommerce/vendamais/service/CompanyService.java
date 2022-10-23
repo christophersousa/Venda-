@@ -30,9 +30,9 @@ public class CompanyService {
             throw new CustomException("empresa já cadastrada");
         }
 
-        String encryptedPassword = signUpCompanyDto.getPassword();
+        String encryptedPassword = signUpCompanyDto.getSenha();
         try{
-            encryptedPassword = hashPassword(signUpCompanyDto.getPassword());
+            encryptedPassword = hashPassword(signUpCompanyDto.getSenha());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             throw new CustomException(e.getMessage());
@@ -41,7 +41,7 @@ public class CompanyService {
         Company company = new Company(signUpCompanyDto.getNome(),
                                         signUpCompanyDto.getRazaoSocial(),
                                         signUpCompanyDto.getCnpj(),
-                                        signUpCompanyDto.getPhone(),
+                                        signUpCompanyDto.getTelefone(),
                                         signUpCompanyDto.getEmail(),
                                         encryptedPassword);
 
