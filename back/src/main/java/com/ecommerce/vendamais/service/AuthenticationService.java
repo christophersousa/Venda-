@@ -34,14 +34,6 @@ public class AuthenticationService {
         return companyTokenRepository.findByCompany(company);
     }
 
-    public User getUser(String token){
-        final AuthenticationToken authenticationToken = tokenRepository.findByToken(token);
-        if(Objects.isNull(token)){
-            return null;
-        }
-        return authenticationToken.getUser();
-    }
-
     public Company getCompany(String token){
         final AuthCompanyToken authenticationToken = companyTokenRepository.findByToken(token);
         if(Objects.isNull(token)){
@@ -54,8 +46,8 @@ public class AuthenticationService {
         if(Objects.isNull(token)){
             throw new AuthenticationFailException("token não existe");
         }
-        if(Objects.isNull(getUser(token))){
-            throw new AuthenticationFailException("token de usuário inválido");
+        if(Objects.isNull(getCompany(token))){
+            throw new AuthenticationFailException("token de empresa inválido");
         }
     }
 }

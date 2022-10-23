@@ -3,14 +3,14 @@ package com.ecommerce.vendamais.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "categorys")
+@Table(name = "categorias")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "name", nullable = false)
-    private String categoryName;
+    private String nome;
 
     public Integer getId() {
         return id;
@@ -20,11 +20,11 @@ public class Category {
         this.id = id;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getNome() {
+        return nome;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }
