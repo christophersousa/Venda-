@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "tokens")
-public class AuthenticationToken {
+@Table(name = "usuarios_tokens")
+public class AuthUserToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +22,10 @@ public class AuthenticationToken {
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    public AuthenticationToken() {
+    public AuthUserToken() {
 
     }
-    public AuthenticationToken(User user){
+    public AuthUserToken(User user){
         this.user = user;
         this.createdDate = new Date();
         this.token = UUID.randomUUID().toString();

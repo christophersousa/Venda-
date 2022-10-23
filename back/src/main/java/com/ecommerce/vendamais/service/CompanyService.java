@@ -4,11 +4,8 @@ import com.ecommerce.vendamais.dto.*;
 import com.ecommerce.vendamais.exceptions.AuthenticationFailException;
 import com.ecommerce.vendamais.exceptions.CustomException;
 import com.ecommerce.vendamais.model.AuthCompanyToken;
-import com.ecommerce.vendamais.model.AuthenticationToken;
 import com.ecommerce.vendamais.model.Company;
-import com.ecommerce.vendamais.model.User;
 import com.ecommerce.vendamais.repository.CompanyRepository;
-import com.ecommerce.vendamais.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -85,7 +82,7 @@ public class CompanyService {
             throw new CustomException("token inválido");
         }
 
-        return new SignInResponseDto("sucess", token.getToken());
+        return new SignInResponseDto("sucess", token.getToken(), company);
 
     }
 }

@@ -3,10 +3,10 @@ package com.ecommerce.vendamais.service;
 import com.ecommerce.vendamais.dto.ResponseDto;
 import com.ecommerce.vendamais.dto.SignInDto;
 import com.ecommerce.vendamais.dto.SignInResponseDto;
-import com.ecommerce.vendamais.dto.SignUpDto;
+import com.ecommerce.vendamais.dto.SignUpUserDto;
 import com.ecommerce.vendamais.exceptions.AuthenticationFailException;
 import com.ecommerce.vendamais.exceptions.CustomException;
-import com.ecommerce.vendamais.model.AuthenticationToken;
+import com.ecommerce.vendamais.model.AuthUserToken;
 import com.ecommerce.vendamais.model.User;
 import com.ecommerce.vendamais.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,27 +26,32 @@ public class UserService {
     @Autowired
     AuthenticationService authenticationService;
     @Transactional
-    public ResponseDto signUp(SignUpDto signUpDto) {
-
-        if(Objects.nonNull(userRepository.findByCpf(signUpDto.getCpf()))){
+    public ResponseDto signUp(SignUpUserDto signUpUserDto) {
+        if(Objects.nonNull(userRepository.findByCpf(signUpUserDto.getCpf()))){
             throw new CustomException("usuário já cadastrado");
         }
 
-        String encryptedPassword = signUpDto.getPassword();
+        String encryptedPassword = signUpUserDto.getSenha();
         try{
-            encryptedPassword = hashPassword(signUpDto.getPassword());
+            encryptedPassword = hashPassword(signUpUserDto.getSenha());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             throw new CustomException(e.getMessage());
         }
 
-        User user = new User(signUpDto.getFullName(), signUpDto.getCpf(), signUpDto.getEmail(), encryptedPassword,
-                             signUpDto.getBirthDate(), signUpDto.getPhone(), signUpDto.getGender(), signUpDto.getCep());
+        User user = new User(signUpUserDto.getNomeCompleto(),
+                            signUpUserDto.getCpf(),
+                            signUpUserDto.getDataNascimento(),
+                            signUpUserDto.getEmail(),
+                            encryptedPassword,
+                            signUpUserDto.getTelefone(),
+                            signUpUserDto.getGenero(),
+                            signUpUserDto.getCep());
 
         userRepository.save(user);
 
-        final AuthenticationToken authenticationToken =  new AuthenticationToken(user);
-        authenticationService.saveToken(authenticationToken);
+        final AuthUserToken authUserToken =  new AuthUserToken(user);
+        authenticationService.saveToken(authUserToken);
 
         ResponseDto responseDto = new ResponseDto("success", "usuário cadastrado com sucesso");
         return responseDto;
@@ -68,19 +73,19 @@ public class UserService {
         }
 
         try{
-            if(!user.getPassword().equals(hashPassword(signInDto.getPassword()))){
+            if(!user.getSenha().equals(hashPassword(signInDto.getPassword()))){
                 throw new AuthenticationFailException("senha inválida");
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
 
-        AuthenticationToken token = authenticationService.getToken(user);
+        AuthUserToken token = authenticationService.getToken(user);
         if(Objects.isNull(token)){
             throw new CustomException("token inválido");
         }
 
-        return new SignInResponseDto("sucess", token.getToken());
+        return new SignInResponseDto("sucess", token.getToken(), user);
 
     }
 }

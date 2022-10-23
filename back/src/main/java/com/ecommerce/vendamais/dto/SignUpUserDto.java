@@ -1,42 +1,23 @@
-package com.ecommerce.vendamais.model;
+package com.ecommerce.vendamais.dto;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "usuarios")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(name = "nomeCompleto", nullable = false)
+public class SignUpUserDto {
     private String nomeCompleto;
 
-    @Column(name = "cpf", nullable = false)
     private String cpf;
 
-    @Column(name = "dataNascimento", nullable = false)
     private String dataNascimento;
 
-    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "senha", nullable = false)
     private String senha;
 
-    @Column(name = "telefone")
     private String telefone;
 
-    @Column(name = "genero", nullable = false)
     private String genero;
 
-    @Column(name = "cep")
     private String cep;
 
-    public User(){}
-
-    public User(String nomeCompleto, String cpf, String dataNascimento, String email, String senha, String telefone, String genero, String cep) {
+    public SignUpUserDto(String nomeCompleto, String cpf, String dataNascimento, String email, String senha, String telefone, String genero, String cep) {
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
@@ -45,14 +26,6 @@ public class User {
         this.telefone = telefone;
         this.genero = genero;
         this.cep = cep;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNomeCompleto() {
