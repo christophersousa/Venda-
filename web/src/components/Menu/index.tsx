@@ -31,7 +31,7 @@ export function Menu(){
 
                         <BsPerson size={20}/>
                         <div className=" flex flex-col text-xs">
-                            <p className="text-xs">{authenticated? `${use?.name}`: "Sing In"}</p>
+                            <p className="text-xs">{authenticated? `${use?.fullName}`: "Sing In"}</p>
                             <span className="xl">Minha conta</span>
                         </div>
                     </Link >

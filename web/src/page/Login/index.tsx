@@ -25,7 +25,7 @@ export function Login(){
       } });
       const onSubmit = (data: any) => {
         alert(`${data.email} logado`);
-        handleLogin()
+        handleLogin(data)
       };
 
 

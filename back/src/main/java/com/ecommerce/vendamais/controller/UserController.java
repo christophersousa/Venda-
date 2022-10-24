@@ -17,12 +17,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/signup")
+    @PostMapping("/cadastro")
     public ResponseDto signup(@RequestBody SignUpDto signUpDto){
         return userService.signUp(signUpDto);
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/logar")
     public SignInResponseDto signin(@RequestBody SignInDto signInDto){
         return userService.signin(signInDto);
     }

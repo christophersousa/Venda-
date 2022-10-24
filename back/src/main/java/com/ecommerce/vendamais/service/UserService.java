@@ -80,7 +80,7 @@ public class UserService {
             throw new CustomException("token inválido");
         }
 
-        return new SignInResponseDto("sucess", token.getToken());
+        return new SignInResponseDto("sucess", token.getToken(), user);
 
     }
 }
