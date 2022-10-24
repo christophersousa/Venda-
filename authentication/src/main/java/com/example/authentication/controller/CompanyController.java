@@ -1,8 +1,10 @@
-package com.ecommerce.vendamais.controller;
+package com.example.authentication.controller;
 
-import com.ecommerce.vendamais.dto.*;
-import com.ecommerce.vendamais.service.CompanyService;
-import com.ecommerce.vendamais.service.UserService;
+import com.example.authentication.dto.ResponseDto;
+import com.example.authentication.dto.SignInDto;
+import com.example.authentication.dto.SignInResponseDto;
+import com.example.authentication.dto.SignUpCompanyDto;
+import com.example.authentication.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

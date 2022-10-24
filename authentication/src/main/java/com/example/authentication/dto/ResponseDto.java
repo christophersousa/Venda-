@@ -1,4 +1,4 @@
-package com.ecommerce.vendamais.dto;
+package com.example.authentication.dto;
 
 public class ResponseDto {
     private String status;

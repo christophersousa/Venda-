@@ -1,7 +1,8 @@
-package com.ecommerce.vendamais.dto;
+package com.example.authentication.dto;
 
-import com.ecommerce.vendamais.model.Company;
-import com.ecommerce.vendamais.model.User;
+
+import com.example.authentication.model.Company;
+import com.example.authentication.model.User;
 
 public class SignInResponseDto {
     private String status;

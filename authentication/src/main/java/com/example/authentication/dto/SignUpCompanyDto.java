@@ -1,4 +1,4 @@
-package com.ecommerce.vendamais.dto;
+package com.example.authentication.dto;
 
 public class SignUpCompanyDto {
     private String nome;
@@ -36,7 +36,6 @@ public class SignUpCompanyDto {
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
-
 
     public String getEmail() {
         return email;

@@ -1,4 +1,4 @@
-package com.ecommerce.vendamais.model;
+package com.example.authentication.model;
 
 import javax.persistence.*;
 

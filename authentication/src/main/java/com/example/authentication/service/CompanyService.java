@@ -1,11 +1,14 @@
-package com.ecommerce.vendamais.service;
+package com.example.authentication.service;
 
-import com.ecommerce.vendamais.dto.*;
-import com.ecommerce.vendamais.exceptions.AuthenticationFailException;
-import com.ecommerce.vendamais.exceptions.CustomException;
-import com.ecommerce.vendamais.model.AuthCompanyToken;
-import com.ecommerce.vendamais.model.Company;
-import com.ecommerce.vendamais.repository.CompanyRepository;
+import com.example.authentication.dto.ResponseDto;
+import com.example.authentication.dto.SignInDto;
+import com.example.authentication.dto.SignInResponseDto;
+import com.example.authentication.dto.SignUpCompanyDto;
+import com.example.authentication.exceptions.AuthenticationFailException;
+import com.example.authentication.exceptions.CustomException;
+import com.example.authentication.model.AuthCompanyToken;
+import com.example.authentication.model.Company;
+import com.example.authentication.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +33,7 @@ public class CompanyService {
             throw new CustomException("empresa já cadastrada");
         }
 
-        String encryptedPassword = signUpCompanyDto.getSenha();
+        String encryptedPassword;
         try{
             encryptedPassword = hashPassword(signUpCompanyDto.getSenha());
         } catch (NoSuchAlgorithmException e) {

@@ -1,6 +1,7 @@
-package com.ecommerce.vendamais.repository;
+package com.example.authentication.repository;
 
-import com.ecommerce.vendamais.model.Company;
+
+import com.example.authentication.model.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

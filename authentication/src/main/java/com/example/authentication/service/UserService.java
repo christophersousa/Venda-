@@ -1,14 +1,15 @@
-package com.ecommerce.vendamais.service;
+package com.example.authentication.service;
 
-import com.ecommerce.vendamais.dto.ResponseDto;
-import com.ecommerce.vendamais.dto.SignInDto;
-import com.ecommerce.vendamais.dto.SignInResponseDto;
-import com.ecommerce.vendamais.dto.SignUpUserDto;
-import com.ecommerce.vendamais.exceptions.AuthenticationFailException;
-import com.ecommerce.vendamais.exceptions.CustomException;
-import com.ecommerce.vendamais.model.AuthUserToken;
-import com.ecommerce.vendamais.model.User;
-import com.ecommerce.vendamais.repository.UserRepository;
+
+import com.example.authentication.dto.ResponseDto;
+import com.example.authentication.dto.SignInDto;
+import com.example.authentication.dto.SignInResponseDto;
+import com.example.authentication.dto.SignUpUserDto;
+import com.example.authentication.exceptions.AuthenticationFailException;
+import com.example.authentication.exceptions.CustomException;
+import com.example.authentication.model.AuthUserToken;
+import com.example.authentication.model.User;
+import com.example.authentication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

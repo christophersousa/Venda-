@@ -1,12 +1,12 @@
-package com.ecommerce.vendamais.model;
+package com.example.authentication.model;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "usuarios_tokens")
-public class AuthUserToken {
+@Table(name = "empresas_tokens")
+public class AuthCompanyToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,15 +18,15 @@ public class AuthUserToken {
     @Column(name = "created_date")
     private Date createdDate;
 
-    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "user_id")
-    private User user;
+    @OneToOne(targetEntity = Company.class, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "company_id")
+    private Company company;
 
-    public AuthUserToken() {
+    public AuthCompanyToken() {
 
     }
-    public AuthUserToken(User user){
-        this.user = user;
+    public AuthCompanyToken(Company company){
+        this.company = company;
         this.createdDate = new Date();
         this.token = UUID.randomUUID().toString();
     }
@@ -55,11 +55,11 @@ public class AuthUserToken {
         this.createdDate = createdDate;
     }
 
-    public User getUser() {
-        return user;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
