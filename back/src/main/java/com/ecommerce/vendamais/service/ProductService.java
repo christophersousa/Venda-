@@ -1,10 +1,7 @@
 package com.ecommerce.vendamais.service;
 
 import com.ecommerce.vendamais.dto.ProductDto;
-import com.ecommerce.vendamais.model.Category;
-import com.ecommerce.vendamais.model.Photo;
-import com.ecommerce.vendamais.model.Product;
-import com.ecommerce.vendamais.model.User;
+import com.ecommerce.vendamais.model.*;
 import com.ecommerce.vendamais.repository.PhotoRepository;
 import com.ecommerce.vendamais.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,26 +20,24 @@ public class ProductService {
     @Autowired
     PhotoRepository photoRepository;
 
-    public void createProduct(ProductDto productDto, Category category, User user){
+    public void createProduct(ProductDto productDto, Category category, Company company){
         Product product = new Product();
-        product.setName(productDto.getName());
-        product.setDescription(productDto.getDescription());
-        product.setPrice(productDto.getPrice());
-        product.setImageUrl(productDto.getImageUrl());
+        product.setNome(productDto.getNome());
+        product.setDescricao(productDto.getDescricao());
+        product.setPreco(productDto.getPreco());
         product.setCategory(category);
-        product.setUser(user);
+        product.setCompany(company);
         productRepository.save(product);
     }
 
     public ProductDto getProductDto(Product product){
         ProductDto productDto = new ProductDto();
         productDto.setId(product.getId());
-        productDto.setName(product.getName());
-        productDto.setDescription(product.getDescription());
-        productDto.setPrice(product.getPrice());
-        productDto.setImageUrl(product.getImageUrl());
-        productDto.setCategoryId(product.getCategory().getId());
-        productDto.setUserId(product.getUser().getId());
+        productDto.setNome(product.getNome());
+        productDto.setDescricao(product.getDescricao());
+        productDto.setPreco(product.getPreco());
+        productDto.setCategoriaId(product.getCategory().getId());
+        productDto.setEmpresaId(product.getCompany().getId());
         return productDto;
     }
 
@@ -65,10 +60,9 @@ public class ProductService {
             throw new Exception("produto não existe");
         }
         Product editedProduct = product.get();
-        editedProduct.setName(productDto.getName());
-        editedProduct.setDescription(productDto.getDescription());
-        editedProduct.setPrice(productDto.getPrice());
-        editedProduct.setImageUrl(productDto.getImageUrl());
+        editedProduct.setNome(productDto.getNome());
+        editedProduct.setDescricao(productDto.getDescricao());
+        editedProduct.setPreco(productDto.getPreco());
         productRepository.save(editedProduct);
     }
 

@@ -3,7 +3,7 @@ package com.ecommerce.vendamais.controller;
 import com.ecommerce.vendamais.dto.ProductDto;
 import com.ecommerce.vendamais.common.ApiResponse;
 import com.ecommerce.vendamais.model.Category;
-import com.ecommerce.vendamais.model.User;
+import com.ecommerce.vendamais.model.Company;
 import com.ecommerce.vendamais.repository.CategoryRepository;
 import com.ecommerce.vendamais.service.AuthenticationService;
 import com.ecommerce.vendamais.service.ProductService;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/produto")
 public class ProductController {
     @Autowired
     ProductService productService;
@@ -27,22 +27,22 @@ public class ProductController {
 
     @Autowired
     AuthenticationService authenticationService;
-    @PostMapping("/add")
+    @PostMapping("/create")
     public ResponseEntity<ApiResponse> createProduct(@RequestBody ProductDto productDto,
                                                      @RequestParam("token") String token){
         authenticationService.authenticate(token);
 
-        User user = authenticationService.getUser(token);
+        Company company = authenticationService.getCompany(token);
 
-        Optional<Category> category = categoryRepository.findById(productDto.getCategoryId());
+        Optional<Category> category = categoryRepository.findById(productDto.getCategoriaId());
         if(!category.isPresent()){
             return new ResponseEntity<>(new ApiResponse(false, "categoria do produto não existe"), HttpStatus.BAD_REQUEST);
         }
-        productService.createProduct(productDto, category.get(), user);
+        productService.createProduct(productDto, category.get(), company);
         return new ResponseEntity<>(new ApiResponse(true, "produto adicionado com sucesso"), HttpStatus.CREATED);
     }
 
-    @GetMapping("/")
+    @GetMapping("/list")
     public ResponseEntity<List<ProductDto>> getProducts(){
         List<ProductDto> products = productService.getAllProducts();
         return new ResponseEntity<>(products, HttpStatus.OK);
@@ -66,7 +66,7 @@ public class ProductController {
 
     @PostMapping("/update/{productId}")
     public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productId") int productId, @RequestBody ProductDto productDto) throws Exception {
-        Optional<Category> category = categoryRepository.findById(productDto.getCategoryId());
+        Optional<Category> category = categoryRepository.findById(productDto.getCategoriaId());
         if(!category.isPresent()){
             return new ResponseEntity<>(new ApiResponse(false, "categoria do produto não existe"), HttpStatus.NOT_FOUND);
         }

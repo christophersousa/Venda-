@@ -4,24 +4,22 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "products")
+@Table(name = "produtos")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private @NotNull String name;
-    private @NotNull String description;
-    private @NotNull double price;
-    private @NotNull String imageUrl;
-
+    private @NotNull String nome;
+    private @NotNull String descricao;
+    private @NotNull double preco;
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "categoria_id")
     Category category;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    User user;
+    @JoinColumn(name = "empresa_id")
+    Company company;
 
     public Integer getId() {
         return id;
@@ -31,36 +29,28 @@ public class Product {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public double getPrice() {
-        return price;
+    public double getPreco() {
+        return preco;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
 
     public Category getCategory() {
@@ -71,11 +61,11 @@ public class Product {
         this.category = category;
     }
 
-    public User getUser() {
-        return user;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

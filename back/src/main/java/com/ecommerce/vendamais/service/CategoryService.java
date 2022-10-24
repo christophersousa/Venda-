@@ -23,7 +23,7 @@ public class CategoryService {
 
     public void updateCategory(int categoryId, Category category){
         Category editedCategory = categoryRepository.getReferenceById(categoryId);
-        editedCategory.setCategoryName(category.getCategoryName());
+        editedCategory.setNome(category.getNome());
         categoryRepository.save(editedCategory);
     }
 
