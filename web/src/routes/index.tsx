@@ -5,6 +5,8 @@ import useAuth from '../hooks/useAuth';
 import { Cadastro } from '../page/Cadastro';
 import {Home} from '../page/Home'
 import { Login } from '../page/Login';
+import { MeusProdutos } from '../page/MeusProdutos';
+import { RegisterProduto } from '../page/RegisterProduto';
 
 function RequireAuth({ children }: { children: JSX.Element }) {
   const { loading, authenticated } = useContext(Context);
@@ -25,6 +27,8 @@ export const RoutesPage = () => (
   <Routes>
     <Route path="/"  element={<Home/>} />
     <Route path="/login" element={<Login/>} />
-    <Route path="/cadastro" element={<RequireAuth><Cadastro/></RequireAuth>} />
+    <Route path="/cadastro" element={<Cadastro/>} />
+    <Route path="/meusprodutos" element={<MeusProdutos/>} />
+    <Route path="/cadastrar_produtos" element={<RegisterProduto/>} />
   </Routes>
 );

@@ -25,7 +25,7 @@ export function Login(){
       } });
       const onSubmit = (data: any) => {
         alert(`${data.email} logado`);
-        handleLogin()
+        handleLogin(data)
       };
 
 
@@ -43,7 +43,7 @@ export function Login(){
                     className="bg-gray-50 border border-gray-300 "/>
                 </div>
 
-                <button className="bg-background-orange w-1/3 py-2 rounded-lg text-white font-weight">
+                <button type="submit" className=" font-bold w-1/3 justify-center inline-flex items-center py-2.5 px-3 text-sm text-white bg-background-orange border border-orange-900 hover:bg-orange-900 focus:ring-4 focus:outline-none focus:ring-orange-600 rounded-lg">
                     Cadastre-se
                 </button>
             </div>
@@ -79,7 +79,7 @@ export function Login(){
                     ref={password}
                     />
                 </div>
-                <button type="submit" className="bg-background-orange w-1/3 py-2 rounded-lg text-white font-weight">
+                <button type="submit" className=" font-bold w-1/3 justify-center inline-flex items-center py-2.5 px-3 text-sm text-white bg-background-orange border border-orange-900 hover:bg-orange-900 focus:ring-4 focus:outline-none focus:ring-orange-600 rounded-lg">
                     Logar
                 </button>
                 <div className="w-1/2 flex justify-start text-xs">

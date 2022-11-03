@@ -4,11 +4,22 @@ import { BsPerson, BsCart3, BsFillCaretDownFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { DropDown } from "../Dropdown";
 import valores_dropdown from "../../api/valores_dropdown.json"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../../Context/AuthContext";
 
 export function Menu(){
-    const { use, authenticated } = useContext(Context);
+    const { use, authenticated, handleLogout } = useContext(Context);
+
+    const [handleDropdownOn, setHandleDropdownOn] = useState('none')
+
+    function handleDropdown(){
+        if(handleDropdownOn === 'block') {
+            setHandleDropdownOn('none')
+        }else{
+            setHandleDropdownOn('block')
+        }
+    }
+
     return (
         <div className="bg-white h-36 pr-16 pl-16 flex flex-col items-center">
             <div className="h-32 w-full flex justify-between items-center">
@@ -21,20 +32,151 @@ export function Menu(){
                                 <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
                             </div>
                         </div>
-                        <button type="submit" className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 rounded-xl">
+                        <button type="submit" className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-bold text-white bg-blue-500 border border-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 rounded-lg">
                             <svg aria-hidden="true" className="mr-2 -ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>Buscar
                         </button>
                     </form>
                 </div>
+
+                {/* ------- Início DropDown Sing in ------- */}
+
                 <div className="flex gap-8 items-center">
+                    {authenticated?
+                    <div className="flex justify-center">
+                        <div>
+                            <div className="dropdown relative">
+                                <div
+                                className="
+                                    dropdown-toggle
+                                    flex
+                                    gap-1
+                                    items-center
+                                    cursor-pointer
+                                    whitespace-nowrap
+                                "
+                                id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                >
+                                    <BsPerson size={20}/>
+                                    <div className=" flex flex-col text-xs">
+                                        <p className="text-xs">{use?.nome}</p>
+                                        <span className="xl">Minha conta</span>
+                                    </div>
+                                </div>
+                                <ul
+                                className="
+                                    dropdown-menu
+                                    min-w-max
+                                    absolute
+                                    hidden
+                                    flex-wrap
+                                    flex-col
+                                    bg-white
+                                    text-base
+                                    z-50
+                                    float-left
+                                    py-2
+                                    list-none
+                                    text-left
+                                    rounded-lg
+                                    shadow-lg
+                                    mt-1
+                                    m-0
+                                    bg-clip-padding
+                                    border-none
+                                    overflow-y-auto
+                                    overflow-x-hidden
+                                "
+                                aria-labelledby="dropdownMenuButton1"
+                                >
+
+                                    <li >
+                                        <a
+                                        className="
+                                        dropdown-item
+                                        text-sm
+                                        py-4
+                                        px-4
+                                        font-normal
+                                        flex
+                                        w-full
+                                        whitespace-nowrap
+                                        bg-transparent
+                                        text-gray-700
+                                        hover:bg-gray-100
+                                        "
+                                        >
+                                            <img className="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar"/>
+                                            <div className="mx-1">
+                                                <h1 className="text-sm font-semibold text-gray-700 dark:text-gray-200">{use?.nome}</h1>
+                                                <p className="text-sm text-gray-500 dark:text-gray-400">{use?.email}</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <hr className="border-gray-200 dark:border-gray-700 "/>
+                                    <li >
+                                        <Link
+                                        to="meusprodutos"
+                                        className="
+                                        dropdown-item
+                                        text-sm
+                                        py-3
+                                        px-4
+                                        font-normal
+                                        block
+                                        w-full
+                                        whitespace-nowrap
+                                        bg-transparent
+                                        text-gray-700
+                                        hover:bg-gray-100
+                                        "
+                                        >
+                                            Meus Produtos
+                                        </Link>
+                                    </li>
+
+                                    <hr className="border-gray-200 dark:border-gray-700 "/>
+                                    <li >
+                                        <a
+                                        className="
+                                        dropdown-item
+                                        text-sm
+                                        py-3
+                                        px-4
+                                        font-normal
+                                        block
+                                        w-full
+                                        whitespace-nowrap
+                                        bg-transparent
+                                        text-gray-700
+                                        hover:bg-gray-100
+                                        cursor-pointer
+                                        "
+                                        onClick={handleLogout}
+                                        >
+                                           Sair
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    :
                     <Link to="/login" className="flex items-center gap-1 cursor-pointer ">
 
                         <BsPerson size={20}/>
                         <div className=" flex flex-col text-xs">
-                            <p className="text-xs">{authenticated? `${use?.name}`: "Sing In"}</p>
+                            <p className="text-xs">Sing In</p>
                             <span className="xl">Minha conta</span>
                         </div>
                     </Link >
+                    }
+
+                    {/* ------- Fim DropDown Sing in ------- */}
+
+
                     <div className="flex items-center gap-1 cursor-pointer ">
                             <div className="inline-flex relative w-fit">
                                 <div className="absolute inline-block -top-1 right-0 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xs leading-none text-center whitespace-nowrap align-baseline font-bold bg-deep-orange-700 text-white rounded-full z-10">New</div>

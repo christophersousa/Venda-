@@ -7,16 +7,22 @@ interface IRouterContextProps{
 
 interface User{
   id: number,
-  name: string,
-  company: string,
-  website: string,
+  nome: string,
+  email: string,
+  token: string,
+  status: string,
+}
+
+interface PropsLoginUser{
+  email: string;
+  password: string;
 }
 
 interface ProposContext {
     use: User|null|undefined
     loading: boolean;
     authenticated: boolean;
-    handleLogin: () => Promise<void>;
+    handleLogin: (data:PropsLoginUser) => Promise<void>;
     handleLogout: () => void;
 }
 

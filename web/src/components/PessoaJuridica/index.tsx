@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { useFormatPassword } from "../../hooks/useFormatPassword";
 import { useMask } from "../../hooks/useMask";
+import { useRegister } from "../../hooks/useRegister";
 
 export function PessoaJuridica(){
     const passwordFormat = useFormatPassword()
@@ -21,35 +22,21 @@ export function PessoaJuridica(){
       } = useForm({ mode: "onChange",
       defaultValues : {
         nome: '',
-        numero: '',
+        telefone: '',
         cep: '',
         cnpj: '',
-        social: '',
-        nome_empresa: '',
+        razaoSocial: '',
         email: '',
-        password: '',
+        senha: '',
       } });
       const onSubmit = (data: any) => {
-        alert(`${data.email} logado`);
+        alert(`${data.email} cadastrado`);
+        useRegister().handleRegisterJuridica(data)
       };
 
     return(
         <form action="" className="flex flex-col gap-3 justify-start w-1/2"
          onSubmit={handleSubmit(onSubmit)}>
-           <div className="flex flex-col gap-3 mt-6">
-                <h1 className="text-2xl font-bold">Nome completo</h1>
-                <div className="w-full pr-20">
-                    <Input
-                    value={getValues('nome')}
-                    onChange={(e) => {
-                        setValue('nome', e.target.value, {shouldValidate: true})
-                     }}
-                    variant="outlined"
-                    label="Nome completo"
-                    className="bg-gray-50 border border-gray-300"
-                    />
-                </div>
-            </div>
 
             <div className="flex flex-col gap-3 mt-6">
                 <h1 className="text-2xl font-bold">CNPJ</h1>
@@ -72,9 +59,9 @@ export function PessoaJuridica(){
                 <span className="text-color-gray-text text-xs">precisamos para a emissão de Notas fiscais</span>
                 <div className="w-full pr-20">
                     <Input
-                    value={getValues('social')}
+                    value={getValues('razaoSocial')}
                     onChange={(e) => {
-                        setValue('social', e.target.value, {shouldValidate: true})
+                        setValue('razaoSocial', e.target.value, {shouldValidate: true})
                      }}
                     variant="outlined"
                     label="Razão social"
@@ -88,9 +75,9 @@ export function PessoaJuridica(){
                 <span className="text-color-gray-text text-xs">caso precisemos entrar em contato sobre seus pedidos</span>
                 <div className="w-72">
                     <Input
-                    value={getValues('numero')}
+                    value={getValues('telefone')}
                     onChange={(e) => {
-                        setValue('numero', mask.maskTelefone(e.target.value), {shouldValidate: true})
+                        setValue('telefone', mask.maskTelefone(e.target.value), {shouldValidate: true})
                      }}
                     variant="outlined"
                     label="Telefone"
@@ -103,9 +90,9 @@ export function PessoaJuridica(){
                 <span className="text-color-gray-text text-xs">para que os usuários possam ter um contato melhor com a sua loja </span>
                 <div className="w-full pr-20">
                     <Input
-                    value={getValues('nome_empresa')}
+                    value={getValues('nome')}
                     onChange={(e) => {
-                        setValue('nome_empresa', e.target.value, {shouldValidate: true})
+                        setValue('nome', e.target.value, {shouldValidate: true})
                      }}
                     variant="outlined"
                     label="Nome da empresa"
@@ -155,9 +142,9 @@ export function PessoaJuridica(){
                         </div>
                         <Input
                         type={passwordFormat.typePassword}
-                        value={getValues('password')}
+                        value={getValues('senha')}
                         onChange={(e) => {
-                            setValue('password', e.target.value, {shouldValidate: true})
+                            setValue('senha', e.target.value, {shouldValidate: true})
                         }}
                         variant="outlined"
                         label="senha"
@@ -169,8 +156,8 @@ export function PessoaJuridica(){
                 </div>
             </div>
             <div className="w-full flex justify-center mt-6">
-                <button type="submit" className="bg-background-orange w-1/2 py-2 rounded-lg text-white font-weight">
-                        Cadastre-se
+                <button type="submit" className=" font-bold w-1/2 justify-center inline-flex items-center py-2.5 px-3 text-sm text-white bg-background-orange border border-orange-900 hover:bg-orange-900 focus:ring-4 focus:outline-none focus:ring-orange-600 rounded-lg">
+                    Cadastre-se
                 </button>
             </div>
         </form>

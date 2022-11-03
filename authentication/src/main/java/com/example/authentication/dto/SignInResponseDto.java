@@ -9,6 +9,7 @@ public class SignInResponseDto {
     private String token;
 
     private String nome;
+    private String email;
 
     private int id;
 
@@ -17,6 +18,7 @@ public class SignInResponseDto {
         this.token = token;
         this.nome = user.getNomeCompleto();
         this.id = user.getId();
+        this.email = user.getEmail();
     }
 
     public SignInResponseDto(String status, String token, Company company) {
@@ -56,5 +58,13 @@ public class SignInResponseDto {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

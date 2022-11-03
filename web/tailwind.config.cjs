@@ -25,6 +25,15 @@ module.exports = withMT({
         'color-gray': '#D9D9D9',
         'color-gray-text': '#5B5B5B',
       },
+      padding:{
+        'padding-container': '1rem 3rem 1rem 3rem'
+      },
+      margin:{
+        'margin-container': '1rem 0 1rem 0'
+      },
+      border:{
+        'background-orange':'#F34401'
+      }
     }
   },
   plugins: [
