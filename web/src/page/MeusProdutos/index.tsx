@@ -52,7 +52,7 @@ export function MeusProdutos(){
             <div className=" bg-white p-padding-container py-16">
                 <div className="flex p-2 items-center">
                     <h2 className="font-bold text-xl">Meus produtos</h2>
-                    <Link to="/cadastrarprodutos" className=" font-bold w-48 justify-center ml-auto inline-flex items-center py-2.5 px-3 text-sm text-white bg-background-orange border border-orange-900 hover:bg-orange-900 focus:ring-4 focus:outline-none focus:ring-orange-600 rounded-lg">
+                    <Link to="/cadastrar_produtos" className=" font-bold w-48 justify-center ml-auto inline-flex items-center py-2.5 px-3 text-sm text-white bg-background-orange border border-orange-900 hover:bg-orange-900 focus:ring-4 focus:outline-none focus:ring-orange-600 rounded-lg">
                         Cadastrar produto
                     </Link>
                 </div>

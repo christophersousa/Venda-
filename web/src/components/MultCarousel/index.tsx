@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { Link } from 'react-router-dom';
 import produtos from '../../api/produtos.json'
+import { Context } from '../../Context/AuthContext';
+import { useScroll } from '../../hooks/useScroll';
 import { Card } from '../Card';
 const responsive = {
     superLargeDesktop: {
@@ -14,7 +18,13 @@ const responsive = {
     }
 };
 
+
+
 export function MultCarousel(){
+    const {handleProduct} = useContext(Context)
+
+    const {backToTop} = useScroll()
+
     return(
         <Carousel
         swipeable={false}
@@ -35,12 +45,19 @@ export function MultCarousel(){
         itemClass="carousel-item-widht-40px"
         >
             {produtos.resources.map((resource, index)=>{
-                return <Card
-                        name={resource.title}
-                        urlImg={resource.imageUrl}
-                        valor_anterior={resource.valor_anterior}
-                        valor={resource.valor}
-                        />
+                return (
+                    <Link to="/produto"
+                        onClick={()=>{handleProduct(resource); backToTop() }}
+
+                    >
+                        <Card
+                            name={resource.title}
+                            urlImg={resource.imageUrl}
+                            valor_anterior={resource.valor_anterior}
+                            valor={resource.valor}
+                            />
+                    </Link>
+                )
             })}
 
         </Carousel>

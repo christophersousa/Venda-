@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
 
 import useAuth from '../hooks/useAuth';
+import useProduct from '../hooks/useProduct';
 interface IRouterContextProps{
     children: ReactNode,
 }
@@ -18,12 +19,31 @@ interface PropsLoginUser{
   password: string;
 }
 
+interface Ficha{
+  codigo: string;
+  codigo_barras: string;
+  Garantia: string
+}
+
+interface PropsProduct{
+  title: string;
+  link: string;
+  imageUrl: string;
+  images2: string;
+  valor_anterior: string;
+  valor: string;
+  descricao: string;
+  ficha: Ficha;
+}
+
 interface ProposContext {
     use: User|null|undefined
     loading: boolean;
     authenticated: boolean;
     handleLogin: (data:PropsLoginUser) => Promise<void>;
     handleLogout: () => void;
+    handleProduct: (data:PropsProduct) => void,
+    product: PropsProduct|undefined,
 }
 
 const Context = createContext({} as ProposContext);
@@ -33,13 +53,17 @@ function AuthProvider({ children }: IRouterContextProps) {
     authenticated, loading, handleLogin, handleLogout, use
   } = useAuth();
 
+  const {product, handleProduct} = useProduct();
+
   return (
     <Context.Provider value={{
       loading,
       authenticated,
       handleLogin,
       handleLogout,
-      use
+      use,
+      product,
+      handleProduct,
       }}>
       {children}
     </Context.Provider>

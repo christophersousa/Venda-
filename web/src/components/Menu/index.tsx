@@ -4,21 +4,19 @@ import { BsPerson, BsCart3, BsFillCaretDownFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { DropDown } from "../Dropdown";
 import valores_dropdown from "../../api/valores_dropdown.json"
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Context } from "../../Context/AuthContext";
+import { useScroll } from "../../hooks/useScroll";
 
 export function Menu(){
     const { use, authenticated, handleLogout } = useContext(Context);
 
-    const [handleDropdownOn, setHandleDropdownOn] = useState('none')
+    const {scrollFunction, backToTop, viewBtScroll} = useScroll()
 
-    function handleDropdown(){
-        if(handleDropdownOn === 'block') {
-            setHandleDropdownOn('none')
-        }else{
-            setHandleDropdownOn('block')
-        }
-    }
+    window.onscroll = function () {
+        scrollFunction();
+    };
+
 
     return (
         <div className="bg-white h-36 pr-16 pl-16 flex flex-col items-center">
@@ -207,6 +205,17 @@ export function Menu(){
 
                 </ul>
             </div>
+
+
+            <button
+                    type="button"
+                    className=" rounded-full w-12 h-12 z-10 fixed bottom-5 right-5 hidden text-white bg-background-orange border border-orange-900 hover:bg-orange-900 hover:ring-4 hover:outline-none hover:ring-orange-600"
+                    id="btn-back-to-top"
+                    onClick={backToTop}
+                    style={{display: viewBtScroll}}
+                    >
+                <i className="fas fa-arrow-up"></i>
+            </button>
         </div>
     )
 }
