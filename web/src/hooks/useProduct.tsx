@@ -1,31 +1,29 @@
 import { useState } from "react";
 
-interface Ficha{
-    codigo: string;
-    codigo_barras: string;
-    Garantia: string
+interface Ficha {
+  codigo: string;
+  codigo_barras: string;
+  Garantia: string;
 }
 
-interface PropsProduct{
-    title: string;
-    link: string;
-    imageUrl: string;
-    images2: string;
-    valor_anterior: string;
-    valor: string;
-    descricao: string;
-    ficha: Ficha;
+interface PropsProduct {
+  title: string;
+  link: string;
+  imageUrl: string;
+  images2: string;
+  valor_anterior: string;
+  valor: string;
+  descricao: string;
+  ficha: Ficha;
 }
-
 
 export default function useProduct() {
+  const [product, setProduct] = useState<PropsProduct>();
 
-    const [product, setProduct] = useState<PropsProduct>();
+  function handleProduct(product: PropsProduct) {
+    console.log(product);
+    setProduct(product);
+  }
 
-    async function handleProduct(product:PropsProduct) {
-        setProduct(product)
-    }
-
-    return {handleProduct, product}
+  return { handleProduct, product };
 }
-
