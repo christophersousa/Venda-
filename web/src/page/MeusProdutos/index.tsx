@@ -84,9 +84,6 @@ export function MeusProdutos() {
                 </div>
             </div>
 
-        </div>
-        <div className="py-8 border-t-2"></div>
       </div>
-    </div>
   );
 }
