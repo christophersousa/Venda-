@@ -19,12 +19,8 @@ interface Ficha {
 export function useCart() {
   const [cart, setCart] = useState<PropsProduct[]>([]);
 
-  function handleCart(data?: PropsProduct) {
-    console.log(data);
-    if (data != undefined) {
-      cart.push;
-      console.log("Add product in cart");
-    }
+  function handleCart(data: PropsProduct) {
+    cart.push(data);
   }
 
   return { cart, handleCart };
