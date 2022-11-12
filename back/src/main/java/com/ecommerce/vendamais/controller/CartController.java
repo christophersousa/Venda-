@@ -1,7 +1,8 @@
 package com.ecommerce.vendamais.controller;
 
 import com.ecommerce.vendamais.common.ApiResponse;
-import com.ecommerce.vendamais.dto.AddToCartDto;
+import com.ecommerce.vendamais.dto.cart.AddToCartDto;
+import com.ecommerce.vendamais.dto.cart.CartDto;
 import com.ecommerce.vendamais.model.User;
 import com.ecommerce.vendamais.service.AuthenticationService;
 import com.ecommerce.vendamais.service.CartService;
@@ -28,5 +29,15 @@ public class CartController {
         cartService.addToCart(addToCartDto, user);
 
         return new ResponseEntity<>(new ApiResponse(true, "produto adicionado ao carrinho"), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<CartDto> getCartItems(@RequestParam("token") String token){
+        authenticationService.authenticateUser(token);
+
+        User user = authenticationService.getUser(token);
+
+        CartDto cartDto = cartService.listCardItems(user);
+        return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
 }

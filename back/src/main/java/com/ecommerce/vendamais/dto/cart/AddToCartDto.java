@@ -1,4 +1,4 @@
-package com.ecommerce.vendamais.dto;
+package com.ecommerce.vendamais.dto.cart;
 
 import javax.validation.constraints.NotNull;
 
