@@ -13,6 +13,8 @@ public class Product {
     private @NotNull String nome;
     private @NotNull String descricao;
     private @NotNull double preco;
+
+    private @NotNull String marca;
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     Category category;
@@ -51,6 +53,14 @@ public class Product {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public Category getCategory() {
