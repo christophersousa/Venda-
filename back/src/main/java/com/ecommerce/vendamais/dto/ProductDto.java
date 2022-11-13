@@ -9,6 +9,8 @@ public class ProductDto {
     private @NotNull String descricao;
     private @NotNull double preco;
 
+    private @NotNull String marca;
+
     private @NotNull Integer categoriaId;
 
     private @NotNull Integer empresaId;
@@ -43,6 +45,14 @@ public class ProductDto {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public Integer getCategoriaId() {

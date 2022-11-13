@@ -1,5 +1,7 @@
 package com.ecommerce.vendamais.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -13,11 +15,15 @@ public class Product {
     private @NotNull String nome;
     private @NotNull String descricao;
     private @NotNull double preco;
+
+    private @NotNull String marca;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "categoria_id")
     Category category;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "empresa_id")
     Company company;
 
@@ -51,6 +57,14 @@ public class Product {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public Category getCategory() {
