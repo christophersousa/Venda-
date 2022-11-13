@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/carrinho")
 public class CartController {
     @Autowired
     private CartService cartService;
@@ -39,5 +39,17 @@ public class CartController {
 
         CartDto cartDto = cartService.listCardItems(user);
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{itemId}")
+    public ResponseEntity<ApiResponse> deleteCartItem(@PathVariable("itemId") Integer itemId,
+                                                      @RequestParam("token") String token){
+        authenticationService.authenticateUser(token);
+
+        User user = authenticationService.getUser(token);
+        cartService.deleteCartItem(itemId, user);
+
+        return new ResponseEntity<>(new ApiResponse(true, "produto removido do carrinho"), HttpStatus.OK);
+
     }
 }

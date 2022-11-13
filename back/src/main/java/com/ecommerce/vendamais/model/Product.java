@@ -1,5 +1,7 @@
 package com.ecommerce.vendamais.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -16,10 +18,12 @@ public class Product {
 
     private @NotNull String marca;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "categoria_id")
     Category category;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "empresa_id")
     Company company;
 

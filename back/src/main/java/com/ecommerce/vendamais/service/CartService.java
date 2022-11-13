@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CartService {
@@ -49,5 +50,21 @@ public class CartService {
         cartDto.setValorTotal(totalCost);
         cartDto.setCartItems(cartItems);
         return cartDto;
+    }
+
+    public void deleteCartItem(Integer cartItemId, User user) {
+        Optional<Cart> optionalCart = cartRepository.findById(cartItemId);
+
+        if(optionalCart.isEmpty()){
+            throw  new CustomException("id do produto é inválido: " + cartItemId);
+        }
+
+        Cart cart = optionalCart.get();
+
+        if(cart.getUsuario() != user){
+            throw new CustomException("item do carrinho não pertence ao usuário");
+        }
+
+        cartRepository.delete(cart);
     }
 }
