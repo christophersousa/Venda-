@@ -7,11 +7,10 @@ import com.example.authentication.model.User;
 public class SignInResponseDto {
     private String status;
     private String token;
-
     private String nome;
     private String email;
-
     private int id;
+    private String role;
 
     public SignInResponseDto(String status, String token, User user) {
         this.status = status;
@@ -19,6 +18,7 @@ public class SignInResponseDto {
         this.nome = user.getNomeCompleto();
         this.id = user.getId();
         this.email = user.getEmail();
+        this.role = "usuario";
     }
 
     public SignInResponseDto(String status, String token, Company company) {
@@ -26,6 +26,7 @@ public class SignInResponseDto {
         this.token = token;
         this.nome = company.getNome();
         this.id = company.getId();
+        this.role = "empresa";
     }
 
     public String getStatus() {
@@ -60,11 +61,20 @@ public class SignInResponseDto {
         this.id = id;
     }
 
+
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+        
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+
     }
 }
