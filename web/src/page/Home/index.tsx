@@ -5,7 +5,7 @@ export function Home(){
     return(
         <div>
             <Carousel/>
-            <div className=" bg-white px-12 py-16">
+            <div className=" bg-white p-padding-container py-16">
                 <div>
                     <h2 className="font-bold text-xl">Computadores</h2>
                 </div>
