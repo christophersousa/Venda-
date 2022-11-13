@@ -65,9 +65,9 @@ interface ProxyDropDown {
                 "
                 aria-labelledby="dropdownMenuButton1"
               >
-                {list.map((e) => {
+                {list.map((e, index) => {
                   return (
-                    <li>
+                    <li key={index}>
                       <a
                         className="
                         dropdown-item

@@ -8,6 +8,7 @@ public class SignInResponseDto {
     private String status;
     private String token;
     private String nome;
+    private String email;
     private int id;
     private String role;
 
@@ -16,6 +17,7 @@ public class SignInResponseDto {
         this.token = token;
         this.nome = user.getNomeCompleto();
         this.id = user.getId();
+        this.email = user.getEmail();
         this.role = "usuario";
     }
 
@@ -59,11 +61,20 @@ public class SignInResponseDto {
         this.id = id;
     }
 
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+        
     public String getRole() {
         return role;
     }
 
     public void setRole(String role) {
         this.role = role;
+
     }
 }

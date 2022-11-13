@@ -3,11 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IconType } from "react-icons";
 import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
+import useAuth from "../../hooks/useAuth";
 import { useFormatPassword } from "../../hooks/useFormatPassword";
 
 export function Login(){
     const passwordFormat = useFormatPassword()
     const  password = useRef<HTMLInputElement>(null)
+    const {handleLogin} = useAuth();
 
     const {
         handleSubmit,
@@ -23,6 +25,7 @@ export function Login(){
       } });
       const onSubmit = (data: any) => {
         alert(`${data.email} logado`);
+        handleLogin(data)
       };
 
 
@@ -40,7 +43,7 @@ export function Login(){
                     className="bg-gray-50 border border-gray-300 "/>
                 </div>
 
-                <button className="bg-background-orange w-1/3 py-2 rounded-lg text-white font-weight">
+                <button type="submit" className=" font-bold w-1/3 justify-center inline-flex items-center py-2.5 px-3 text-sm text-white bg-background-orange border border-orange-900 hover:bg-orange-900 focus:ring-4 focus:outline-none focus:ring-orange-600 rounded-lg">
                     Cadastre-se
                 </button>
             </div>
@@ -50,6 +53,10 @@ export function Login(){
                 <div className="w-1/2">
                     <Input
                     type={'email'}
+                    value={getValues('email')}
+                    onChange={(e) => {
+                        setValue('email', e.target.value, {shouldValidate: true})
+                     }}
                     variant="outlined"
                     label="e-mail"
                     className="bg-gray-50 border border-gray-300 "/>
@@ -63,12 +70,16 @@ export function Login(){
                     <Input
                     type={passwordFormat.typePassword}
                     variant="outlined"
+                    value={getValues('password')}
+                    onChange={(e) => {
+                        setValue('password', e.target.value, {shouldValidate: true})
+                     }}
                     label="senha"
                     className="bg-gray-50 border border-gray-300"
                     ref={password}
                     />
                 </div>
-                <button type="submit" className="bg-background-orange w-1/3 py-2 rounded-lg text-white font-weight">
+                <button type="submit" className=" font-bold w-1/3 justify-center inline-flex items-center py-2.5 px-3 text-sm text-white bg-background-orange border border-orange-900 hover:bg-orange-900 focus:ring-4 focus:outline-none focus:ring-orange-600 rounded-lg">
                     Logar
                 </button>
                 <div className="w-1/2 flex justify-start text-xs">

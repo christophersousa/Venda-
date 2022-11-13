@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { useFormatPassword } from "../../hooks/useFormatPassword";
 import { useMask } from "../../hooks/useMask";
+import { useRegister } from "../../hooks/useRegister";
 
 
 export function PessoaFisica(){
@@ -22,17 +23,18 @@ export function PessoaFisica(){
         formState: { isValid, errors },
       } = useForm({ mode: "onChange",
       defaultValues : {
-        nome: '',
-        data: '',
+        nomeCompleto: '',
+        dataNascimento: '',
         cpf: '',
-        numero: '',
+        telefone: '',
         genero: '',
         cep: '',
         email: '',
-        password: '',
+        senha: '',
       } });
       const onSubmit = (data: any) => {
-        alert(`${data.email} logado`);
+        alert(`${data.email} cadastrado`);
+        useRegister().handleRegisterFisica(data)
       };
 
     return(
@@ -42,9 +44,9 @@ export function PessoaFisica(){
                 <h1 className="text-2xl font-bold">Nome completo</h1>
                 <div className="w-full pr-20">
                     <Input
-                    value={getValues('nome')}
+                    value={getValues('nomeCompleto')}
                     onChange={(e) => {
-                        setValue('nome', e.target.value, {shouldValidate: true})
+                        setValue('nomeCompleto', e.target.value, {shouldValidate: true})
                      }}
                     variant="outlined"
                     label="Nome completo"
@@ -57,9 +59,9 @@ export function PessoaFisica(){
                 <span className="text-color-gray-text text-xs">precisamos para poder identificar a maior idade</span>
                 <div className="w-72">
                     <Input
-                    value={getValues('data')}
+                    value={getValues('dataNascimento')}
                     onChange={(e) => {
-                        setValue('data', mask.maskDate(e.target.value), {shouldValidate: true})
+                        setValue('dataNascimento', mask.maskDate(e.target.value), {shouldValidate: true})
                      }}
                     variant="outlined"
                     label="Data de nascimento"
@@ -86,9 +88,9 @@ export function PessoaFisica(){
                 <span className="text-color-gray-text text-xs">caso precisemos entrar em contato sobre seus pedidos</span>
                 <div className="w-72">
                     <Input
-                    value={getValues('numero')}
+                    value={getValues('telefone')}
                     onChange={(e) => {
-                        setValue('numero', mask.maskTelefone(e.target.value), {shouldValidate: true})
+                        setValue('telefone', mask.maskTelefone(e.target.value), {shouldValidate: true})
                      }}
                     variant="outlined"
                     label="Telefone"
@@ -172,9 +174,9 @@ export function PessoaFisica(){
                         </div>
                         <Input
                         type={passwordFormat.typePassword}
-                        value={getValues('password')}
+                        value={getValues('senha')}
                         onChange={(e) => {
-                            setValue('password', e.target.value, {shouldValidate: true})
+                            setValue('senha', e.target.value, {shouldValidate: true})
                         }}
                         variant="outlined"
                         label="senha"
@@ -186,8 +188,8 @@ export function PessoaFisica(){
                 </div>
             </div>
             <div className="w-full flex justify-center mt-6">
-                <button type="submit" className="bg-background-orange w-1/2 py-2 rounded-lg text-white font-weight">
-                        Cadastre-se
+                <button type="submit" className=" font-bold w-1/2 justify-center inline-flex items-center py-2.5 px-3 text-sm text-white bg-background-orange border border-orange-900 hover:bg-orange-900 focus:ring-4 focus:outline-none focus:ring-orange-600 rounded-lg">
+                    Cadastre-se
                 </button>
             </div>
         </form>

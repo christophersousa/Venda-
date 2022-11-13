@@ -23,3 +23,18 @@ body {
 .react-multi-carousel-item:hover{
     transform: scale(1.05);
 }
+
+
+//Carousel de produtos
+
+.control-arrow .control-next{
+  background: transparent !important;
+}
+
+.carousel-status{
+  display: none !important;
+}
+
+.carousel .thumb.selected, .carousel .thumb:hover {
+  border: 3px solid #F34401 !important;
+}
