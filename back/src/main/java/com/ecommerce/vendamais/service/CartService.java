@@ -67,4 +67,21 @@ public class CartService {
 
         cartRepository.delete(cart);
     }
+
+    public void incrementCartItem(Integer itemId, User user) {
+        Optional<Cart> optionalCart = cartRepository.findById(itemId);
+
+        if(optionalCart.isEmpty()){
+            throw  new CustomException("id do produto é inválido: " + itemId);
+        }
+
+        Cart cart = optionalCart.get();
+
+        if(cart.getUsuario() != user){
+            throw new CustomException("item do carrinho não pertence ao usuário");
+        }
+
+        cart.setQuantidade(cart.getQuantidade() + 1);
+        cartRepository.save(cart);
+    }
 }

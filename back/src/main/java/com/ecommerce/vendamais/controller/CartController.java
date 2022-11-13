@@ -52,4 +52,16 @@ public class CartController {
         return new ResponseEntity<>(new ApiResponse(true, "produto removido do carrinho"), HttpStatus.OK);
 
     }
+
+    @PostMapping("/update/{itemId}")
+    public ResponseEntity<ApiResponse> incrementCartItem(@PathVariable("itemId") Integer itemId,
+                                                      @RequestParam("token") String token){
+        authenticationService.authenticateUser(token);
+
+        User user = authenticationService.getUser(token);
+        cartService.incrementCartItem(itemId, user);
+
+        return new ResponseEntity<>(new ApiResponse(true, "quantidade de produto incrementada"), HttpStatus.OK);
+
+    }
 }
