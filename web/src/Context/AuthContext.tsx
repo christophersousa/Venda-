@@ -27,14 +27,13 @@ interface Ficha {
 }
 
 interface PropsProduct {
-  title: string;
-  link: string;
-  imageUrl: string;
-  images2: string;
-  valor_anterior: string;
-  valor: string;
+  id: number;
+  nome: string;
   descricao: string;
-  ficha: Ficha;
+  precoAnterior: number;
+  preco: number;
+  marca: string;
+  foto: string;
 }
 
 interface ProposContext {
@@ -44,7 +43,7 @@ interface ProposContext {
   handleLogin: (data: PropsLoginUser) => Promise<void>;
   handleLogout: () => void;
   handleProduct: (data: PropsProduct) => void;
-  product: PropsProduct | undefined;
+  product: PropsProduct;
   cart: PropsProduct[];
   handleCart: (data?: PropsProduct) => void;
 }

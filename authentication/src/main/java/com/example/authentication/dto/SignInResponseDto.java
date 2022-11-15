@@ -26,6 +26,7 @@ public class SignInResponseDto {
         this.token = token;
         this.nome = company.getNome();
         this.id = company.getId();
+        this.email = company.getEmail();
         this.role = "empresa";
     }
 

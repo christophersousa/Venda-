@@ -7,21 +7,19 @@ interface Ficha {
 }
 
 interface PropsProduct {
-  title: string;
-  link: string;
-  imageUrl: string;
-  images2: string;
-  valor_anterior: string;
-  valor: string;
+  id: number
+  nome: string;
   descricao: string;
-  ficha: Ficha;
+  precoAnterior: number;
+  preco: number;
+  marca: string;
+  foto: string;
 }
 
 export default function useProduct() {
   const [product, setProduct] = useState<PropsProduct>();
 
   function handleProduct(product: PropsProduct) {
-    console.log(product);
     setProduct(product);
   }
 

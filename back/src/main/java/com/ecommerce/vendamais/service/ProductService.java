@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class ProductService {
         Product product = new Product();
         product.setNome(productDto.getNome());
         product.setDescricao(productDto.getDescricao());
+        product.setPrecoAnterior(productDto.getPrecoAnterior());
         product.setPreco(productDto.getPreco());
         product.setMarca(productDto.getMarca());
         product.setCategory(category);
@@ -37,6 +39,7 @@ public class ProductService {
         productDto.setId(product.getId());
         productDto.setNome(product.getNome());
         productDto.setDescricao(product.getDescricao());
+        productDto.setPrecoAnterior(product.getPrecoAnterior());
         productDto.setPreco(product.getPreco());
         productDto.setMarca(product.getMarca());
         productDto.setCategoriaId(product.getCategory().getId());
@@ -65,6 +68,7 @@ public class ProductService {
         Product editedProduct = product.get();
         editedProduct.setNome(productDto.getNome());
         editedProduct.setDescricao(productDto.getDescricao());
+        editedProduct.setPrecoAnterior(productDto.getPrecoAnterior());
         editedProduct.setPreco(productDto.getPreco());
         editedProduct.setMarca(productDto.getMarca());
         productRepository.save(editedProduct);
@@ -101,6 +105,13 @@ public class ProductService {
         productPhoto.setName(photo.getOriginalFilename());
         productPhoto.setProduct(product.get());
         photoRepository.save(productPhoto);
+    }
 
+    public @NotNull byte[] getProductPhotoById(int productId) {
+        Optional<Photo> optionalPhoto = Optional.ofNullable(photoRepository.findByProduct_Id(productId));
+        if (optionalPhoto.isEmpty()) {
+            throw new CustomException("foto não existe");
+        }
+        return optionalPhoto.get().getImgBytes();
     }
 }

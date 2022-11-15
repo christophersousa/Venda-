@@ -14,8 +14,9 @@ public class Product {
 
     private @NotNull String nome;
     private @NotNull String descricao;
-    private @NotNull double preco;
 
+    private @NotNull double precoAnterior;
+    private @NotNull double preco;
     private @NotNull String marca;
     @ManyToOne
     @JsonIgnore
@@ -49,6 +50,14 @@ public class Product {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public double getPrecoAnterior() {
+        return precoAnterior;
+    }
+
+    public void setPrecoAnterior(double precoAnterior) {
+        this.precoAnterior = precoAnterior;
     }
 
     public double getPreco() {

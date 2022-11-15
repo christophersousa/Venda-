@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +62,12 @@ public class ProductController {
         }
         productService.savePhoto(photo, productId);
         return new ResponseEntity<>(new ApiResponse(true, "foto do produto salva com sucesso"), HttpStatus.OK);
+    }
+
+    @GetMapping("/{productId}/download")
+    public @NotNull byte[] getProductPhotoById(@PathVariable("productId") int productId){
+        return productService.getProductPhotoById(productId);
+
     }
 
 
