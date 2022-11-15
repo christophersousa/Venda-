@@ -7,14 +7,12 @@ import { Context } from "../../Context/AuthContext";
 
 
 interface PropsProduct {
-  title: string;
-  link: string;
-  imageUrl: string;
-  images2: string;
-  valor_anterior: string;
-  valor: string;
+  nome: string;
   descricao: string;
-  ficha: Ficha;
+  precoAnterior: number;
+  preco: number;
+  marca: string;
+  foto: string;
 }
 
 interface Ficha{
@@ -26,6 +24,7 @@ interface Ficha{
 
 export function Produto() {
   const { product, handleCart } = useContext(Context);
+  
 
   return (
     <div>
@@ -36,7 +35,7 @@ export function Produto() {
         <a href="#" className="opacity-60">
           Computador
         </a>
-        <a href="#">{product?.title}</a>
+        <a href="#">{product?.nome}</a>
       </Breadcrumbs>
 
       <div
@@ -45,12 +44,12 @@ export function Produto() {
       >
         <div className="flex p-2 gap-6 justify-between">
           <CarouselProduto
-            img1={product?.imageUrl}
-            img2={product?.images2}
-            img3={product?.images2}
+            img1={product?.foto}
+            img2={product?.foto}
+            img3={product?.foto}
           />
           <div className="flex flex-col gap-4 w-1/2 p-2 mt-4">
-            <h1 className="font-bold text-xl">{product?.title}</h1>
+            <h1 className="font-bold text-xl">{product?.nome}</h1>
             <div className="flex items-center ">
               <svg
                 aria-hidden="true"
@@ -116,12 +115,12 @@ export function Produto() {
 
             <div>
               <p className="text-color-gray-text text-xs mt-4 line-through">
-                {product?.valor_anterior}
+                R$ {product?.precoAnterior.toLocaleString('pt-br')}
               </p>
-              <h1 className="font-bold text-3xl">{product?.valor}</h1>
+              <h1 className="font-bold text-3xl">R$ {product?.preco}</h1>
               <span className="text-color-gray-text text-xs flex items-center gap-1 mt-2">
                 <BsCreditCard2Back />
-                até 8x R$ {Number(product?.valor) / 8}
+                até 8x R$ {Number(product?.preco) / 8}
               </span>
             </div>
 
@@ -175,7 +174,7 @@ export function Produto() {
         <div>
           <h2 className="font-bold text-xl">Ficha tecnica</h2>
         </div>
-        <div className="py-8 border-t-2">
+        {/* <div className="py-8 border-t-2">
           <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -213,7 +212,7 @@ export function Produto() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
