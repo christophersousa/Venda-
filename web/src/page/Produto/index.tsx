@@ -1,12 +1,15 @@
 import { Breadcrumbs } from "@material-tailwind/react";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import {useParams} from "react-router-dom";
 import { BsCreditCard2Back, BsFillBasket2Fill } from "react-icons/bs";
+import api from "../../api/api";
 import { CarouselProduto } from "../../components/CarouselProduto";
 import { MultCarousel } from "../../components/MultCarousel";
 import { Context } from "../../Context/AuthContext";
 
 
 interface PropsProduct {
+  id: number;
   nome: string;
   descricao: string;
   precoAnterior: number;
@@ -24,8 +27,31 @@ interface Ficha{
 
 export function Produto() {
   const { product, handleCart } = useContext(Context);
+  const [produto, setProduto] = useState<PropsProduct>();
+  const [fotos, setFotos] = useState<string[]>([]);
+  const {produtoId} = useParams()
   
 
+  useEffect(() => {
+    api.get(`/produto/${produtoId}`)
+      .then(response => response.data)
+      .then(data => setProduto(data))
+  }, [])
+
+  useEffect(() => {
+    api.get(`/produto/${produtoId}/download`,
+          { responseType: 'arraybuffer' })
+            .then(response => response.data) 
+            .then(data => {
+              const imageBytes = data
+              let blob = new Blob([imageBytes], { type: "image/jpeg" });
+              let imageUrl = URL.createObjectURL(blob);
+              setFotos([...fotos, imageUrl])
+            })
+    
+  
+  }, [produto])
+  console.log(produtoId)
   return (
     <div>
       <Breadcrumbs className="m-margin-container">
@@ -35,7 +61,7 @@ export function Produto() {
         <a href="#" className="opacity-60">
           Computador
         </a>
-        <a href="#">{product?.nome}</a>
+        <a href="#">{produto?.nome}</a>
       </Breadcrumbs>
 
       <div
@@ -44,12 +70,12 @@ export function Produto() {
       >
         <div className="flex p-2 gap-6 justify-between">
           <CarouselProduto
-            img1={product?.foto}
-            img2={product?.foto}
-            img3={product?.foto}
+            img1={fotos[0]}
+            img2={fotos[0]}
+            img3={fotos[0]}
           />
           <div className="flex flex-col gap-4 w-1/2 p-2 mt-4">
-            <h1 className="font-bold text-xl">{product?.nome}</h1>
+            <h1 className="font-bold text-xl">{produto?.nome}</h1>
             <div className="flex items-center ">
               <svg
                 aria-hidden="true"
@@ -106,7 +132,7 @@ export function Produto() {
               </p>
             </div>
             <p className="ml-2 text-sm font-medium mt-4 max-h-20 overflow-hidden">
-              {product?.descricao}
+              {produto?.descricao}
             </p>
 
             <a href="#infor" className="ml-2 text-sm font-medium underline">
@@ -115,12 +141,12 @@ export function Produto() {
 
             <div>
               <p className="text-color-gray-text text-xs mt-4 line-through">
-                R$ {product?.precoAnterior.toLocaleString('pt-br')}
+                R$ {produto?.precoAnterior.toLocaleString('pt-br')}
               </p>
-              <h1 className="font-bold text-3xl">R$ {product?.preco}</h1>
+              <h1 className="font-bold text-3xl">R$ {produto?.preco}</h1>
               <span className="text-color-gray-text text-xs flex items-center gap-1 mt-2">
                 <BsCreditCard2Back />
-                até 8x R$ {Number(product?.preco) / 8}
+                até 8x R$ {Number(produto?.preco) / 8}
               </span>
             </div>
 
@@ -136,7 +162,7 @@ export function Produto() {
               <button
                 type="submit"
                 className=" font-bold w-2/3 justify-center  gap-2 inline-flex items-center py-2.5 px-3 text-xl text-white bg-background-secundary border border-gray-400 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg"
-                onClick={()=>{handleCart(product)}}
+                onClick={()=>{handleCart(produto)}}
               >
                 Adicionar ao carrinho
               </button>

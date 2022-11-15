@@ -7,6 +7,7 @@ interface Ficha {
 }
 
 interface PropsProduct {
+  id: number
   nome: string;
   descricao: string;
   precoAnterior: number;
@@ -19,7 +20,6 @@ export default function useProduct() {
   const [product, setProduct] = useState<PropsProduct>();
 
   function handleProduct(product: PropsProduct) {
-    console.log(product);
     setProduct(product);
   }
 

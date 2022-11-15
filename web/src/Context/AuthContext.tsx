@@ -27,6 +27,7 @@ interface Ficha {
 }
 
 interface PropsProduct {
+  id: number;
   nome: string;
   descricao: string;
   precoAnterior: number;
@@ -42,7 +43,7 @@ interface ProposContext {
   handleLogin: (data: PropsLoginUser) => Promise<void>;
   handleLogout: () => void;
   handleProduct: (data: PropsProduct) => void;
-  product: PropsProduct | undefined;
+  product: PropsProduct;
   cart: PropsProduct[];
   handleCart: (data?: PropsProduct) => void;
 }

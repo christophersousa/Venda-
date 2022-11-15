@@ -86,7 +86,7 @@ export function MultCarousel() {
         return (
           <Link
             key={index}
-            to="/produto"
+            to={`/produto/${resource.id}`}
             onClick={() => {
               backToTop();
               handleProduct(resource);

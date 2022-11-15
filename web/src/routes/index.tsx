@@ -32,7 +32,7 @@ export const RoutesPage = () => (
     <Route path="/cadastro" element={<Cadastro/>} />
     <Route path="/meusprodutos" element={<MeusProdutos/>} />
     <Route path="/cadastrar_produtos" element={<RegisterProduto/>} />
-    <Route path="/produto" element={<Produto/>} />
+    <Route path="/produto/:produtoId" element={<Produto/>} />
     <Route path="/carrinho" element={<Carrinho/>} />
   </Routes>
 );
