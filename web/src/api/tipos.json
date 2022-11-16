@@ -1,0 +1,26 @@
+[
+    {
+        "categoriaId": 1,
+        "nome": "Macbooks"
+    },
+
+    {
+        "categoriaId": 1,
+        "nome": "Notebooks"
+    },
+
+    {
+        "categoriaId": 1,
+        "nome": "Desktops"
+    },
+
+    {
+        "categoriaId": 2,
+        "nome": "Iphone"
+    },
+
+    {
+        "categoriaId": 2,
+        "nome": "Samsung Galaxy"
+    }
+]

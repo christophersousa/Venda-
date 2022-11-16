@@ -2,9 +2,9 @@ package com.ecommerce.vendamais.controller;
 
 import com.ecommerce.vendamais.dto.ProductDto;
 import com.ecommerce.vendamais.common.ApiResponse;
-import com.ecommerce.vendamais.model.Category;
 import com.ecommerce.vendamais.model.Company;
-import com.ecommerce.vendamais.repository.CategoryRepository;
+import com.ecommerce.vendamais.model.Type;
+import com.ecommerce.vendamais.repository.TypeRepository;
 import com.ecommerce.vendamais.service.AuthenticationService;
 import com.ecommerce.vendamais.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class ProductController {
     ProductService productService;
 
     @Autowired
-    CategoryRepository categoryRepository;
+    TypeRepository typeRepository;
 
     @Autowired
     AuthenticationService authenticationService;
@@ -35,11 +35,11 @@ public class ProductController {
 
         Company company = authenticationService.getCompany(token);
 
-        Optional<Category> category = categoryRepository.findById(productDto.getCategoriaId());
-        if(!category.isPresent()){
-            return new ResponseEntity<>(new ApiResponse(false, "categoria do produto não existe"), HttpStatus.BAD_REQUEST);
+        Optional<Type> type = typeRepository.findById(productDto.getTipoId());
+        if(!type.isPresent()){
+            return new ResponseEntity<>(new ApiResponse(false, "tipo do produto não existe"), HttpStatus.BAD_REQUEST);
         }
-        productService.createProduct(productDto, category.get(), company);
+        productService.createProduct(productDto, type.get(), company);
         return new ResponseEntity<>(new ApiResponse(true, "produto adicionado com sucesso"), HttpStatus.CREATED);
     }
 
@@ -73,9 +73,9 @@ public class ProductController {
 
     @PostMapping("/update/{productId}")
     public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productId") int productId, @RequestBody ProductDto productDto) throws Exception {
-        Optional<Category> category = categoryRepository.findById(productDto.getCategoriaId());
-        if(!category.isPresent()){
-            return new ResponseEntity<>(new ApiResponse(false, "categoria do produto não existe"), HttpStatus.NOT_FOUND);
+        Optional<Type> type = typeRepository.findById(productDto.getTipoId());
+        if(!type.isPresent()){
+            return new ResponseEntity<>(new ApiResponse(false, "tipo do produto não existe"), HttpStatus.NOT_FOUND);
         }
 
         productService.updateProduct(productDto, productId);
