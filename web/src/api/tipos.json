@@ -9,11 +9,7 @@
         "nome": "Notebooks"
     },
 
-    {
-        "categoriaId": 1,
-        "nome": "Desktops"
-    },
-
+    
     {
         "categoriaId": 2,
         "nome": "Iphone"
@@ -22,5 +18,10 @@
     {
         "categoriaId": 2,
         "nome": "Samsung Galaxy"
+    },
+
+    {
+        "categoriaId": 1,
+        "nome": "Desktops"
     }
 ]
