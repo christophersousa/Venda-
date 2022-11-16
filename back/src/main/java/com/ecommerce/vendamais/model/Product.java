@@ -1,9 +1,11 @@
 package com.ecommerce.vendamais.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "produtos")
@@ -14,14 +16,14 @@ public class Product {
 
     private @NotNull String nome;
     private @NotNull String descricao;
-
     private @NotNull double precoAnterior;
     private @NotNull double preco;
     private @NotNull String marca;
+    private @NotNull Integer estoque;
+
     @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "categoria_id")
-    Category category;
+    @JoinColumn(name = "tipo_id")
+    Type type;
 
     @ManyToOne
     @JsonIgnore
@@ -76,12 +78,20 @@ public class Product {
         this.marca = marca;
     }
 
-    public Category getCategory() {
-        return category;
+    public Integer getEstoque() {
+        return estoque;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setEstoque(Integer estoque) {
+        this.estoque = estoque;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public Company getCompany() {

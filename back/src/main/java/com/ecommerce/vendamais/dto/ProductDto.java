@@ -14,7 +14,17 @@ public class ProductDto {
 
     private @NotNull String marca;
 
-    private @NotNull Integer categoriaId;
+    private @NotNull Integer estoque;
+
+    public Integer getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(Integer estoque) {
+        this.estoque = estoque;
+    }
+
+    private @NotNull Integer tipoId;
 
     private @NotNull Integer empresaId;
 
@@ -66,12 +76,12 @@ public class ProductDto {
         this.marca = marca;
     }
 
-    public Integer getCategoriaId() {
-        return categoriaId;
+    public Integer getTipoId() {
+        return tipoId;
     }
 
-    public void setCategoriaId(Integer categoriaId) {
-        this.categoriaId = categoriaId;
+    public void setTipoId(Integer tipoId) {
+        this.tipoId = tipoId;
     }
 
     public Integer getEmpresaId() {
