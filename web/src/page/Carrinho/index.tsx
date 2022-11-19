@@ -55,7 +55,7 @@ export function Carrinho() {
                   key={key}
                 >
                   <div className="flex w-2/5">
-                    <div className="w-28">
+                  <div className="w-28">
                       <img
                         className="w-28"
                         src={response.imageUrl}
