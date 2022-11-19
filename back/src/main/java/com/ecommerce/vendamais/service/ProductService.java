@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,6 +110,7 @@ public class ProductService {
         photoRepository.save(productPhoto);
     }
 
+    @Transactional
     public @NotNull byte[] getProductPhotoById(int productId) {
         Optional<Photo> optionalPhoto = Optional.ofNullable(photoRepository.findByProduct_Id(productId));
         if (optionalPhoto.isEmpty()) {

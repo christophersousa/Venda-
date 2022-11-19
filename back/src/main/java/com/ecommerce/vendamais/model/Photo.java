@@ -1,6 +1,5 @@
 package com.ecommerce.vendamais.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +12,10 @@ public class Photo {
     private Integer id;
 
     private @NotNull String name;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @org.hibernate.annotations.Type(type = "org.hibernate.type.ImageType")
     private @NotNull byte[] imgBytes;
 
     @ManyToOne

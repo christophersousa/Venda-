@@ -1,5 +1,7 @@
 package com.ecommerce.vendamais.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class Type {
     private String nome;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "categoria_id")
     Category category;
 
