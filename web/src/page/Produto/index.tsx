@@ -4,6 +4,7 @@ import { BsCreditCard2Back, BsFillBasket2Fill } from "react-icons/bs";
 import { CarouselProduto } from "../../components/CarouselProduto";
 import { MultCarousel } from "../../components/MultCarousel";
 import { Context } from "../../Context/AuthContext";
+import { useCart } from "../../hooks/useCart";
 
 
 interface PropsProduct {
@@ -26,6 +27,8 @@ interface Ficha{
 
 export function Produto() {
   const { product, handleCart } = useContext(Context);
+
+  const {formatMoney} = useCart()
 
   return (
     <div>
@@ -116,9 +119,9 @@ export function Produto() {
 
             <div>
               <p className="text-color-gray-text text-xs mt-4 line-through">
-                {product?.valor_anterior}
+                {formatMoney(product?.valor_anterior)}
               </p>
-              <h1 className="font-bold text-3xl">{product?.valor}</h1>
+              <h1 className="font-bold text-3xl">{formatMoney(product?.valor)}</h1>
               <span className="text-color-gray-text text-xs flex items-center gap-1 mt-2">
                 <BsCreditCard2Back />
                 até 8x R$ {Number(product?.valor) / 8}

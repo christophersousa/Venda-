@@ -27,48 +27,53 @@ public class ProductController {
 
     @Autowired
     AuthenticationService authenticationService;
+
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createProduct(@RequestBody ProductDto productDto,
-                                                     @RequestParam("token") String token){
+            @RequestParam("token") String token) {
         authenticationService.authenticate(token);
 
         Company company = authenticationService.getCompany(token);
 
         Optional<Category> category = categoryRepository.findById(productDto.getCategoriaId());
-        if(!category.isPresent()){
-            return new ResponseEntity<>(new ApiResponse(false, "categoria do produto não existe"), HttpStatus.BAD_REQUEST);
+        if (!category.isPresent()) {
+            return new ResponseEntity<>(new ApiResponse(false, "categoria do produto não existe"),
+                    HttpStatus.BAD_REQUEST);
         }
         productService.createProduct(productDto, category.get(), company);
+        Optional<Category> category1 = categoryRepository.findById(productDto.getCategoriaId());
+        System.out.println(category1);
         return new ResponseEntity<>(new ApiResponse(true, "produto adicionado com sucesso"), HttpStatus.CREATED);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<ProductDto>> getProducts(){
+    public ResponseEntity<List<ProductDto>> getProducts() {
         List<ProductDto> products = productService.getAllProducts();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @GetMapping("/{productId}")
-    public ProductDto getProductById(@PathVariable("productId") int productId){
-       return productService.getProductById(productId);
+    public ProductDto getProductById(@PathVariable("productId") int productId) {
+        return productService.getProductById(productId);
 
     }
 
     @PostMapping("/{productId}/upload")
     public ResponseEntity<ApiResponse> uploadPhoto(@RequestParam MultipartFile photo, int productId) throws Exception {
-        if(!productService.findById(productId)){
+        if (!productService.findById(productId)) {
             return new ResponseEntity<>(new ApiResponse(false, "produto não existe"), HttpStatus.NOT_FOUND);
         }
         productService.savePhoto(photo, productId);
         return new ResponseEntity<>(new ApiResponse(true, "foto do produto salva com sucesso"), HttpStatus.OK);
     }
 
-
     @PostMapping("/update/{productId}")
-    public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productId") int productId, @RequestBody ProductDto productDto) throws Exception {
+    public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productId") int productId,
+            @RequestBody ProductDto productDto) throws Exception {
         Optional<Category> category = categoryRepository.findById(productDto.getCategoriaId());
-        if(!category.isPresent()){
-            return new ResponseEntity<>(new ApiResponse(false, "categoria do produto não existe"), HttpStatus.NOT_FOUND);
+        if (!category.isPresent()) {
+            return new ResponseEntity<>(new ApiResponse(false, "categoria do produto não existe"),
+                    HttpStatus.NOT_FOUND);
         }
 
         productService.updateProduct(productDto, productId);
@@ -76,8 +81,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{productId}")
-    public ResponseEntity<ApiResponse> deleteProduct(@PathVariable("productId") int productId){
-        if(!productService.findById(productId)){
+    public ResponseEntity<ApiResponse> deleteProduct(@PathVariable("productId") int productId) {
+        if (!productService.findById(productId)) {
             return new ResponseEntity<>(new ApiResponse(false, "produto não existe"), HttpStatus.NOT_FOUND);
         }
         productService.deleteProduct(productId);

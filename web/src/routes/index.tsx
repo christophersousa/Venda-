@@ -31,7 +31,7 @@ export const RoutesPage = () => (
     <Route path="/login" element={<Login/>} />
     <Route path="/cadastro" element={<Cadastro/>} />
     <Route path="/meusprodutos" element={<MeusProdutos/>} />
-    <Route path="/cadastrar_produtos" element={<RegisterProduto/>} />
+    <Route path="/cadastrarprodutos" element={<RegisterProduto/>} />
     <Route path="/produto" element={<Produto/>} />
     <Route path="/carrinho" element={<Carrinho/>} />
   </Routes>

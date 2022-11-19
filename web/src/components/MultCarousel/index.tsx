@@ -47,8 +47,10 @@ export function MultCarousel() {
           <Link
             to="/produto"
             onClick={() => {
+              backToTop();
               handleProduct(resource);
             }}
+            key={index}
           >
             <Card
               name={resource.title}

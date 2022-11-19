@@ -31,10 +31,15 @@ interface PropsProduct {
   link: string;
   imageUrl: string;
   images2: string;
-  valor_anterior: string;
-  valor: string;
+  valor_anterior: number;
+  valor: number;
   descricao: string;
   ficha: Ficha;
+}
+
+interface Categorias{
+  id: number;
+  nome: string;
 }
 
 interface ProposContext {
@@ -43,10 +48,12 @@ interface ProposContext {
   authenticated: boolean;
   handleLogin: (data: PropsLoginUser) => Promise<void>;
   handleLogout: () => void;
-  handleProduct: (data: PropsProduct) => void;
+  handleProduct: (product: PropsProduct) => void;
   product: PropsProduct | undefined;
   cart: PropsProduct[];
-  handleCart: (data?: PropsProduct) => void;
+  handleCart: (data: PropsProduct) => void;
+  handleRemoveCart: (data: PropsProduct) => void;
+  categoria: Categorias[]
 }
 
 const Context = createContext({} as ProposContext);
@@ -54,9 +61,9 @@ const Context = createContext({} as ProposContext);
 function AuthProvider({ children }: IRouterContextProps) {
   const { authenticated, loading, handleLogin, handleLogout, use } = useAuth();
 
-  const { product, handleProduct } = useProduct();
+  const { product, handleProduct, categoria } = useProduct();
 
-  const { cart, handleCart } = useCart();
+  const { cart, handleCart, handleRemoveCart } = useCart();
 
   return (
     <Context.Provider
@@ -70,6 +77,8 @@ function AuthProvider({ children }: IRouterContextProps) {
         handleProduct,
         cart,
         handleCart,
+        handleRemoveCart,
+        categoria
       }}
     >
       {children}

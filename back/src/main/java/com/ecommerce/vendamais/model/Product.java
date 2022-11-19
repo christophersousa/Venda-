@@ -3,6 +3,8 @@ package com.ecommerce.vendamais.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import net.bytebuddy.dynamic.TypeResolutionStrategy.Lazy;
+
 @Entity
 @Table(name = "produtos")
 public class Product {
@@ -11,7 +13,11 @@ public class Product {
     private Integer id;
 
     private @NotNull String nome;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
     private @NotNull String descricao;
+
     private @NotNull double preco;
     @ManyToOne
     @JoinColumn(name = "categoria_id")

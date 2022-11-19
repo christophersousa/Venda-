@@ -9,9 +9,9 @@ import { Context } from "../../Context/AuthContext";
 import { useScroll } from "../../hooks/useScroll";
 
 export function Menu(){
-    const { use, authenticated, handleLogout } = useContext(Context);
+    const { use, authenticated, handleLogout, cart } = useContext(Context);
 
-    const {scrollFunction, backToTop, viewBtScroll} = useScroll()
+    const {scrollFunction, backToTop, viewBtScroll,} = useScroll()
 
     window.onscroll = function () {
         scrollFunction();
@@ -171,23 +171,26 @@ export function Menu(){
                         </div>
                     </Link >
                     }
-
                     {/* ------- Fim DropDown Sing in ------- */}
 
-
-                    <div className="flex items-center gap-1 cursor-pointer ">
-                            <div className="inline-flex relative w-fit">
-                                <div className="absolute inline-block -top-1 right-0 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xs leading-none text-center whitespace-nowrap align-baseline font-bold bg-deep-orange-700 text-white rounded-full z-10">New</div>
-                                <div className="bg-background-gray p-2 rounded-full">
-                                        <BsCart3  size={20}/>
+                    <Link to="carrinho">
+                        <div className="flex items-center gap-1 cursor-pointer ">
+                                <div className="inline-flex relative w-fit">
+                                    {cart.length !=0?
+                                                    <div className="absolute inline-block -top-1 right-0 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xs leading-none text-center whitespace-nowrap align-baseline font-bold bg-deep-orange-700 text-white rounded-full z-10">{cart.length}</div>
+                                                    :
+                                                    ''}
+                                    <div className="bg-background-gray p-2 rounded-full">
+                                            <BsCart3  size={20}/>
+                                    </div>
                                 </div>
-                            </div>
 
-                        <div className="text-xs flex items-center">
-                            Carrinho
-                            <BsFillCaretDownFill/>
+                            <div className="text-xs flex items-center">
+                                Carrinho
+                                <BsFillCaretDownFill/>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
             <div>
