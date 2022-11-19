@@ -1,5 +1,6 @@
 package com.ecommerce.vendamais.service;
 
+import com.ecommerce.vendamais.dto.CategoryDto;
 import com.ecommerce.vendamais.model.Category;
 import com.ecommerce.vendamais.model.Type;
 import com.ecommerce.vendamais.repository.CategoryRepository;
@@ -28,19 +29,21 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public HashMap<String, List<String>> listCategoryWithTypes(){
+    public List<CategoryDto> listCategoryWithTypes(){
 
-        HashMap< String, List<String>> categoriesAndHisTypes = new HashMap<>();
+        List<CategoryDto> result = new ArrayList<>();
         List<Category> categories = categoryRepository.findAll();
 
         for(Category category : categories){
             List<Type> types =  typeRepository.findTypeByCategory_Id(category.getId());
             List<String> typesNames = new ArrayList<>();
             for(Type type : types){ typesNames.add(type.getNome()); }
-            categoriesAndHisTypes.put(category.getNome(), typesNames);
+
+            CategoryDto categoriesAndHisTypes = new CategoryDto(category.getNome(), typesNames);
+            result.add(categoriesAndHisTypes);
         }
 
-        return categoriesAndHisTypes;
+        return result;
     }
 
     public void updateCategory(int categoryId, Category category){
