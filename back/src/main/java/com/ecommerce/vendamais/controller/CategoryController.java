@@ -1,6 +1,7 @@
 package com.ecommerce.vendamais.controller;
 
 import com.ecommerce.vendamais.common.ApiResponse;
+import com.ecommerce.vendamais.dto.CategoryDto;
 import com.ecommerce.vendamais.model.Category;
 import com.ecommerce.vendamais.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class CategoryController {
     }
 
     @GetMapping("/listTypes")
-    public HashMap<String, List<String>> listCategoryWithTypes(){
+    public List<CategoryDto> listCategoryWithTypes(){
         return categoryService.listCategoryWithTypes();
 
     }
