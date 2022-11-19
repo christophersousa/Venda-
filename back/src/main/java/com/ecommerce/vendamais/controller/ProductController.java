@@ -4,6 +4,7 @@ import com.ecommerce.vendamais.dto.ProductDto;
 import com.ecommerce.vendamais.common.ApiResponse;
 import com.ecommerce.vendamais.model.Company;
 import com.ecommerce.vendamais.model.Type;
+import com.ecommerce.vendamais.repository.PhotoRepository;
 import com.ecommerce.vendamais.repository.TypeRepository;
 import com.ecommerce.vendamais.service.AuthenticationService;
 import com.ecommerce.vendamais.service.ProductService;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +24,9 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     ProductService productService;
+
+    @Autowired
+    PhotoRepository photoRepository;
 
     @Autowired
     TypeRepository typeRepository;
@@ -81,12 +86,14 @@ public class ProductController {
         productService.updateProduct(productDto, productId);
         return new ResponseEntity<>(new ApiResponse(true, "produto editado com sucesso"), HttpStatus.OK);
     }
-
+    @Transactional
     @DeleteMapping("/delete/{productId}")
     public ResponseEntity<ApiResponse> deleteProduct(@PathVariable("productId") int productId){
         if(!productService.findById(productId)){
             return new ResponseEntity<>(new ApiResponse(false, "produto não existe"), HttpStatus.NOT_FOUND);
         }
+
+        photoRepository.deleteByProduct_Id(productId);
         productService.deleteProduct(productId);
         return new ResponseEntity<>(new ApiResponse(true, "produto removido com sucesso"), HttpStatus.OK);
     }

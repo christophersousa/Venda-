@@ -1,10 +1,14 @@
 package com.ecommerce.vendamais.service;
 
 import com.ecommerce.vendamais.model.Category;
+import com.ecommerce.vendamais.model.Type;
 import com.ecommerce.vendamais.repository.CategoryRepository;
+import com.ecommerce.vendamais.repository.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,12 +17,30 @@ public class CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    TypeRepository typeRepository;
+
     public void createCategory(Category category){
         categoryRepository.save(category);
     }
 
     public List<Category> listCategory(){
         return categoryRepository.findAll();
+    }
+
+    public HashMap<String, List<String>> listCategoryWithTypes(){
+
+        HashMap< String, List<String>> categoriesAndHisTypes = new HashMap<>();
+        List<Category> categories = categoryRepository.findAll();
+
+        for(Category category : categories){
+            List<Type> types =  typeRepository.findTypeByCategory_Id(category.getId());
+            List<String> typesNames = new ArrayList<>();
+            for(Type type : types){ typesNames.add(type.getNome()); }
+            categoriesAndHisTypes.put(category.getNome(), typesNames);
+        }
+
+        return categoriesAndHisTypes;
     }
 
     public void updateCategory(int categoryId, Category category){

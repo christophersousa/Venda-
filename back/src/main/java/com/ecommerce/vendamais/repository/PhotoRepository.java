@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PhotoRepository extends JpaRepository<Photo, Integer> {
     Photo findByProduct_Id(Integer id);
+
+    void deleteByProduct_Id(Integer id);
 }

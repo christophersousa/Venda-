@@ -13,6 +13,7 @@ public class Product {
     private Integer id;
 
     private @NotNull String nome;
+
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private @NotNull String descricao;

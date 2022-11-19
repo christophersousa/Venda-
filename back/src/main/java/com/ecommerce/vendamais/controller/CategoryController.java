@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,11 @@ public class CategoryController {
         return new ResponseEntity<>(new ApiResponse(true, "categoria criada com sucesso"), HttpStatus.CREATED);
     }
 
+    @GetMapping("/listTypes")
+    public HashMap<String, List<String>> listCategoryWithTypes(){
+        return categoryService.listCategoryWithTypes();
+
+    }
     @GetMapping("/list")
     public List<Category> listCategory(){
         return categoryService.listCategory();
