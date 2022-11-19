@@ -1,11 +1,9 @@
 package com.ecommerce.vendamais.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 @Table(name = "produtos")
@@ -15,6 +13,8 @@ public class Product {
     private Integer id;
 
     private @NotNull String nome;
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
     private @NotNull String descricao;
     private @NotNull double precoAnterior;
     private @NotNull double preco;
