@@ -3,15 +3,27 @@ import logo from "../../assets/logo_venda+.png";
 import { BsPerson, BsCart3, BsFillCaretDownFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { DropDown } from "../Dropdown";
-import valores_dropdown from "../../api/valores_dropdown.json";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../Context/AuthContext";
 import { useScroll } from "../../hooks/useScroll";
+import api from "../../api/api";
+import { CategoriaComTipo } from "../../interfaces/CategoriaComTipo";
 
 export function Menu() {
   const { use, authenticated, handleLogout, cart } = useContext(Context);
 
+  const [categorias, setCategorias] = useState<CategoriaComTipo[]>([]);
+  
   const { scrollFunction, backToTop, viewBtScroll } = useScroll();
+
+  useEffect(() => {
+    api.get('/categoria/listTypes')
+      .then(response => setCategorias(response.data))
+      .catch(function(error){
+        console.log(error)
+      })
+
+  }, [])
 
   window.onscroll = function () {
     scrollFunction();
@@ -208,8 +220,7 @@ export function Menu() {
             >
               <BsPerson size={20} />
               <div className=" flex flex-col text-xs">
-                <p className="text-xs">Sing In</p>
-                <span className="xl">Minha conta</span>
+                <span className="xl">Cadastro / Login</span>
               </div>
             </Link>
           )}
@@ -243,7 +254,7 @@ export function Menu() {
           <li className="flex items-center">
             <Link to="/">Home</Link>
           </li>
-          {valores_dropdown.valoresDropdown.map((c, index) => {
+          {categorias.map((c, index) => {
             return (
               <div key={index}>
                 <DropDown name={c.name} list={c.values} />
