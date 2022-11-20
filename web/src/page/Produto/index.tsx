@@ -41,7 +41,7 @@ export function Produto() {
   }, [])
 
   useEffect(() => {
-    api_product.get(`/produto/${produtoId}/download`,
+    api_product.get(`/produto/${produtoId}/downloadPhoto`,
           { responseType: 'arraybuffer' })
             .then(response => response.data)
             .then(data => {
@@ -202,7 +202,7 @@ export function Produto() {
         <div>
           <h2 className="font-bold text-xl">Ficha tecnica</h2>
         </div>
-        {/* <div className="py-8 border-t-2">
+        <div className="py-8 border-t-2">
           <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -214,7 +214,7 @@ export function Produto() {
                           Código do produto
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          {product?.ficha.codigo}
+                          {/* {product?.ficha.codigo} */}
                         </td>
                       </tr>
                       <tr className="bg-white border-b">
@@ -222,7 +222,7 @@ export function Produto() {
                           Código de barras
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          {product?.ficha.codigo_barras}
+                          {/* {product?.ficha.codigo_barras} */}
                         </td>
                       </tr>
 
@@ -231,7 +231,7 @@ export function Produto() {
                           Garantia
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          {product?.ficha.Garantia}
+                          {/* {product?.ficha.Garantia} */}
                         </td>
                       </tr>
                     </tbody>
@@ -240,7 +240,7 @@ export function Produto() {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );

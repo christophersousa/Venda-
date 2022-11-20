@@ -9,6 +9,7 @@ interface ProxyCard{
     valor: number;
 }
 
+
 function byteToBlob(photo: string){
     const imageBytes = photo;
     let blob = new Blob([imageBytes], { type: "image/jpeg" });

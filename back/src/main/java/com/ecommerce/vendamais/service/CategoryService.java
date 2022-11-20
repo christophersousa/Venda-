@@ -35,7 +35,7 @@ public class CategoryService {
         List<Category> categories = categoryRepository.findAll();
 
         for(Category category : categories){
-            List<Type> types =  typeRepository.findTypeByCategory_Id(category.getId());
+            List<Type> types =  typeRepository.findTypeByCategory_IdOrderByNome(category.getId());
             List<String> typesNames = new ArrayList<>();
             for(Type type : types){ typesNames.add(type.getNome()); }
 
