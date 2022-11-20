@@ -1,13 +1,12 @@
 import { useState } from "react";
 interface PropsProduct {
-  title: string;
-  link: string;
-  imageUrl: string;
-  images2: string;
-  valor_anterior: string;
-  valor: string;
+  id: number;
+  nome: string;
   descricao: string;
-  ficha: Ficha;
+  precoAnterior: number;
+  preco: number;
+  marca: string;
+  fotos: string[];
 }
 
 interface Ficha {
@@ -19,9 +18,20 @@ interface Ficha {
 export function useCart() {
   const [cart, setCart] = useState<PropsProduct[]>([]);
 
-  function handleCart(data: PropsProduct) {
+  function handleCart(data: PropsProduct, fotos:string[]) {
+    data.fotos = fotos;
     cart.push(data);
   }
 
-  return { cart, handleCart };
+  function handleRemoveCart(data: PropsProduct) {
+    const newList = cart.filter((item) => item !== data);
+
+    setCart(newList);
+  }
+
+  function formatMoney(amount: number){
+    return amount.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+  }
+
+  return { cart, handleCart, formatMoney, handleRemoveCart };
 }
