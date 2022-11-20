@@ -33,7 +33,7 @@ interface PropsProduct {
   precoAnterior: number;
   preco: number;
   marca: string;
-  foto: string;
+  fotos: string[];
 }
 
 interface ProposContext {
@@ -42,10 +42,10 @@ interface ProposContext {
   authenticated: boolean;
   handleLogin: (data: PropsLoginUser) => Promise<void>;
   handleLogout: () => void;
-  handleProduct: (data: PropsProduct) => void;
+  handleProduct: (product: PropsProduct) => void;
   product: PropsProduct;
   cart: PropsProduct[];
-  handleCart: (data?: PropsProduct) => void;
+  handleCart: (data?: PropsProduct, fotos?: string[]) => void;
 }
 
 const Context = createContext({} as ProposContext);

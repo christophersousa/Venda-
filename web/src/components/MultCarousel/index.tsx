@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../../Context/AuthContext";
 import { useScroll } from "../../hooks/useScroll";
 import { Card } from "../Card";
-import api from "../../api/api";
+import api_products from "../../api/api_product";
 
 const responsive = {
   superLargeDesktop: {
@@ -38,7 +38,7 @@ export function MultCarousel() {
   const { backToTop } = useScroll();
 
   useEffect(() => {
-    api.get('/produto/list')
+    api_products.get('/produto/list')
       .then(function(response){
         let produtosData = response.data;
         setProdutos(produtosData)
@@ -47,9 +47,9 @@ export function MultCarousel() {
 
   useEffect(() => {
     produtos.map(element => {
-      api.get(`/produto/${element.id}/download`,
+      api_products.get(`/produto/${element.id}/download`,
           { responseType: 'arraybuffer' })
-            .then(response => response.data) 
+            .then(response => response.data)
             .then(data => {
               const imageBytes = data
               let blob = new Blob([imageBytes], { type: "image/jpeg" });
@@ -57,7 +57,7 @@ export function MultCarousel() {
               setFotos([...fotos, imageUrl])
             })
     })
-  
+
   }, [produtos])
 
   return (
@@ -79,7 +79,7 @@ export function MultCarousel() {
       dotListClass="custom-dot-list-style"
       itemClass="carousel-item-widht-40px"
     >
-      
+
       {produtos.map((resource, index) => {
         resource.foto = fotos[index];
 
