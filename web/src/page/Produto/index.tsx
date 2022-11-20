@@ -7,6 +7,7 @@ import { CarouselProduto } from "../../components/CarouselProduto";
 import { MultCarousel } from "../../components/MultCarousel";
 import { Context } from "../../Context/AuthContext";
 import { useCart } from "../../hooks/useCart";
+import api from "../../api/api_product";
 
 
 interface PropsProduct {
@@ -24,7 +25,6 @@ interface Ficha{
   codigo_barras: string;
   Garantia: string
 }
-
 
 export function Produto() {
   const { product, handleCart } = useContext(Context);
@@ -180,7 +180,7 @@ export function Produto() {
           <h2 className="font-bold text-xl">Você também pode gostar disso</h2>
         </div>
         <div className="py-8 border-t-2">
-          <MultCarousel />
+          {/* <MultCarousel /> */}
         </div>
       </div>
 

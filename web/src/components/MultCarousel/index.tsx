@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
+import api from "../../api/api_product";
 import { Context } from "../../Context/AuthContext";
 import { useScroll } from "../../hooks/useScroll";
 import { Card } from "../Card";
-import api_products from "../../api/api_product";
 
 const responsive = {
   superLargeDesktop: {
