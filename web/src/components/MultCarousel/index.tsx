@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../../Context/AuthContext";
 import { useScroll } from "../../hooks/useScroll";
 import { Card } from "../Card";
-import api from "../../api/api";
+import api_products from "../../api/api_product";
 
 const responsive = {
   superLargeDesktop: {
@@ -37,6 +37,7 @@ export function MultCarousel({tipoProduto}:any) {
   const { backToTop } = useScroll();
 
   useEffect(() => {
+
     api.get(`/produto/list/type/${tipoProduto}`)
       .then(function(response){
         let produtosData = response.data;
@@ -63,7 +64,7 @@ export function MultCarousel({tipoProduto}:any) {
       dotListClass="custom-dot-list-style"
       itemClass="carousel-item-widht-40px"
     >
-      
+
       {produtos.map((resource, index) => {
         return (
           <Link

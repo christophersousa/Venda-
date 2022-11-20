@@ -6,18 +6,18 @@ import { DropDown } from "../Dropdown";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../Context/AuthContext";
 import { useScroll } from "../../hooks/useScroll";
-import api from "../../api/api";
+import api_products from "../../api/api_product";
 import { CategoriaComTipo } from "../../interfaces/CategoriaComTipo";
 
 export function Menu() {
   const { use, authenticated, handleLogout, cart } = useContext(Context);
 
-  const [categorias, setCategorias] = useState<CategoriaComTipo[]>([]);
-  
+
   const { scrollFunction, backToTop, viewBtScroll } = useScroll();
+  const [categorias, setCategorias] = useState<CategoriaComTipo[]>([]);
 
   useEffect(() => {
-    api.get('/categoria/listTypes')
+    api_products.get('/categoria/listTypes')
       .then(response => setCategorias(response.data))
       .catch(function(error){
         console.log(error)

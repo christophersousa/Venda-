@@ -30,6 +30,8 @@ export function Card({ name, id, valor_anterior, valor}:ProxyCard){
   
   }, [])
 
+export function Card({ name, urlImg, valor_anterior, valor}:ProxyCard){
+    const {formatMoney} = useCart()
     return(
         <a href="#" className="flex justify-center h-full">
             <div className="rounded-lg shadow-lg bg-white max-w-sm flex flex-col justify-between">
@@ -37,9 +39,9 @@ export function Card({ name, id, valor_anterior, valor}:ProxyCard){
                 <div className="p-6">
                     <h5 className="text-gray-900 text-xs font-medium mb-2">{name}</h5>
                     <p className="text-color-gray-text text-xs mt-4 line-through">
-                        R$ {valor_anterior.toLocaleString('pt-BR')}
+                        {formatMoney(valor_anterior)}
                     </p>
-                    <h1 className="font-bold text-lg">R$ {valor.toLocaleString('pt-BR')}</h1>
+                    <h1 className="font-bold text-lg">{formatMoney(valor)}</h1>
                 </div>
             </div>
         </a>

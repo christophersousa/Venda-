@@ -37,7 +37,7 @@ export default function useAuth() {
     }, []);
 
     async function handleLogin(dataLogin:PropsLoginUser) {
-         api.post(`/usuario/logar`,{
+         api.post(`/empresa/login`,{
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': true,

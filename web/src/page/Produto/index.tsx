@@ -2,10 +2,11 @@ import { Breadcrumbs } from "@material-tailwind/react";
 import { useContext, useEffect, useState } from "react";
 import {useParams} from "react-router-dom";
 import { BsCreditCard2Back, BsFillBasket2Fill } from "react-icons/bs";
-import api from "../../api/api";
+import api_product from "../../api/api_product";
 import { CarouselProduto } from "../../components/CarouselProduto";
 import { MultCarousel } from "../../components/MultCarousel";
 import { Context } from "../../Context/AuthContext";
+import { useCart } from "../../hooks/useCart";
 
 
 interface PropsProduct {
@@ -27,13 +28,14 @@ interface Ficha{
 
 export function Produto() {
   const { product, handleCart } = useContext(Context);
+  const {formatMoney} = useCart()
   const [produto, setProduto] = useState<PropsProduct>();
   const [fotos, setFotos] = useState<string[]>([]);
   const {produtoId} = useParams()
-  
+
 
   useEffect(() => {
-    api.get(`/produto/${produtoId}`)
+    api_product.get(`/produto/${produtoId}`)
       .then(response => response.data)
       .then(data => setProduto(data))
   }, [])
@@ -41,17 +43,16 @@ export function Produto() {
   useEffect(() => {
     api.get(`/produto/${produtoId}/downloadPhoto`,
           { responseType: 'arraybuffer' })
-            .then(response => response.data) 
+            .then(response => response.data)
             .then(data => {
               const imageBytes = data
               let blob = new Blob([imageBytes], { type: "image/jpeg" });
               let imageUrl = URL.createObjectURL(blob);
               setFotos([...fotos, imageUrl])
             })
-    
-  
+
+
   }, [produto])
-  console.log(produtoId)
   return (
     <div>
       <Breadcrumbs className="m-margin-container">
@@ -141,12 +142,12 @@ export function Produto() {
 
             <div>
               <p className="text-color-gray-text text-xs mt-4 line-through">
-                R$ {produto?.precoAnterior.toLocaleString('pt-br')}
+                {formatMoney(Number(produto?.precoAnterior))}
               </p>
-              <h1 className="font-bold text-3xl">R$ {produto?.preco}</h1>
+              <h1 className="font-bold text-3xl">{formatMoney(Number(produto?.preco))}</h1>
               <span className="text-color-gray-text text-xs flex items-center gap-1 mt-2">
                 <BsCreditCard2Back />
-                até 8x R$ {Number(produto?.preco) / 8}
+                até 8x {formatMoney(Number(produto?.preco)/8)}
               </span>
             </div>
 
@@ -162,7 +163,7 @@ export function Produto() {
               <button
                 type="submit"
                 className=" font-bold w-2/3 justify-center  gap-2 inline-flex items-center py-2.5 px-3 text-xl text-white bg-background-secundary border border-gray-400 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg"
-                onClick={()=>{handleCart(produto)}}
+                onClick={()=>{handleCart(produto, fotos)}}
               >
                 Adicionar ao carrinho
               </button>
@@ -190,7 +191,7 @@ export function Produto() {
         <div>
           <h2 className="font-bold text-xl">Informações do produto</h2>
         </div>
-        <div className="py-8 border-t-2">{product?.descricao}</div>
+        <div className="py-8 border-t-2">{produto?.descricao}</div>
       </div>
 
       <div
