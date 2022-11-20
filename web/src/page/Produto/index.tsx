@@ -7,6 +7,7 @@ import { CarouselProduto } from "../../components/CarouselProduto";
 import { MultCarousel } from "../../components/MultCarousel";
 import { Context } from "../../Context/AuthContext";
 import { useCart } from "../../hooks/useCart";
+import api from "../../api/api_product";
 
 
 interface PropsProduct {

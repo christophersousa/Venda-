@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../../api/api";
+import api from "../../api/api_product";
 import { Carousel } from "../../components/Carousel";
 import { ListaTiposProdutos } from "../../components/ListaTiposProdutos";
 import { TipoProduto } from "../../interfaces/TipoProduto";

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import api from "../../api/api";
+import api from "../../api/api_product";
+import { useCart } from "../../hooks/useCart";
 
 interface ProxyCard{
     name: string;
@@ -15,6 +16,7 @@ function byteToBlob(photo: string){
     return imageUrl
 }
   
+
 export function Card({ name, id, valor_anterior, valor}:ProxyCard){
     const [foto, setFoto] = useState<string>();
 
@@ -30,7 +32,6 @@ export function Card({ name, id, valor_anterior, valor}:ProxyCard){
   
   }, [])
 
-export function Card({ name, urlImg, valor_anterior, valor}:ProxyCard){
     const {formatMoney} = useCart()
     return(
         <a href="#" className="flex justify-center h-full">
