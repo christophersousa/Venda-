@@ -47,6 +47,7 @@ public class ProductService {
         productDto.setEstoque(product.getEstoque());
         productDto.setTipoId(product.getType().getId());
         productDto.setEmpresaId(product.getCompany().getId());
+
         return productDto;
     }
 
@@ -117,5 +118,9 @@ public class ProductService {
             throw new CustomException("foto não existe");
         }
         return optionalPhoto.get().getImgBytes();
+    }
+
+    public @NotNull List<Photo> getProductPhotos() {
+        return photoRepository.findAll();
     }
 }
