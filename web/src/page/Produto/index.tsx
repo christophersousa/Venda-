@@ -24,7 +24,6 @@ interface Ficha{
   Garantia: string
 }
 
-
 export function Produto() {
   const { product, handleCart } = useContext(Context);
   const [produto, setProduto] = useState<PropsProduct>();
@@ -178,7 +177,7 @@ export function Produto() {
           <h2 className="font-bold text-xl">Você também pode gostar disso</h2>
         </div>
         <div className="py-8 border-t-2">
-          <MultCarousel />
+          {/* <MultCarousel /> */}
         </div>
       </div>
 

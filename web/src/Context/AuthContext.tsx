@@ -43,7 +43,7 @@ interface ProposContext {
   handleLogin: (data: PropsLoginUser) => Promise<void>;
   handleLogout: () => void;
   handleProduct: (data: PropsProduct) => void;
-  product: PropsProduct;
+  product: PropsProduct | null | undefined;
   cart: PropsProduct[];
   handleCart: (data?: PropsProduct) => void;
 }
