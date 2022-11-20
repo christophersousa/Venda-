@@ -61,6 +61,12 @@ public class ProductController {
 
     }
 
+    @GetMapping("/list/type/{typeId}")
+    public List<ProductDto> getAllProductsByTypeId(@PathVariable("typeId") int typeId){
+        return productService.getAllProductsByTypeId(typeId);
+
+    }
+
     @PostMapping("/{productId}/uploadPhoto")
     public ResponseEntity<ApiResponse> uploadPhoto(@RequestParam MultipartFile photo, int productId) throws Exception {
         if(!productService.findById(productId)){

@@ -18,8 +18,6 @@ public class ProductDto {
 
     private @NotNull Integer estoque;
 
-    private byte[] foto;
-
     public Integer getEstoque() {
         return estoque;
     }
@@ -96,11 +94,4 @@ public class ProductDto {
         this.empresaId = empresaId;
     }
 
-    public byte[] getFoto() {
-        return foto;
-    }
-
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
 }

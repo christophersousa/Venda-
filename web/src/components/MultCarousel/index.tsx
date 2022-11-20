@@ -30,14 +30,14 @@ interface PropsProduct {
 }
 
 
-export function MultCarousel() {
+export function MultCarousel({tipoProduto}:any) {
   const { handleProduct } = useContext(Context);
   const [produtos, setProdutos] = useState<PropsProduct[]>([]);
 
   const { backToTop } = useScroll();
 
   useEffect(() => {
-    api.get('/produto/list')
+    api.get(`/produto/list/type/${tipoProduto}`)
       .then(function(response){
         let produtosData = response.data;
         setProdutos(produtosData)

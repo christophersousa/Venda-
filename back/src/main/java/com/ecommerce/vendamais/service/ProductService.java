@@ -49,16 +49,22 @@ public class ProductService {
         productDto.setTipoId(product.getType().getId());
         productDto.setEmpresaId(product.getCompany().getId());
 
-        byte[] foto = photoRepository.findByProduct_Id(product.getId()).getImgBytes();
-
-        productDto.setFoto(foto);
-
         return productDto;
     }
 
     public List<ProductDto> getAllProducts(){
         List<Product> allProducts = productRepository.findAll();
 
+        List<ProductDto> productDtos = new ArrayList<>();
+        for(Product product: allProducts){
+            productDtos.add(getProductDto(product));
+        }
+        return productDtos;
+    }
+
+    @Transactional
+    public List<ProductDto> getAllProductsByTypeId(int typeId) {
+        List<Product> allProducts = productRepository.findAllByTypeId(typeId);
         List<ProductDto> productDtos = new ArrayList<>();
         for(Product product: allProducts){
             productDtos.add(getProductDto(product));
@@ -128,4 +134,5 @@ public class ProductService {
     public @NotNull List<Photo> getProductPhotos() {
         return photoRepository.findAll();
     }
+
 }
