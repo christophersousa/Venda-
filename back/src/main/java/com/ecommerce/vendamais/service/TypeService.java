@@ -23,6 +23,6 @@ public class TypeService {
     }
 
     public List<Type> listType(){
-        return typeRepository.findAllByOrderByCategory_IdAscNomeAsc();
+        return typeRepository.findAll();
     }
 }
