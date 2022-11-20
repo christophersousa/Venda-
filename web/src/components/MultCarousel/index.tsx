@@ -33,7 +33,6 @@ interface PropsProduct {
 export function MultCarousel() {
   const { handleProduct } = useContext(Context);
   const [produtos, setProdutos] = useState<PropsProduct[]>([]);
-  const [fotos, setFotos] = useState<string[]>([]);
 
   const { backToTop } = useScroll();
 
@@ -44,21 +43,6 @@ export function MultCarousel() {
         setProdutos(produtosData)
       })
   }, []);
-
-  useEffect(() => {
-    produtos.map(element => {
-      api.get(`/produto/${element.id}/download`,
-          { responseType: 'arraybuffer' })
-            .then(response => response.data) 
-            .then(data => {
-              const imageBytes = data
-              let blob = new Blob([imageBytes], { type: "image/jpeg" });
-              let imageUrl = URL.createObjectURL(blob);
-              setFotos([...fotos, imageUrl])
-            })
-    })
-  
-  }, [produtos])
 
   return (
     <Carousel
@@ -81,8 +65,6 @@ export function MultCarousel() {
     >
       
       {produtos.map((resource, index) => {
-        resource.foto = fotos[index];
-
         return (
           <Link
             key={index}
@@ -94,7 +76,7 @@ export function MultCarousel() {
           >
             <Card
               name={resource.nome}
-              urlImg={resource.foto}
+              id={resource.id}
               valor_anterior={resource.precoAnterior}
               valor={resource.preco}
             />

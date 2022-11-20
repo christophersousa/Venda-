@@ -39,7 +39,7 @@ export function Produto() {
   }, [])
 
   useEffect(() => {
-    api.get(`/produto/${produtoId}/download`,
+    api.get(`/produto/${produtoId}/downloadPhoto`,
           { responseType: 'arraybuffer' })
             .then(response => response.data) 
             .then(data => {

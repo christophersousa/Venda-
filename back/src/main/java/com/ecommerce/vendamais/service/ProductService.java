@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,6 +48,10 @@ public class ProductService {
         productDto.setEstoque(product.getEstoque());
         productDto.setTipoId(product.getType().getId());
         productDto.setEmpresaId(product.getCompany().getId());
+
+        byte[] foto = photoRepository.findByProduct_Id(product.getId()).getImgBytes();
+
+        productDto.setFoto(foto);
 
         return productDto;
     }

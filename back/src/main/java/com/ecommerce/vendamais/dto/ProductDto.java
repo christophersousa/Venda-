@@ -1,5 +1,7 @@
 package com.ecommerce.vendamais.dto;
 
+import com.ecommerce.vendamais.model.Photo;
+
 import javax.validation.constraints.NotNull;
 
 public class ProductDto {
@@ -15,6 +17,8 @@ public class ProductDto {
     private @NotNull String marca;
 
     private @NotNull Integer estoque;
+
+    private byte[] foto;
 
     public Integer getEstoque() {
         return estoque;
@@ -90,5 +94,13 @@ public class ProductDto {
 
     public void setEmpresaId(Integer empresaId) {
         this.empresaId = empresaId;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 }
