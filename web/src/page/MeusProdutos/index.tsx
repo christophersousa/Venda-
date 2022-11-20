@@ -1,8 +1,32 @@
 import { Input, Select, Option, Button } from "@material-tailwind/react";
+import { useContext, useEffect, useState } from "react";
 import { BsCalendar3, BsCurrencyDollar } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { PropsProduct } from "../../interfaces/Product";
+import api_product from "../../api/api_product";
+import { Context } from "../../Context/AuthContext";
+import { Card } from "../../components/Card";
+import { useScroll } from "../../hooks/useScroll";
 
 export function MeusProdutos() {
+
+  const{use} = useContext(Context)
+  const { handleProduct } = useContext(Context);
+  const [produtos, setProdutos] = useState<PropsProduct[]>([]);
+
+  const { backToTop } = useScroll();
+
+  useEffect(() => {
+
+    api_product.get(`/produto/listMyProducts?token=${use?.token}`)
+      .then(function(response){
+        let produtosData = response.data;
+        setProdutos(produtosData)
+      })
+  }, []);
+
+  console.log(produtos)
+
   return (
     <div>
       <div className=" bg-white m-margin-container w-full p-padding-container">
@@ -80,7 +104,26 @@ export function MeusProdutos() {
                         Cadastrar produto
                     </Link>
                 </div>
-                <div className="py-8 border-t-2">
+                <div className="flex flex-wrap gap-4 py-8 border-t-2">
+                  {produtos.map((resource, key) =>{
+                    return (
+                      <Link
+                        key={key}
+                        to={`/produto/${resource.id}`}
+                        onClick={() => {
+                          backToTop();
+                          handleProduct(resource);
+                        }}
+                      >
+                        <Card
+                          name={resource.nome}
+                          id={resource.id}
+                          valor_anterior={resource.precoAnterior}
+                          valor={resource.preco}
+                        />
+                      </Link>
+                    );
+                  })}
                 </div>
             </div>
 

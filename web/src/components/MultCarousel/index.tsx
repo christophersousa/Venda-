@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import api from "../../api/api_product";
 import { Context } from "../../Context/AuthContext";
 import { useScroll } from "../../hooks/useScroll";
+import { PropsProduct } from "../../interfaces/Product";
 import { Card } from "../Card";
 
 const responsive = {
@@ -19,15 +20,6 @@ const responsive = {
   },
 };
 
-interface PropsProduct {
-  id: number;
-  nome: string;
-  descricao: string;
-  precoAnterior: number;
-  preco: number;
-  marca: string;
-  foto: string;
-}
 
 
 export function MultCarousel({tipoProduto}:any) {

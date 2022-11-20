@@ -49,6 +49,17 @@ public class ProductController {
         return new ResponseEntity<>(new ApiResponse(true, "produto adicionado com sucesso"), HttpStatus.CREATED);
     }
 
+    @GetMapping("/listMyProducts")
+    public ResponseEntity<List<ProductDto>> listMyProducts(@RequestParam("token") String token){
+        authenticationService.authenticate(token);
+
+        Company company = authenticationService.getCompany(token);
+        System.out.println("*********** produtos *******" + company);
+        List<ProductDto> products = productService.getAllProductsByCompany(company);
+        System.out.println("*********** produtos *******" + products);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
     @GetMapping("/list")
     public ResponseEntity<List<ProductDto>> getProducts(){
         List<ProductDto> products = productService.getAllProducts();

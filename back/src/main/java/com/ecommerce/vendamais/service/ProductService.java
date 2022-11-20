@@ -61,6 +61,15 @@ public class ProductService {
         }
         return productDtos;
     }
+    @Transactional
+    public List<ProductDto> getAllProductsByCompany(Company company){
+        List<Product> allProducts = productRepository.findAllByCompany(company);
+        List<ProductDto> productDtos = new ArrayList<>();
+        for(Product product: allProducts){
+            productDtos.add(getProductDto(product));
+        }
+        return productDtos;
+    }
 
     @Transactional
     public List<ProductDto> getAllProductsByTypeId(int typeId) {
