@@ -3,6 +3,7 @@ package com.ecommerce.vendamais.controller;
 import com.ecommerce.vendamais.dto.ProductDto;
 import com.ecommerce.vendamais.common.ApiResponse;
 import com.ecommerce.vendamais.model.Company;
+import com.ecommerce.vendamais.model.Photo;
 import com.ecommerce.vendamais.model.Type;
 import com.ecommerce.vendamais.repository.PhotoRepository;
 import com.ecommerce.vendamais.repository.TypeRepository;
@@ -60,7 +61,13 @@ public class ProductController {
 
     }
 
-    @PostMapping("/{productId}/upload")
+    @GetMapping("/list/type/{typeId}")
+    public List<ProductDto> getAllProductsByTypeId(@PathVariable("typeId") int typeId){
+        return productService.getAllProductsByTypeId(typeId);
+
+    }
+
+    @PostMapping("/{productId}/uploadPhoto")
     public ResponseEntity<ApiResponse> uploadPhoto(@RequestParam MultipartFile photo, int productId) throws Exception {
         if(!productService.findById(productId)){
             return new ResponseEntity<>(new ApiResponse(false, "produto não existe"), HttpStatus.NOT_FOUND);
@@ -69,10 +76,14 @@ public class ProductController {
         return new ResponseEntity<>(new ApiResponse(true, "foto do produto salva com sucesso"), HttpStatus.OK);
     }
 
-    @GetMapping("/{productId}/download")
+    @GetMapping("/{productId}/downloadPhoto")
     public @NotNull byte[] getProductPhotoById(@PathVariable("productId") int productId){
         return productService.getProductPhotoById(productId);
+    }
 
+    @GetMapping("/getProductPhotos")
+    public @NotNull List<Photo> getProductPhotos(){
+        return productService.getProductPhotos();
     }
 
 

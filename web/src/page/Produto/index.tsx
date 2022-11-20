@@ -41,7 +41,7 @@ export function Produto() {
   }, [])
 
   useEffect(() => {
-    api_product.get(`/produto/${produtoId}/download`,
+    api.get(`/produto/${produtoId}/downloadPhoto`,
           { responseType: 'arraybuffer' })
             .then(response => response.data)
             .then(data => {
@@ -53,7 +53,6 @@ export function Produto() {
 
 
   }, [produto])
-  console.log(produtoId)
   return (
     <div>
       <Breadcrumbs className="m-margin-container">

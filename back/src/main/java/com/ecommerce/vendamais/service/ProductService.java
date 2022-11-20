@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,12 +48,23 @@ public class ProductService {
         productDto.setEstoque(product.getEstoque());
         productDto.setTipoId(product.getType().getId());
         productDto.setEmpresaId(product.getCompany().getId());
+
         return productDto;
     }
 
     public List<ProductDto> getAllProducts(){
         List<Product> allProducts = productRepository.findAll();
 
+        List<ProductDto> productDtos = new ArrayList<>();
+        for(Product product: allProducts){
+            productDtos.add(getProductDto(product));
+        }
+        return productDtos;
+    }
+
+    @Transactional
+    public List<ProductDto> getAllProductsByTypeId(int typeId) {
+        List<Product> allProducts = productRepository.findAllByTypeId(typeId);
         List<ProductDto> productDtos = new ArrayList<>();
         for(Product product: allProducts){
             productDtos.add(getProductDto(product));
@@ -118,4 +130,9 @@ public class ProductService {
         }
         return optionalPhoto.get().getImgBytes();
     }
+
+    public @NotNull List<Photo> getProductPhotos() {
+        return photoRepository.findAll();
+    }
+
 }
