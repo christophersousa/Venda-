@@ -1,9 +1,11 @@
 package com.ecommerce.vendamais.controller;
 
+import com.ecommerce.vendamais.common.ApiResponseProduct;
 import com.ecommerce.vendamais.dto.ProductDto;
 import com.ecommerce.vendamais.common.ApiResponse;
 import com.ecommerce.vendamais.model.Company;
 import com.ecommerce.vendamais.model.Photo;
+import com.ecommerce.vendamais.model.Product;
 import com.ecommerce.vendamais.model.Type;
 import com.ecommerce.vendamais.repository.PhotoRepository;
 import com.ecommerce.vendamais.repository.TypeRepository;
@@ -35,7 +37,7 @@ public class ProductController {
     @Autowired
     AuthenticationService authenticationService;
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createProduct(@RequestBody ProductDto productDto,
+    public ResponseEntity<ApiResponseProduct> createProduct(@RequestBody ProductDto productDto,
                                                      @RequestParam("token") String token){
         authenticationService.authenticate(token);
 
@@ -43,10 +45,10 @@ public class ProductController {
 
         Optional<Type> type = typeRepository.findById(productDto.getTipoId());
         if(!type.isPresent()){
-            return new ResponseEntity<>(new ApiResponse(false, "tipo do produto não existe"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponseProduct(false, "tipo do produto não existe", 0), HttpStatus.BAD_REQUEST);
         }
-        productService.createProduct(productDto, type.get(), company);
-        return new ResponseEntity<>(new ApiResponse(true, "produto adicionado com sucesso"), HttpStatus.CREATED);
+        Product product = productService.createProduct(productDto, type.get(), company);
+        return new ResponseEntity<>(new ApiResponseProduct(true, "produto adicionado com sucesso", product.getId()), HttpStatus.CREATED);
     }
 
     @GetMapping("/listMyProducts")
@@ -79,7 +81,8 @@ public class ProductController {
     }
 
     @PostMapping("/{productId}/uploadPhoto")
-    public ResponseEntity<ApiResponse> uploadPhoto(@RequestParam MultipartFile photo, int productId) throws Exception {
+    public ResponseEntity<ApiResponse> uploadPhoto(@RequestParam MultipartFile photo, @PathVariable("productId") int productId) throws Exception {
+        System.out.println("id do produto " + productId);
         if(!productService.findById(productId)){
             return new ResponseEntity<>(new ApiResponse(false, "produto não existe"), HttpStatus.NOT_FOUND);
         }

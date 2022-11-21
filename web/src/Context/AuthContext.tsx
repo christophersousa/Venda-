@@ -3,6 +3,7 @@ import { createContext, useState, useEffect, ReactNode } from "react";
 import useAuth from "../hooks/useAuth";
 import { useCart } from "../hooks/useCart";
 import useProduct from "../hooks/useProduct";
+import { PropsProduct } from "../interfaces/Product";
 interface IRouterContextProps {
   children: ReactNode;
 }
@@ -20,21 +21,7 @@ interface PropsLoginUser {
   password: string;
 }
 
-interface Ficha {
-  codigo: string;
-  codigo_barras: string;
-  Garantia: string;
-}
 
-interface PropsProduct {
-  id: number;
-  nome: string;
-  descricao: string;
-  precoAnterior: number;
-  preco: number;
-  marca: string;
-  fotos: string[];
-}
 
 interface ProposContext {
   use: User | null | undefined;

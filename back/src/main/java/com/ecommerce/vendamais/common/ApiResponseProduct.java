@@ -2,12 +2,13 @@ package com.ecommerce.vendamais.common;
 
 import java.time.LocalDateTime;
 
-public class ApiResponse {
+public class ApiResponseProduct {
     private final boolean success;
     private final String message;
+    private final Integer idProduct;
 
-    public ApiResponse(boolean success, String message ) {
-
+    public ApiResponseProduct(boolean success, String message, Integer idProduct ) {
+        this.idProduct = idProduct;
         this.success = success;
         this.message = message;
     }
@@ -18,6 +19,10 @@ public class ApiResponse {
 
     public String getMessage() {
         return message;
+    }
+
+    public Integer getIdProduct() {
+        return idProduct;
     }
 
     public String getTimestamp() {

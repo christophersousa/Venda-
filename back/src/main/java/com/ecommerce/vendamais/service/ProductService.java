@@ -24,7 +24,7 @@ public class ProductService {
     @Autowired
     PhotoRepository photoRepository;
 
-    public void createProduct(ProductDto productDto, Type type, Company company){
+    public Product createProduct(ProductDto productDto, Type type, Company company){
         Product product = new Product();
         product.setNome(productDto.getNome());
         product.setDescricao(productDto.getDescricao());
@@ -34,7 +34,7 @@ public class ProductService {
         product.setEstoque(productDto.getEstoque());
         product.setType(type);
         product.setCompany(company);
-        productRepository.save(product);
+        return productRepository.save(product);
     }
 
     public ProductDto getProductDto(Product product){

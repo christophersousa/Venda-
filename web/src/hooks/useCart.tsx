@@ -1,19 +1,6 @@
 import { useState } from "react";
-interface PropsProduct {
-  id: number;
-  nome: string;
-  descricao: string;
-  precoAnterior: number;
-  preco: number;
-  marca: string;
-  fotos: string[];
-}
+import { PropsProduct } from "../interfaces/Product";
 
-interface Ficha {
-  codigo: string;
-  codigo_barras: string;
-  Garantia: string;
-}
 
 export function useCart() {
   const [cart, setCart] = useState<PropsProduct[]>([]);
