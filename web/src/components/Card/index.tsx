@@ -16,7 +16,7 @@ function byteToBlob(photo: string){
     let imageUrl = URL.createObjectURL(blob);
     return imageUrl
 }
-  
+
 
 export function Card({ name, id, valor_anterior, valor}:ProxyCard){
     const [foto, setFoto] = useState<string>();
@@ -24,24 +24,26 @@ export function Card({ name, id, valor_anterior, valor}:ProxyCard){
     useEffect(() => {
       api.get(`/produto/${id}/downloadPhoto`,
           { responseType: 'arraybuffer' })
-            .then(response => response.data) 
+            .then(response => response.data)
             .then(data => {
               const imageUrl = byteToBlob(data);
               setFoto(imageUrl);
             })
-    
-  
+
+
   }, [])
 
     const {formatMoney} = useCart()
     return(
-        <a href="#" className="flex justify-center h-full">
-            <div className="rounded-lg shadow-lg bg-white max-w-sm flex flex-col justify-between">
-                <img className="rounded-t-lg" src={foto} alt=""/>
+        <a href="#" className="flex justify-center h-[28rem] ">
+            <div className="rounded-lg shadow-lg bg-white max-w-sm flex flex-col justify-between py-6 px-4 w-[20rem]">
+                <div className=" flex h-[80%] justify-center mt-3">
+                    <img className="rounded-t-lg max-h-[15rem]" src={foto} alt=""/>
+                </div>
                 <div className="p-6">
                     <h5 className="text-gray-900 text-xs font-medium mb-2">{name}</h5>
                     <p className="text-color-gray-text text-xs mt-4 line-through">
-                        {formatMoney(valor_anterior)}
+                        {valor_anterior === 0 ? '' : formatMoney(valor_anterior)}
                     </p>
                     <h1 className="font-bold text-lg">{formatMoney(valor)}</h1>
                 </div>

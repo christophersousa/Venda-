@@ -1,7 +1,10 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import api_product from "../../api/api_product";
+import { CardCart } from "../../components/CardCart";
 import { Context } from "../../Context/AuthContext";
 import { useCart } from "../../hooks/useCart";
+import { PropsCart } from "../../interfaces/Carrinho";
 
 const envio = {
   "Standard shipping": 10,
@@ -9,19 +12,29 @@ const envio = {
   "express": 40,
 }
 
+
+
+
 export function Carrinho() {
 
   const [metodoEnvio, setMetodoEnvio] = useState<number>(envio["Standard shipping"])
+  const [produtoCarrinho, setProdutoCarrinho] = useState<PropsCart>();
 
   const selectValue = useRef<HTMLSelectElement>(null)
 
-  const { cart } = useContext(Context);
+  const { use } = useContext(Context);
   const {formatMoney} = useCart()
-  console.log(cart);
 
-  let value = 0
+  useEffect(() => {
+    api_product.get(`/carrinho/?token=${use?.token}`,
+    )
+    .then(response => response.data)
+    .then(data => {
+      setProdutoCarrinho(data)
+    })
 
-  cart.forEach((e)=>{ value += e.preco})
+  }, [])
+
 
   return (
     <div>
@@ -30,7 +43,7 @@ export function Carrinho() {
           <div className="w-3/4 bg-white px-10 py-10">
             <div className="flex justify-between border-b pb-8">
               <h1 className="font-semibold text-2xl">Carrinho</h1>
-              <h2 className="font-semibold text-2xl">{cart.length} Itens</h2>
+              <h2 className="font-semibold text-2xl">{produtoCarrinho?.cartItems.length} Itens</h2>
             </div>
             <div className="flex mt-10 mb-5">
               <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
@@ -47,58 +60,12 @@ export function Carrinho() {
               </h3>
             </div>
 
-            {cart.map((response, key) => {
-              return (
-                <div
-                  className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5"
-                  key={key}
-                >
-                  <div className="flex w-2/5">
-                  <div>
-                      <img
-                        src={response.fotos[0]}
-                        alt=""
-                      />
-                    </div>
-                    <div className="flex flex-col justify-between ml-4 flex-grow">
-                      <span className="font-bold text-sm">
-                        {response.nome}
-                      </span>
-                      <span className="text-red-500 text-xs">{response.marca}</span>
-                      <a
-                        className="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer"
-                      >
-                        Remove
-                      </a>
-                    </div>
-                  </div>
-                  <div className="flex justify-center w-1/5">
-                    <svg
-                      className="fill-current text-gray-600 w-3"
-                      viewBox="0 0 448 512"
-                    >
-                      <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-                    </svg>
-
-                    <input
-                      className="mx-2 border text-center w-8"
-                      type="text"
-                      value="1"
-                    />
-
-                    <svg
-                      className="fill-current text-gray-600 w-3"
-                      viewBox="0 0 448 512"
-                    >
-                      <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-                    </svg>
-                  </div>
-                  <span className="text-center w-1/5 font-semibold text-sm">R$ {formatMoney(response.preco)}</span>
-                  <span className="text-center w-1/5 font-semibold text-sm">
-                    R$ {formatMoney(response.preco)}
-                  </span>
-                </div>
-              );
+            {produtoCarrinho?.cartItems.map((response, key) => {
+              return <CardCart
+                    id={response.produto.id}
+                    nome={response.produto.nome}
+                    marca={response.produto.marca}
+                    preco={response.produto.preco}/>
             })}
 
 
@@ -122,8 +89,8 @@ export function Carrinho() {
               Resumo do pedido
             </h1>
             <div className="flex justify-between mt-10 mb-5">
-              <span className="font-semibold text-sm uppercase">Itens {cart.length}</span>
-              <span className="font-semibold text-sm">R$ {formatMoney(value)}</span>
+              <span className="font-semibold text-sm uppercase">Itens {produtoCarrinho?.cartItems.length}</span>
+              <span className="font-semibold text-sm">{formatMoney(Number(produtoCarrinho?.valorTotal))}</span>
             </div>
             <div>
               <label className="font-medium inline-block mb-3 text-sm uppercase">
@@ -140,7 +107,7 @@ export function Carrinho() {
             <div className="border-t mt-8">
               <div className="flex font-semibold justify-between py-6 text-sm uppercase">
                 <span>Custo total</span>
-                <span>{formatMoney(metodoEnvio + value)}</span>
+                <span>{formatMoney(Number(produtoCarrinho?.valorTotal))}</span>
               </div>
               <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
                 Confirmar

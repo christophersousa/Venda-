@@ -38,3 +38,9 @@ body {
 .carousel .thumb.selected, .carousel .thumb:hover {
   border: 3px solid #F34401 !important;
 }
+
+.carousel-root{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

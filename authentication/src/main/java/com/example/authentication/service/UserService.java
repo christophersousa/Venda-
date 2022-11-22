@@ -7,8 +7,11 @@ import com.example.authentication.dto.SignInResponseDto;
 import com.example.authentication.dto.SignUpUserDto;
 import com.example.authentication.exceptions.AuthenticationFailException;
 import com.example.authentication.exceptions.CustomException;
+import com.example.authentication.model.AuthCompanyToken;
 import com.example.authentication.model.AuthUserToken;
+import com.example.authentication.model.Company;
 import com.example.authentication.model.User;
+import com.example.authentication.repository.CompanyRepository;
 import com.example.authentication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,9 @@ import java.util.Objects;
 public class UserService {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CompanyRepository companyRepository;
 
     @Autowired
     AuthenticationService authenticationService;
@@ -87,6 +93,48 @@ public class UserService {
         }
 
         return new SignInResponseDto("sucess", token.getToken(), user);
+
+    }
+
+    public SignInResponseDto signin2(SignInDto signInDto) {
+        User user = userRepository.findByEmail(signInDto.getEmail());
+        if(!Objects.isNull(user) ){
+            try{
+                if(!user.getSenha().equals(hashPassword(signInDto.getPassword()))){
+                    throw new AuthenticationFailException("senha inválida");
+                }
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+
+            AuthUserToken token = authenticationService.getToken(user);
+            if(Objects.isNull(token)){
+                throw new CustomException("token inválido");
+            }
+
+            return new SignInResponseDto("sucess", token.getToken(), user);
+        }else{
+            Company company = companyRepository.findByEmail(signInDto.getEmail());
+
+            if(Objects.isNull(company)){
+                throw new AuthenticationFailException("Usuario não cadastrada");
+            }
+
+            try{
+                if(!company.getPassword().equals(hashPassword(signInDto.getPassword()))){
+                    throw new AuthenticationFailException("senha inválida");
+                }
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+
+            AuthCompanyToken token = authenticationService.getToken(company);
+            if(Objects.isNull(token)){
+                throw new CustomException("token inválido");
+            }
+
+            return new SignInResponseDto("sucess", token.getToken(), company);
+        }
 
     }
 }

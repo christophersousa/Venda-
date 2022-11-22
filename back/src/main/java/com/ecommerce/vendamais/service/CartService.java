@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 @Service
 public class CartService {
     @Autowired
@@ -25,7 +27,7 @@ public class CartService {
     public void addToCart(AddToCartDto addToCartDto, User user) {
         Product produto = productService.getProductById(addToCartDto.getProdutoId());
 
-        if(addToCartDto.getQuantidade() < 1){
+        if (addToCartDto.getQuantidade() < 1) {
             throw new CustomException("Quantidade de produtos deve ser maior que 0");
         }
 
@@ -37,11 +39,13 @@ public class CartService {
         cartRepository.save(cart);
     }
 
+    @Transactional
     public CartDto listCardItems(User user) {
         List<Cart> cartList = cartRepository.findAllByUsuario(user);
         List<CartItemDto> cartItems = new ArrayList<>();
+
         double totalCost = 0;
-        for(Cart cart : cartList){
+        for (Cart cart : cartList) {
             CartItemDto cartItemDto = new CartItemDto(cart);
             cartItems.add(cartItemDto);
             totalCost += cartItemDto.getQuantidade() * cartItemDto.getProduto().getPreco();
@@ -55,13 +59,13 @@ public class CartService {
     public void deleteCartItem(Integer cartItemId, User user) {
         Optional<Cart> optionalCart = cartRepository.findById(cartItemId);
 
-        if(optionalCart.isEmpty()){
-            throw  new CustomException("id do produto é inválido: " + cartItemId);
+        if (optionalCart.isEmpty()) {
+            throw new CustomException("id do produto é inválido: " + cartItemId);
         }
 
         Cart cart = optionalCart.get();
 
-        if(cart.getUsuario() != user){
+        if (cart.getUsuario() != user) {
             throw new CustomException("item do carrinho não pertence ao usuário");
         }
 
@@ -71,13 +75,13 @@ public class CartService {
     public void incrementCartItem(Integer itemId, User user) {
         Optional<Cart> optionalCart = cartRepository.findById(itemId);
 
-        if(optionalCart.isEmpty()){
-            throw  new CustomException("id do produto é inválido: " + itemId);
+        if (optionalCart.isEmpty()) {
+            throw new CustomException("id do produto é inválido: " + itemId);
         }
 
         Cart cart = optionalCart.get();
 
-        if(cart.getUsuario() != user){
+        if (cart.getUsuario() != user) {
             throw new CustomException("item do carrinho não pertence ao usuário");
         }
 

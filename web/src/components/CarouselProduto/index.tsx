@@ -11,19 +11,19 @@ interface PropsImg{
 export function CarouselProduto({img1, img2, img3}:PropsImg){
     return(
                 <Carousel width={"35rem"}>
-                    <div className= " h-[35rem] overflow-hidden">
+                    <div className= " h-full overflow-hidden">
                         <img
                         src={img1}
                         className="block h-full object-cover"
                         />
                     </div>
-                    <div className= " h-[35rem] overflow-hidden">
+                    <div className= " h-full overflow-hidden">
                         <img
                         src={img2}
                         className="block h-full object-cover"
                         />
                     </div>
-                    <div className= " h-[35rem] overflow-hidden">
+                    <div className= " h-full overflow-hidden">
                         <img
                         src={img3}
                         className="block h-full object-cover"

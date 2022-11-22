@@ -32,7 +32,7 @@ interface ProposContext {
   handleProduct: (product: PropsProduct) => void;
   product: PropsProduct;
   cart: PropsProduct[];
-  handleCart: (data?: PropsProduct, fotos?: string[]) => void;
+  handleCart: (data?: PropsProduct) => void;
 }
 
 const Context = createContext({} as ProposContext);

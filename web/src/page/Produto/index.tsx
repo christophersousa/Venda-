@@ -8,27 +8,13 @@ import { MultCarousel } from "../../components/MultCarousel";
 import { Context } from "../../Context/AuthContext";
 import { useCart } from "../../hooks/useCart";
 import api from "../../api/api_product";
+import { PropsProduct } from "../../interfaces/Product";
 
 
-interface PropsProduct {
-  id: number;
-  nome: string;
-  descricao: string;
-  precoAnterior: number;
-  preco: number;
-  marca: string;
-  foto: string;
-}
-
-interface Ficha{
-  codigo: string;
-  codigo_barras: string;
-  Garantia: string
-}
 
 export function Produto() {
-  const { product, handleCart } = useContext(Context);
-  const {formatMoney} = useCart()
+  const { product, use } = useContext(Context);
+  const {formatMoney, handleCart} = useCart()
   const [produto, setProduto] = useState<PropsProduct>();
   const [fotos, setFotos] = useState<string[]>([]);
   const {produtoId} = useParams()
@@ -53,7 +39,6 @@ export function Produto() {
 
 
   }, [produto])
-  console.log(produtoId)
   return (
     <div>
       <Breadcrumbs className="m-margin-container">
@@ -164,7 +149,7 @@ export function Produto() {
               <button
                 type="submit"
                 className=" font-bold w-2/3 justify-center  gap-2 inline-flex items-center py-2.5 px-3 text-xl text-white bg-background-secundary border border-gray-400 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg"
-                onClick={()=>{handleCart(produto, fotos)}}
+                onClick={()=>{handleCart(produto)}}
               >
                 Adicionar ao carrinho
               </button>

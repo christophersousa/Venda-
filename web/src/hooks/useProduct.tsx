@@ -14,7 +14,7 @@ export default function useProduct() {
   }
 
   function createProduct(product: PropsProductRegister){
-    console.log("Produto cadastrado : " + Number(product.tipoId));
+    console.log(use?.token)
       api_product.post(`/produto/create?token=${use?.token}`,{
         headers: {
             'Content-Type': 'application/jsoWn',
