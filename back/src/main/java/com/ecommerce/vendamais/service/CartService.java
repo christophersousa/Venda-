@@ -40,7 +40,7 @@ public class CartService {
     }
 
     @Transactional
-    public CartDto listCardItems(User user) {
+    public CartDto listCartItems(User user) {
         List<Cart> cartList = cartRepository.findAllByUsuario(user);
         List<CartItemDto> cartItems = new ArrayList<>();
 
@@ -87,5 +87,9 @@ public class CartService {
 
         cart.setQuantidade(cart.getQuantidade() + 1);
         cartRepository.save(cart);
+    }
+
+    public void deleteUserCartItems(User user) {
+        cartRepository.deleteByUsuario(user);
     }
 }

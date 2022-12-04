@@ -1,7 +1,6 @@
 package com.ecommerce.vendamais.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "carrinho")
@@ -10,8 +9,6 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "created_date")
-    private Date createdDate;
     @ManyToOne
     @JoinColumn(name = "produto_id")
     private Product produto;
