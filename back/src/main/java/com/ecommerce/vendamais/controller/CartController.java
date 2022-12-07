@@ -37,7 +37,7 @@ public class CartController {
 
         User user = authenticationService.getUser(token);
 
-        CartDto cartDto = cartService.listCardItems(user);
+        CartDto cartDto = cartService.listCartItems(user);
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
 
