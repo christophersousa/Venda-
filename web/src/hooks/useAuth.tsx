@@ -2,16 +2,11 @@ import { useState, useEffect } from 'react';
 import { decodeToken } from 'react-jwt';
 
 import api from '../api/api.js';
+import { User } from '../interfaces/User.js';
 
 
 
-interface User{
-    id: number,
-    nome: string,
-    email: string,
-    token: string,
-    status: string,
-}
+
 
 interface PropsLoginUser{
     email: string;

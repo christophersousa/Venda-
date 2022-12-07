@@ -27,15 +27,41 @@ export function useCart() {
   });
   }
 
-  function handleRemoveCart(data: PropsProduct) {
-    const newList = cart.filter((item) => item !== data);
+  function handleRemoveCart(itemId: number) {
+    api_product.delete(`/carrinho/delete/${itemId}?token=${use?.token}`,{
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': true,
+        },
+    }).then((response) => {
 
-    setCart(newList);
+        console.log("sucesso", response);
+        window.location.href = "/carrinho"
+    }).catch((error) => {
+        console.log("erro: " + error);
+        return error.message
+    });
+  }
+
+  function handleUpdateCart(itemId: number){
+      api_product.post(`/carrinho/update/${itemId}?token=${use?.token}`,{
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': true,
+        },
+    }).then((response) => {
+
+        console.log("sucesso", response);
+        window.location.href = "/carrinho"
+    }).catch((error) => {
+        console.log("erro: " + error);
+        return error.message
+    });
   }
 
   function formatMoney(amount: number){
     return amount.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
   }
 
-  return { cart, handleCart, formatMoney, handleRemoveCart };
+  return { cart, handleCart, formatMoney, handleRemoveCart, handleUpdateCart };
 }

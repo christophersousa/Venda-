@@ -4,17 +4,11 @@ import useAuth from "../hooks/useAuth";
 import { useCart } from "../hooks/useCart";
 import useProduct from "../hooks/useProduct";
 import { PropsProduct } from "../interfaces/Product";
+import { User } from "../interfaces/User";
 interface IRouterContextProps {
   children: ReactNode;
 }
 
-interface User {
-  id: number;
-  nome: string;
-  email: string;
-  token: string;
-  status: string;
-}
 
 interface PropsLoginUser {
   email: string;

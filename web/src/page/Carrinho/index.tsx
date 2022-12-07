@@ -62,10 +62,14 @@ export function Carrinho() {
 
             {produtoCarrinho?.cartItems.map((response, key) => {
               return <CardCart
-                    id={response.produto.id}
+
+                    id={response.id}
+                    id_produto={response.produto.id}
                     nome={response.produto.nome}
                     marca={response.produto.marca}
-                    preco={response.produto.preco}/>
+                    preco={response.produto.preco}
+                    quantidade={response.quantidade}/>
+
             })}
 
 

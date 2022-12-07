@@ -13,16 +13,18 @@ function byteToBlob(photo: string){
 
 interface PropsProduct {
   id: number;
+  id_produto: number;
   nome: string;
   marca: string;
   preco: number;
+  quantidade: number;
 }
 
 
-export function CardCart({nome, id, marca, preco}:PropsProduct){
+export function CardCart({nome, id, marca, preco, id_produto,quantidade}:PropsProduct){
     const [foto, setFoto] = useState<string>();
     useEffect(() => {
-      api.get(`/produto/${id}/downloadPhoto`,
+      api.get(`/produto/${id_produto}/downloadPhoto`,
           { responseType: 'arraybuffer' })
             .then(response => response.data)
             .then(data => {
@@ -30,8 +32,7 @@ export function CardCart({nome, id, marca, preco}:PropsProduct){
               setFoto(imageUrl);
             })
   }, [])
-    console.log(id)
-    const {formatMoney} = useCart()
+    const {formatMoney, handleRemoveCart, handleUpdateCart} = useCart()
     return (
         <div
           className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5"
@@ -51,6 +52,7 @@ export function CardCart({nome, id, marca, preco}:PropsProduct){
               <span className="text-red-500 text-xs">{marca}</span>
               <a
                 className="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer"
+                onClick={() => handleRemoveCart(id)}
               >
                 Remove
               </a>
@@ -67,12 +69,13 @@ export function CardCart({nome, id, marca, preco}:PropsProduct){
             <input
               className="mx-2 border text-center w-8"
               type="text"
-              value="1"
+              value={quantidade}
             />
 
             <svg
-              className="fill-current text-gray-600 w-3"
+              className="fill-current text-gray-600 w-3 cursor-pointer"
               viewBox="0 0 448 512"
+              onClick={() => handleUpdateCart(id)}
             >
               <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
             </svg>

@@ -167,6 +167,7 @@ export function Menu() {
                     </li>
                     <hr className="border-gray-200 dark:border-gray-700 " />
                     <li>
+                    {use?.role != "usuario" ?
                       <Link
                         to="meusprodutos"
                         className="
@@ -185,6 +186,26 @@ export function Menu() {
                       >
                         Meus Produtos
                       </Link>
+                      :
+                      <Link
+                        to=""
+                        className="
+                                  dropdown-item
+                                  text-sm
+                                  py-3
+                                  px-4
+                                  font-normal
+                                  block
+                                  w-full
+                                  whitespace-nowrap
+                                  bg-transparent
+                                  text-gray-700
+                                  hover:bg-gray-100
+                                  "
+                      >
+                        Meus Pedidos
+                      </Link>
+                    }
                     </li>
 
                     <hr className="border-gray-200 dark:border-gray-700 " />
@@ -226,27 +247,29 @@ export function Menu() {
           )}
 
           {/* ------- Fim DropDown Sing in ------- */}
-          <Link to="/carrinho">
-            <div className="flex items-center gap-1 cursor-pointer ">
-              <div className="inline-flex relative w-fit">
-                {cart.length > 0 ? (
-                  <div className="absolute inline-block -top-1 right-0 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xs leading-none text-center whitespace-nowrap align-baseline font-bold bg-deep-orange-700 text-white rounded-full z-10">
-                    {cart.length}
+          {use?.role == "usuario" &&
+            <Link to="/carrinho">
+              <div className="flex items-center gap-1 cursor-pointer ">
+                <div className="inline-flex relative w-fit">
+                  {cart.length > 0 ? (
+                    <div className="absolute inline-block -top-1 right-0 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xs leading-none text-center whitespace-nowrap align-baseline font-bold bg-deep-orange-700 text-white rounded-full z-10">
+                      {cart.length}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  <div className="bg-background-gray p-2 rounded-full">
+                    <BsCart3 size={20} />
                   </div>
-                ) : (
-                  ""
-                )}
-                <div className="bg-background-gray p-2 rounded-full">
-                  <BsCart3 size={20} />
+                </div>
+
+                <div className="text-xs flex items-center">
+                  Carrinho
+                  <BsFillCaretDownFill />
                 </div>
               </div>
-
-              <div className="text-xs flex items-center">
-                Carrinho
-                <BsFillCaretDownFill />
-              </div>
-            </div>
-          </Link>
+            </Link>
+          }
         </div>
       </div>
       <div>

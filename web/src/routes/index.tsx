@@ -30,9 +30,9 @@ export const RoutesPage = () => (
     <Route path="/"  element={<Home/>} />
     <Route path="/login" element={<Login/>} />
     <Route path="/cadastro" element={<Cadastro/>} />
-    <Route path="/meusprodutos" element={<MeusProdutos/>} />
-    <Route path="/cadastrarprodutos" element={<RegisterProduto/>} />
+    <Route path="/meusprodutos" element={<RequireAuth><MeusProdutos/></RequireAuth>} />
+    <Route path="/cadastrarprodutos" element={<RequireAuth><RegisterProduto/></RequireAuth>} />
     <Route path="/produto/:produtoId" element={<Produto/>} />
-    <Route path="/carrinho" element={<Carrinho/>} />
+    <Route path="/carrinho" element={<RequireAuth><Carrinho/></RequireAuth>} />
   </Routes>
 );
