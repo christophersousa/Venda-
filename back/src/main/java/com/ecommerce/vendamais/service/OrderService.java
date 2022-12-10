@@ -1,5 +1,6 @@
 package com.ecommerce.vendamais.service;
 
+import com.ecommerce.vendamais.common.StatusPedido;
 import com.ecommerce.vendamais.dto.cart.CartDto;
 import com.ecommerce.vendamais.dto.cart.CartItemDto;
 import com.ecommerce.vendamais.exceptions.CustomException;
@@ -37,6 +38,7 @@ public class OrderService {
         newOrder.setCreatedDate(new Date());
         newOrder.setUser(user);
         newOrder.setValorTotal(cartDto.getValorTotal());
+        newOrder.setStatus(StatusPedido.EMITIDO);
         orderRepository.save(newOrder);
 
         //cria itens do pedido e adiciona ao pedido
@@ -48,6 +50,7 @@ public class OrderService {
                 orderItem.setQuantidade(cartItemDto.getQuantidade());
                 orderItem.setProduct(cartItemDto.getProduto());
                 orderItem.setCompany(cartItemDto.getProduto().getCompany());
+                orderItem.setStatus(StatusPedido.EMITIDO);
                 cartItemDto.getProduto().setEstoque(cartItemDto.getProduto().getEstoque() - 1);
                 orderItem.setOrder(newOrder);
                 orderItemsRepository.save(orderItem);

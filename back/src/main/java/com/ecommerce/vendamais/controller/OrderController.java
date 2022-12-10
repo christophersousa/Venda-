@@ -30,6 +30,4 @@ public class OrderController {
 
         return new ResponseEntity<>(new ApiResponse(true, "pedido criado com sucesso"), HttpStatus.CREATED);
     }
-
-
 }
