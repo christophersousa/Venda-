@@ -54,4 +54,13 @@ public class OrderController {
 
         return new ResponseEntity<>(allItens, HttpStatus.OK);
     }
+
+    @PostMapping("updateStatus/{orderItemId}")
+    public ResponseEntity<ApiResponse> updateOrderItemStatus(@PathVariable("orderItemId") Integer orderItemId){
+
+        orderService.updateOrderItemStatus(orderItemId);
+
+        return new ResponseEntity<>(new ApiResponse(true, "status de item de pedido atualizado com sucesso"), HttpStatus.OK);
+    }
+
 }

@@ -3,7 +3,6 @@ package com.ecommerce.vendamais.service;
 import com.ecommerce.vendamais.common.StatusPedido;
 import com.ecommerce.vendamais.dto.cart.CartDto;
 import com.ecommerce.vendamais.dto.cart.CartItemDto;
-import com.ecommerce.vendamais.dto.order.OrderDto;
 import com.ecommerce.vendamais.dto.order.OrderItemDto;
 import com.ecommerce.vendamais.exceptions.CustomException;
 import com.ecommerce.vendamais.model.Order;
@@ -18,6 +17,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -91,5 +91,43 @@ public class OrderService {
         }
 
       return orderItemDtoList;
+    }
+
+    public void updateOrderStatus(Integer orderId, StatusPedido status){
+        //Caso todos os itens do pedido possuam o mesmo status o pedido receberá esse status
+        List<OrderItem> orderItemList = orderItemsRepository.findAllByOrderId(orderId);
+        List<StatusPedido> statusPedidoList = new ArrayList<>();
+        for(OrderItem item: orderItemList){
+            statusPedidoList.add(item.getStatus());
+        }
+
+        if(statusPedidoList.stream().distinct().count() <= 1){
+            Order order = orderRepository.findById(orderId).get();
+            order.setStatus(status);
+            orderRepository.save(order);
+        }
+    }
+
+    public void updateOrderItemStatus(Integer orderItemId) {
+        Optional<OrderItem> orderItem = orderItemsRepository.findById(orderItemId);
+
+        if(orderItem.isPresent()) {
+            StatusPedido status = orderItem.get().getStatus();
+            if (status == StatusPedido.EMITIDO) {
+                orderItem.get().setStatus(StatusPedido.TRANSITO);
+                orderItemsRepository.save(orderItem.get());
+                updateOrderStatus(orderItem.get().getOrder().getId(), StatusPedido.TRANSITO);
+            } else if (status == StatusPedido.TRANSITO) {
+                orderItem.get().setStatus(StatusPedido.CONCLUIDO);
+                orderItemsRepository.save(orderItem.get());
+                updateOrderStatus(orderItem.get().getOrder().getId(), StatusPedido.CONCLUIDO);
+            } else {
+                updateOrderStatus(orderItem.get().getOrder().getId(), StatusPedido.CONCLUIDO);
+                throw new CustomException("Item de pedido com status CONCLUÍDO");
+            }
+
+        }else{
+            throw new CustomException("Item de pedido com id " + orderItemId + " não existe");
+        }
     }
 }
