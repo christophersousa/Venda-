@@ -18,6 +18,7 @@ public class Order {
     @Column(name = "valor_total")
     private double valorTotal;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     private List<OrderItem> pedidoItens;
 
