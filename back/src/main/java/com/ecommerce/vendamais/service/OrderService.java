@@ -1,7 +1,10 @@
 package com.ecommerce.vendamais.service;
 
+import com.ecommerce.vendamais.common.StatusPedido;
 import com.ecommerce.vendamais.dto.cart.CartDto;
 import com.ecommerce.vendamais.dto.cart.CartItemDto;
+import com.ecommerce.vendamais.dto.order.OrderDto;
+import com.ecommerce.vendamais.dto.order.OrderItemDto;
 import com.ecommerce.vendamais.exceptions.CustomException;
 import com.ecommerce.vendamais.model.Order;
 import com.ecommerce.vendamais.model.OrderItem;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +41,7 @@ public class OrderService {
         newOrder.setCreatedDate(new Date());
         newOrder.setUser(user);
         newOrder.setValorTotal(cartDto.getValorTotal());
+        newOrder.setStatus(StatusPedido.EMITIDO);
         orderRepository.save(newOrder);
 
         //cria itens do pedido e adiciona ao pedido
@@ -48,6 +53,7 @@ public class OrderService {
                 orderItem.setQuantidade(cartItemDto.getQuantidade());
                 orderItem.setProduct(cartItemDto.getProduto());
                 orderItem.setCompany(cartItemDto.getProduto().getCompany());
+                orderItem.setStatus(StatusPedido.EMITIDO);
                 cartItemDto.getProduto().setEstoque(cartItemDto.getProduto().getEstoque() - 1);
                 orderItem.setOrder(newOrder);
                 orderItemsRepository.save(orderItem);
@@ -63,4 +69,27 @@ public class OrderService {
     }
 
 
+    public List<Order> getOrdersByUser(User user) {
+        return orderRepository.findAllByUserOrderByCreatedDateDesc(user);
+    }
+
+
+    public List<OrderItemDto> getOrderItens(int orderId) {
+        List<OrderItem> orderItemList = orderItemsRepository.findAllByOrderId(orderId);
+        List<OrderItemDto> orderItemDtoList = new ArrayList<OrderItemDto>();
+        for(OrderItem item : orderItemList){
+            OrderItemDto orderItemDto = new OrderItemDto();
+            orderItemDto.setId(item.getId());
+            orderItemDto.setQuantidade(item.getQuantidade());
+            orderItemDto.setPreco(item.getPreco());
+            orderItemDto.setPedidoId(item.getOrder().getId());
+            orderItemDto.setEmpresaId(item.getCompany().getId());
+            orderItemDto.setProduct(item.getProduct());
+            orderItemDto.setStatusPedidoItem(item.getStatus());
+
+            orderItemDtoList.add(orderItemDto);
+        }
+
+      return orderItemDtoList;
+    }
 }

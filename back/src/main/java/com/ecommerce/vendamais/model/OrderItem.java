@@ -1,5 +1,7 @@
 package com.ecommerce.vendamais.model;
 
+import com.ecommerce.vendamais.common.StatusPedido;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -27,6 +29,10 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name = "empresa_id", referencedColumnName = "id")
     private Company company;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_item_pedido")
+    private StatusPedido status;
 
     public OrderItem(){
 
@@ -78,5 +84,21 @@ public class OrderItem {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public StatusPedido getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusPedido status) {
+        this.status = status;
     }
 }
