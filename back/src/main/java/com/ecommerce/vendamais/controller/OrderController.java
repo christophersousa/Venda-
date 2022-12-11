@@ -1,15 +1,10 @@
 package com.ecommerce.vendamais.controller;
 
 import com.ecommerce.vendamais.common.ApiResponse;
-import com.ecommerce.vendamais.dto.cart.AddToCartDto;
-import com.ecommerce.vendamais.dto.cart.CartDto;
-import com.ecommerce.vendamais.dto.order.OrderDto;
 import com.ecommerce.vendamais.dto.order.OrderItemDto;
 import com.ecommerce.vendamais.model.Order;
-import com.ecommerce.vendamais.model.OrderItem;
 import com.ecommerce.vendamais.model.User;
 import com.ecommerce.vendamais.service.AuthenticationService;
-import com.ecommerce.vendamais.service.CartService;
 import com.ecommerce.vendamais.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
