@@ -5,9 +5,11 @@ import com.ecommerce.vendamais.dto.cart.CartDto;
 import com.ecommerce.vendamais.dto.cart.CartItemDto;
 import com.ecommerce.vendamais.dto.order.OrderItemDto;
 import com.ecommerce.vendamais.exceptions.CustomException;
+import com.ecommerce.vendamais.model.Address;
 import com.ecommerce.vendamais.model.Order;
 import com.ecommerce.vendamais.model.OrderItem;
 import com.ecommerce.vendamais.model.User;
+import com.ecommerce.vendamais.repository.AddressRepository;
 import com.ecommerce.vendamais.repository.OrderItemsRepository;
 import com.ecommerce.vendamais.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,15 @@ public class OrderService {
     @Autowired
     OrderItemsRepository orderItemsRepository;
 
+    @Autowired
+    AddressRepository addressRepository;
+
     public void createOrder(User user) {
+        //busca endereço do usuário
+        Address userAddress = addressRepository.findByUserId(user.getId());
+
+        if(userAddress == null) throw new CustomException("O usuário não possui endereco");
+
         //busca os itens do carrinho do usuário
         CartDto cartDto = cartService.listCartItems(user);
         List<CartItemDto> cartItemDtoList = cartDto.getCartItems();
@@ -40,6 +50,7 @@ public class OrderService {
         Order newOrder = new Order();
         newOrder.setCreatedDate(new Date());
         newOrder.setUser(user);
+        newOrder.setAddress(userAddress);
         newOrder.setValorTotal(cartDto.getValorTotal());
         newOrder.setStatus(StatusPedido.EMITIDO);
         orderRepository.save(newOrder);

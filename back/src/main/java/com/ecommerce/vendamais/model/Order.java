@@ -22,10 +22,14 @@ public class Order {
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     private List<OrderItem> pedidoItens;
 
-    @ManyToOne()
+    @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    private Address address;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_pedido")
@@ -80,5 +84,13 @@ public class Order {
 
     public void setStatus(StatusPedido status) {
         this.status = status;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
