@@ -1,10 +1,10 @@
-package ifpb.edu.br.send_email.model;
+package com.ecommerce.vendamais.model;
 
-public class User {
+public class UserEmail {
     String username;
     String email;
 
-    public User() {
+    public UserEmail() {
     }
 
     public String getUsername() {

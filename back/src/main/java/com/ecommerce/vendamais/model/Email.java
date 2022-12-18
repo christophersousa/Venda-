@@ -1,10 +1,10 @@
-package ifpb.edu.br.send_email.model;
+package com.ecommerce.vendamais.model;
 
 public class Email {
     String nome;
     String email;
-    User user;
-    Produto produto;
+    UserEmail user;
+    ProdutoEmail produto;
 
     public Email() {
 
@@ -26,19 +26,19 @@ public class Email {
         this.email = email;
     }
 
-    public User getUser() {
+    public UserEmail getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserEmail user) {
         this.user = user;
     }
 
-    public Produto getProduto() {
+    public ProdutoEmail getProduto() {
         return produto;
     }
 
-    public void setProduto(Produto produto) {
+    public void setProduto(ProdutoEmail produto) {
         this.produto = produto;
     }
 

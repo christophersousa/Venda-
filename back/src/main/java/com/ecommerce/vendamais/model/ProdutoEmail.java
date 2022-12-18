@@ -1,15 +1,15 @@
-package ifpb.edu.br.send_email.model;
+package com.ecommerce.vendamais.model;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-public class Produto {
+public class ProdutoEmail {
     Integer estoque;
     BigDecimal valor;
     byte[] image;
     String nome;
 
-    public Produto() {
+    public ProdutoEmail() {
 
     }
 
