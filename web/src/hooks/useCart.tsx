@@ -36,7 +36,6 @@ export function useCart() {
     }).then((response) => {
 
         console.log("sucesso", response);
-        window.location.href = "/carrinho"
     }).catch((error) => {
         console.log("erro: " + error);
         return error.message
@@ -59,8 +58,8 @@ export function useCart() {
     });
   }
 
-  function formatMoney(amount: number){
-    return amount.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+  function formatMoney(amount: number | undefined){
+    return amount?.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
   }
 
   return { cart, handleCart, formatMoney, handleRemoveCart, handleUpdateCart };

@@ -3,6 +3,8 @@ package com.ecommerce.vendamais.controller;
 import com.ecommerce.vendamais.common.ApiResponse;
 import com.ecommerce.vendamais.dto.cart.AddToCartDto;
 import com.ecommerce.vendamais.dto.cart.CartDto;
+import com.ecommerce.vendamais.dto.cart.CartItemDto;
+import com.ecommerce.vendamais.model.Cart;
 import com.ecommerce.vendamais.model.User;
 import com.ecommerce.vendamais.service.AuthenticationService;
 import com.ecommerce.vendamais.service.CartService;
@@ -39,6 +41,14 @@ public class CartController {
 
         CartDto cartDto = cartService.listCartItems(user);
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/cartItem/{itemId}")
+    public ResponseEntity<CartItemDto> getCartItem(@PathVariable("itemId") Integer itemId){
+
+
+        CartItemDto cartItemDto = cartService.getCartItem(itemId);
+        return new ResponseEntity<>(cartItemDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{itemId}")

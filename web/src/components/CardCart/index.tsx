@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import api from "../../api/api_product";
 import { useCart } from "../../hooks/useCart";
 
-
-
 function byteToBlob(photo: string){
     const imageBytes = photo;
     let blob = new Blob([imageBytes], { type: "image/jpeg" });
@@ -20,9 +18,31 @@ interface PropsProduct {
   quantidade: number;
 }
 
+interface PropsCartItem {
+  id: number,
+  produto: {
+    descricao: string;
+    estoque: number;
+    id: number;
+    marca: string;
+    nome: string;
+    preco: number;
+    precoAnterior: number;
+  },
+  type: {
+    id: number;
+    nome: string;
+  },
+  quantidade: number,
+  valorTotalItens: number
+}
 
-export function CardCart({nome, id, marca, preco, id_produto,quantidade}:PropsProduct){
+
+export function CardCart({nome, id, marca, preco, id_produto, quantidade}:PropsProduct){
+
     const [foto, setFoto] = useState<string>();
+    const [itemCarrinho, setItemCarrinho] = useState<PropsCartItem>();
+    
     useEffect(() => {
       api.get(`/produto/${id_produto}/downloadPhoto`,
           { responseType: 'arraybuffer' })
@@ -31,7 +51,16 @@ export function CardCart({nome, id, marca, preco, id_produto,quantidade}:PropsPr
               const imageUrl = byteToBlob(data);
               setFoto(imageUrl);
             })
-  }, [])
+    }, [])
+
+    useEffect(() => {
+      api.get(`/carrinho/cartItem/${id}`)
+        .then(response => response.data)
+        .then(data => {
+          setItemCarrinho(data);
+        })
+    }, [])
+
     const {formatMoney, handleRemoveCart, handleUpdateCart} = useCart()
     return (
         <div
@@ -47,9 +76,9 @@ export function CardCart({nome, id, marca, preco, id_produto,quantidade}:PropsPr
             </div>
             <div className="flex flex-col justify-between ml-4 flex-grow">
               <span className="font-bold text-sm">
-                {nome}
+                {itemCarrinho?.produto.nome}
               </span>
-              <span className="text-red-500 text-xs">{marca}</span>
+              <span className="text-red-500 text-xs">{itemCarrinho?.produto.marca}</span>
               <a
                 className="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer"
                 onClick={() => handleRemoveCart(id)}
@@ -69,20 +98,20 @@ export function CardCart({nome, id, marca, preco, id_produto,quantidade}:PropsPr
             <input
               className="mx-2 border text-center w-8"
               type="text"
-              value={quantidade}
+              value={itemCarrinho?.quantidade}
             />
 
             <svg
               className="fill-current text-gray-600 w-3 cursor-pointer"
               viewBox="0 0 448 512"
-              onClick={() => handleUpdateCart(id)}
+              onClick={() => {handleUpdateCart(id)}}
             >
               <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
             </svg>
           </div>
-          <span className="text-center w-1/5 font-semibold text-sm">{formatMoney(preco)}</span>
+          <span className="text-center w-1/5 font-semibold text-sm">{formatMoney(itemCarrinho?.produto.preco)}</span>
           <span className="text-center w-1/5 font-semibold text-sm">
-            {formatMoney(preco)}
+            {formatMoney(itemCarrinho?.valorTotalItens)}
           </span>
         </div>
       )

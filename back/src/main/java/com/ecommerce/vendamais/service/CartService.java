@@ -92,4 +92,18 @@ public class CartService {
     public void deleteUserCartItems(User user) {
         cartRepository.deleteByUsuario(user);
     }
+
+    public CartItemDto getCartItem(Integer itemId) {
+        Optional<Cart> cartItem = cartRepository.findById(itemId);
+        if(cartItem.isPresent()){
+            CartItemDto cartItemDto = new CartItemDto();
+            cartItemDto.setProduto(cartItem.get().getProduto());
+            cartItemDto.setId(cartItem.get().getId());
+            cartItemDto.setQuantidade(cartItem.get().getQuantidade());
+            cartItemDto.setValorTotalItens(cartItem.get().getProduto().getPreco() * cartItem.get().getQuantidade());
+            return cartItemDto;
+        }else{
+            throw new CustomException("Item de carrinho não existe");
+        }
+    }
 }
