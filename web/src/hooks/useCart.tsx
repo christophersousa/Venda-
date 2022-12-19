@@ -36,7 +36,6 @@ export function useCart() {
     }).then((response) => {
 
         console.log("sucesso", response);
-        window.location.href = "/carrinho"
     }).catch((error) => {
         console.log("erro: " + error);
         return error.message
@@ -44,7 +43,7 @@ export function useCart() {
   }
 
   function handleUpdateCart(itemId: number){
-      api_product.post(`/carrinho/update/${itemId}?token=${use?.token}`,{
+      api_product.post(`/carrinho/increment/${itemId}?token=${use?.token}`,{
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': true,
@@ -52,16 +51,37 @@ export function useCart() {
     }).then((response) => {
 
         console.log("sucesso", response);
-        window.location.href = "/carrinho"
+        api_product.get(`/carrinho/cartItem/${itemId}`)
+        .then(response => response.data)
+        .then(data => {
+          return data;
+        })
+        
     }).catch((error) => {
         console.log("erro: " + error);
         return error.message
     });
   }
 
+  function handleDecrementCart(itemId: number){
+    api_product.post(`/carrinho/decrement/${itemId}?token=${use?.token}`,{
+      headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': true,
+      },
+  }).then((response) => {
+
+      console.log("sucesso", response);
+      
+  }).catch((error) => {
+      console.log("erro: " + error);
+      return error.message
+  });
+}
+
   function formatMoney(amount: number | undefined){
     return amount?.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
   }
 
-  return { cart, handleCart, formatMoney, handleRemoveCart, handleUpdateCart };
+  return { cart, handleCart, formatMoney, handleRemoveCart, handleUpdateCart, handleDecrementCart };
 }

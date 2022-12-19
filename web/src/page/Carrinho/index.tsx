@@ -16,7 +16,6 @@ const envio = {
 
 
 export function Carrinho() {
-
   const [metodoEnvio, setMetodoEnvio] = useState<number>(envio["Standard shipping"])
   const [produtoCarrinho, setProdutoCarrinho] = useState<PropsCart>();
 
@@ -24,6 +23,28 @@ export function Carrinho() {
 
   const { use } = useContext(Context);
   const {formatMoney} = useCart()
+
+  function handleRemoveCart(itemId: number) {
+    api_product.delete(`/carrinho/delete/${itemId}?token=${use?.token}`,{
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': true,
+        },
+    }).then((response) => {
+
+        console.log("sucesso", response);
+        api_product.get(`/carrinho/?token=${use?.token}`,
+        )
+        .then(response => response.data)
+        .then(data => {
+          setProdutoCarrinho(data)
+        })
+    }).catch((error) => {
+        console.log("erro: " + error);
+        return error.message
+    });
+  }
+
 
   useEffect(() => {
     api_product.get(`/carrinho/?token=${use?.token}`,
@@ -61,18 +82,23 @@ export function Carrinho() {
             </div>
 
             {produtoCarrinho?.cartItems.map((response, key) => {
-              return <CardCart
-
-                    id={response.id}
-                    id_produto={response.produto.id}
-                    nome={response.produto.nome}
-                    marca={response.produto.marca}
-                    preco={response.produto.preco}
-                    quantidade={response.quantidade}/>
-
+              return <><CardCart
+                key={response.id}
+                id={response.id}
+                id_produto={response.produto.id}
+                nome={response.produto.nome}
+                marca={response.produto.marca}
+                preco={response.produto.preco}
+                quantidade={response.quantidade} />
+                <a
+                  className="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer"
+                  onClick={() => handleRemoveCart(response.id)}
+                >
+                  Remover
+                </a></>
             })}
 
-
+              
 
             <Link
               to="/"

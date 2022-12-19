@@ -89,6 +89,29 @@ public class CartService {
         cartRepository.save(cart);
     }
 
+    public void decrementCartItem(Integer itemId, User user) {
+        Optional<Cart> optionalCart = cartRepository.findById(itemId);
+
+        if (optionalCart.isEmpty()) {
+            throw new CustomException("id do produto é inválido: " + itemId);
+        }
+
+        Cart cart = optionalCart.get();
+
+        if (cart.getUsuario() != user) {
+            throw new CustomException("item do carrinho não pertence ao usuário");
+        }
+
+        if(cart.getQuantidade() == 1){
+            cartRepository.delete(cart);
+        }else{
+            cart.setQuantidade(cart.getQuantidade() - 1);
+            cartRepository.save(cart);
+        }
+
+
+    }
+
     public void deleteUserCartItems(User user) {
         cartRepository.deleteByUsuario(user);
     }
@@ -106,4 +129,6 @@ public class CartService {
             throw new CustomException("Item de carrinho não existe");
         }
     }
+
+
 }

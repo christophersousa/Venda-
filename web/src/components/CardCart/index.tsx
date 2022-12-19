@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import api from "../../api/api_product";
+import { Context } from "../../Context/AuthContext";
 import { useCart } from "../../hooks/useCart";
 
 function byteToBlob(photo: string){
@@ -39,9 +40,53 @@ interface PropsCartItem {
 
 
 export function CardCart({nome, id, marca, preco, id_produto, quantidade}:PropsProduct){
+  const {use} = useContext(Context)
+  const [foto, setFoto] = useState<string>();
+  const [itemCarrinho, setItemCarrinho] = useState<PropsCartItem>();
 
-    const [foto, setFoto] = useState<string>();
-    const [itemCarrinho, setItemCarrinho] = useState<PropsCartItem>();
+
+  function handleUpdateCart(itemId: number){
+    api.post(`/carrinho/increment/${itemId}?token=${use?.token}`,{
+      headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': true,
+      },
+  }).then((response) => {
+
+      console.log("sucesso", response);
+      api.get(`/carrinho/cartItem/${itemId}`)
+      .then(response => response.data)
+      .then(data => {
+        setItemCarrinho(data);
+      })
+      
+  }).catch((error) => {
+      console.log("erro: " + error);
+      return error.message
+  });
+}
+    
+  function handleDecrementCart(itemId: number){
+      api.post(`/carrinho/decrement/${itemId}?token=${use?.token}`,{
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': true,
+        },
+    }).then((response) => {
+
+        console.log("sucesso", response);
+        api.get(`/carrinho/cartItem/${itemId}`)
+        .then(response => response.data)
+        .then(data => {
+          setItemCarrinho(data);
+        })
+        
+    }).catch((error) => {
+        console.log("erro: " + error);
+        return error.message
+    });
+  }
+    
     
     useEffect(() => {
       api.get(`/produto/${id_produto}/downloadPhoto`,
@@ -61,7 +106,9 @@ export function CardCart({nome, id, marca, preco, id_produto, quantidade}:PropsP
         })
     }, [])
 
-    const {formatMoney, handleRemoveCart, handleUpdateCart} = useCart()
+    
+
+    const {formatMoney, handleRemoveCart} = useCart()
     return (
         <div
           className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5"
@@ -79,18 +126,15 @@ export function CardCart({nome, id, marca, preco, id_produto, quantidade}:PropsP
                 {itemCarrinho?.produto.nome}
               </span>
               <span className="text-red-500 text-xs">{itemCarrinho?.produto.marca}</span>
-              <a
-                className="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer"
-                onClick={() => handleRemoveCart(id)}
-              >
-                Remove
-              </a>
             </div>
           </div>
           <div className="flex justify-center w-1/5">
             <svg
-              className="fill-current text-gray-600 w-3"
+              className="fill-current text-gray-600 w-3 cursor-pointer"
               viewBox="0 0 448 512"
+              onClick={() => {
+                handleDecrementCart(id);
+              }}
             >
               <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
             </svg>
@@ -98,13 +142,16 @@ export function CardCart({nome, id, marca, preco, id_produto, quantidade}:PropsP
             <input
               className="mx-2 border text-center w-8"
               type="text"
-              value={itemCarrinho?.quantidade}
+              value={itemCarrinho?.quantidade || ""}
             />
 
             <svg
               className="fill-current text-gray-600 w-3 cursor-pointer"
               viewBox="0 0 448 512"
-              onClick={() => {handleUpdateCart(id)}}
+              onClick={() => {
+                handleUpdateCart(id);
+                
+              }}
             >
               <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
             </svg>
