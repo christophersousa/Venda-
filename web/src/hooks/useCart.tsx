@@ -36,6 +36,7 @@ export function useCart() {
     }).then((response) => {
 
         console.log("sucesso", response);
+        window.location.href = "/carrinho"
     }).catch((error) => {
         console.log("erro: " + error);
         return error.message
