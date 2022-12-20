@@ -17,6 +17,7 @@ export default function useAuth() {
     const [authenticated, setAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
     const [use, setUse] = useState<User>();
+    const [message, setMessage] = useState('')
 
     useEffect(() => {
         const tokenAcesso = localStorage.getItem('token');
@@ -56,10 +57,11 @@ export default function useAuth() {
 
         }).catch((error) => {
             console.log("erro: " + error);
+            setMessage("Email ou senha estão incorretos!")
             return error.message
         });
 
-
+        return message;
     }
 
     function handleLogout() {

@@ -3,10 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IconType } from "react-icons";
 import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
+import { AlertMessage } from "../../components/AlertMessage";
 import useAuth from "../../hooks/useAuth";
 import { useFormatPassword } from "../../hooks/useFormatPassword";
 
 export function Login(){
+    const [message, setMessage] = useState<string>()
     const passwordFormat = useFormatPassword()
     const  password = useRef<HTMLInputElement>(null)
     const {handleLogin} = useAuth();
@@ -24,13 +26,12 @@ export function Login(){
         password: '',
       } });
       const onSubmit = (data: any) => {
-        alert(`${data.email} logado`);
-        handleLogin(data)
+        handleLogin(data).then(d => setMessage(d));
       };
 
 
     return (
-        <div className="flex items-center justify-center py-16 px-20 w-full">
+        <div className="flex items-center justify-center py-16 px-20 w-full relative">
 
             <div className="bg-white flex flex-col items-center justify-center gap-6 w-1/2 h-96 border-r border-black">
                 <h1 className="text-gray-900 font-bold">Cadastre-se</h1>
@@ -84,6 +85,9 @@ export function Login(){
                 </button>
                 <div className="w-1/2 flex justify-start text-xs">
                     <a href="" className="underline">Esqueci a minha senha..</a>
+                </div>
+                <div className="absolute right-2 top-4">
+                    {message? <AlertMessage message={message}/>: ""}
                 </div>
             </form>
         </div>

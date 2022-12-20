@@ -2,8 +2,10 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import api_product from "../../api/api_product";
 import { CardCart } from "../../components/CardCart";
+import { ModalAdress } from "../../components/ModalAdress";
 import { Context } from "../../Context/AuthContext";
 import { useCart } from "../../hooks/useCart";
+import useToggle from "../../hooks/useToggle";
 import { PropsCart } from "../../interfaces/Carrinho";
 
 const envio = {
@@ -11,7 +13,16 @@ const envio = {
   "correios": 15,
   "express": 40,
 }
-
+interface props{
+  id: number,
+  cep: string,
+  uf: string,
+  cidade: string,
+  bairro: string,
+  logradouro: string,
+  numero: number,
+  complemento: string
+}
 
 
 
@@ -20,10 +31,14 @@ export function Carrinho() {
   const [metodoEnvio, setMetodoEnvio] = useState<number>(envio["Standard shipping"])
   const [produtoCarrinho, setProdutoCarrinho] = useState<PropsCart>();
 
+
   const selectValue = useRef<HTMLSelectElement>(null)
 
   const { use } = useContext(Context);
-  const {formatMoney} = useCart()
+  const {formatMoney, handleRemoveCart, getAdrress} = useCart()
+  const { on, toggler } = useToggle(); // just added
+  const [adress, setAdress] = useState<props>();
+
 
   useEffect(() => {
     api_product.get(`/carrinho/?token=${use?.token}`,
@@ -32,16 +47,53 @@ export function Carrinho() {
     .then(data => {
       setProdutoCarrinho(data)
     })
-
   }, [])
 
+  useEffect(() => {
+    setAdress(getAdrress())
+  }, adress)
 
   return (
     <div>
+      {on && <ModalAdress
+            toggler={toggler}
+            bairro= {adress?.bairro}
+            cep= {adress?.cep}
+            logradouro={adress?.logradouro}
+            numero= {adress?.numero}
+            cidade= {adress?.cidade}
+            uf={adress?.uf}
+            />}
       <div className="container mx-auto mt-10">
+
         <div className="flex shadow-md my-10">
+
           <div className="w-3/4 bg-white px-10 py-10">
-            <div className="flex justify-between border-b pb-8">
+            <div className="flex flex-col border-b mt-2 pb-8">
+              <h1 className="font-semibold text-2xl">Endereço</h1>
+              <div className="flex justify-between border-b mt-2 pb-8 px-4 items-center">
+                <div>
+                  {adress?.bairro}<br/>
+                  {adress?.cep}<br/>
+                  {adress?.logradouro}/N°{adress?.numero}<br/>
+                  {adress?.cidade}/{adress?.uf}
+                </div>
+                <p
+                onClick={() => toggler()}
+                className=" cursor-pointer text-blue-500"
+                >
+                  Alterar
+                </p>
+
+              </div>
+            </div>
+            <div className="flex flex-col border-b mt-2 pb-8">
+              <h1 className="font-semibold text-2xl">Método de pagamento</h1>
+              <div>
+                pix
+              </div>
+            </div>
+            <div className="flex justify-between border-b mt-2 pb-8">
               <h1 className="font-semibold text-2xl">Carrinho</h1>
               <h2 className="font-semibold text-2xl">{produtoCarrinho?.cartItems.length} Itens</h2>
             </div>
