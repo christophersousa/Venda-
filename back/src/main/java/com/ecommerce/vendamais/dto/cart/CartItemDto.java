@@ -8,6 +8,8 @@ public class CartItemDto {
     private Integer quantidade;
     private Product produto;
 
+    private double valorTotalItens;
+
     public CartItemDto() {
     }
 
@@ -33,6 +35,14 @@ public class CartItemDto {
 
     public void setProduto(Product produto) {
         this.produto = produto;
+    }
+
+    public double getValorTotalItens() {
+        return valorTotalItens;
+    }
+
+    public void setValorTotalItens(double valorTotalItens) {
+        this.valorTotalItens = valorTotalItens;
     }
 
     public CartItemDto(Cart cart) {

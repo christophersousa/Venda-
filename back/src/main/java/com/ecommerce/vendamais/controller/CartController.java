@@ -3,6 +3,8 @@ package com.ecommerce.vendamais.controller;
 import com.ecommerce.vendamais.common.ApiResponse;
 import com.ecommerce.vendamais.dto.cart.AddToCartDto;
 import com.ecommerce.vendamais.dto.cart.CartDto;
+import com.ecommerce.vendamais.dto.cart.CartItemDto;
+import com.ecommerce.vendamais.model.Cart;
 import com.ecommerce.vendamais.model.User;
 import com.ecommerce.vendamais.service.AuthenticationService;
 import com.ecommerce.vendamais.service.CartService;
@@ -41,6 +43,14 @@ public class CartController {
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
 
+    @GetMapping("/cartItem/{itemId}")
+    public ResponseEntity<CartItemDto> getCartItem(@PathVariable("itemId") Integer itemId){
+
+
+        CartItemDto cartItemDto = cartService.getCartItem(itemId);
+        return new ResponseEntity<>(cartItemDto, HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{itemId}")
     public ResponseEntity<ApiResponse> deleteCartItem(@PathVariable("itemId") Integer itemId,
                                                       @RequestParam("token") String token){
@@ -53,7 +63,7 @@ public class CartController {
 
     }
 
-    @PostMapping("/update/{itemId}")
+    @PostMapping("/increment/{itemId}")
     public ResponseEntity<ApiResponse> incrementCartItem(@PathVariable("itemId") Integer itemId,
                                                       @RequestParam("token") String token){
         authenticationService.authenticateUser(token);
@@ -64,4 +74,17 @@ public class CartController {
         return new ResponseEntity<>(new ApiResponse(true, "quantidade de produto incrementada"), HttpStatus.OK);
 
     }
+
+    @PostMapping("/decrement/{itemId}")
+    public ResponseEntity<ApiResponse> decrementCartItem(@PathVariable("itemId") Integer itemId,
+                                                         @RequestParam("token") String token){
+        authenticationService.authenticateUser(token);
+
+        User user = authenticationService.getUser(token);
+        cartService.decrementCartItem(itemId, user);
+
+        return new ResponseEntity<>(new ApiResponse(true, "quantidade de produto decrementada"), HttpStatus.OK);
+
+    }
+
 }
