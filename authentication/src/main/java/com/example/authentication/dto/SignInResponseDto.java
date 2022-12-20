@@ -1,6 +1,5 @@
 package com.example.authentication.dto;
 
-
 import com.example.authentication.model.Company;
 import com.example.authentication.model.User;
 
@@ -11,6 +10,15 @@ public class SignInResponseDto {
     private String email;
     private int id;
     private String role;
+    private String cep;
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
 
     public SignInResponseDto(String status, String token, User user) {
         this.status = status;
@@ -19,6 +27,7 @@ public class SignInResponseDto {
         this.id = user.getId();
         this.email = user.getEmail();
         this.role = "usuario";
+        this.cep = user.getCep();
     }
 
     public SignInResponseDto(String status, String token, Company company) {
@@ -28,6 +37,7 @@ public class SignInResponseDto {
         this.id = company.getId();
         this.email = company.getEmail();
         this.role = "empresa";
+        this.cep = " ";
     }
 
     public String getStatus() {
@@ -61,7 +71,6 @@ public class SignInResponseDto {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getEmail() {
         return email;

@@ -6,12 +6,16 @@ import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
 import { AlertMessage } from "../../components/AlertMessage";
 import useAuth from "../../hooks/useAuth";
 import { useFormatPassword } from "../../hooks/useFormatPassword";
+import useToggle from "../../hooks/useToggle";
 
 export function Login(){
-    const [message, setMessage] = useState<string>()
     const passwordFormat = useFormatPassword()
     const  password = useRef<HTMLInputElement>(null)
     const {handleLogin} = useAuth();
+
+    const {showAlert, show, showAlertTrue} = useToggle()
+
+    const messageAlert = "Email ou senha incorreto!"
 
     const {
         handleSubmit,
@@ -26,7 +30,11 @@ export function Login(){
         password: '',
       } });
       const onSubmit = (data: any) => {
-        handleLogin(data).then(d => setMessage(d));
+        handleLogin(data).then(d => {
+
+            showAlertTrue()
+
+        });
       };
 
 
@@ -87,7 +95,12 @@ export function Login(){
                     <a href="" className="underline">Esqueci a minha senha..</a>
                 </div>
                 <div className="absolute right-2 top-4">
-                    {message? <AlertMessage message={message}/>: ""}
+                    <AlertMessage
+                    message={messageAlert}
+                    showAlert={showAlert}
+                    show = {show}
+                    color ={"red"}
+                    />
                 </div>
             </form>
         </div>

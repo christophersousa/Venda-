@@ -37,16 +37,19 @@ public class OrderService {
     AddressRepository addressRepository;
 
     public void createOrder(User user) {
-        //busca endereço do usuário
+        // busca endereço do usuário
         Address userAddress = addressRepository.findByUserId(user.getId());
 
-        if(userAddress == null) throw new CustomException("O usuário não possui endereco");
+        if (userAddress == null)
+            throw new CustomException("O usuário não possui endereco");
 
-        //busca os itens do carrinho do usuário
+        // busca os itens do carrinho do usuário
         CartDto cartDto = cartService.listCartItems(user);
         List<CartItemDto> cartItemDtoList = cartDto.getCartItems();
 
-        //cria novo pedido
+        System.out.println("List " + cartItemDtoList);
+
+        // cria novo pedido
         Order newOrder = new Order();
         newOrder.setCreatedDate(new Date());
         newOrder.setUser(user);
@@ -55,10 +58,10 @@ public class OrderService {
         newOrder.setStatus(StatusPedido.EMITIDO);
         orderRepository.save(newOrder);
 
-        //cria itens do pedido e adiciona ao pedido
-        for(CartItemDto cartItemDto : cartItemDtoList){
-            //adiciona ao pedido se houver estoque disponível
-            if(cartItemDto.getProduto().getEstoque() > 0){
+        // cria itens do pedido e adiciona ao pedido
+        for (CartItemDto cartItemDto : cartItemDtoList) {
+            // adiciona ao pedido se houver estoque disponível
+            if (cartItemDto.getProduto().getEstoque() > 0) {
                 OrderItem orderItem = new OrderItem();
                 orderItem.setPreco(cartItemDto.getProduto().getPreco());
                 orderItem.setQuantidade(cartItemDto.getQuantidade());
@@ -68,9 +71,10 @@ public class OrderService {
                 cartItemDto.getProduto().setEstoque(cartItemDto.getProduto().getEstoque() - 1);
                 orderItem.setOrder(newOrder);
                 orderItemsRepository.save(orderItem);
-            }else{
+            } else {
                 orderRepository.delete(newOrder);
-                throw new CustomException("Produto de id " + cartItemDto.getProduto().getId() + "não possui estoque disponível");
+                throw new CustomException(
+                        "Produto de id " + cartItemDto.getProduto().getId() + "não possui estoque disponível");
             }
 
         }
@@ -79,16 +83,14 @@ public class OrderService {
 
     }
 
-
     public List<Order> getOrdersByUser(User user) {
         return orderRepository.findAllByUserOrderByCreatedDateDesc(user);
     }
 
-
     public List<OrderItemDto> getOrderItens(int orderId) {
         List<OrderItem> orderItemList = orderItemsRepository.findAllByOrderId(orderId);
         List<OrderItemDto> orderItemDtoList = new ArrayList<OrderItemDto>();
-        for(OrderItem item : orderItemList){
+        for (OrderItem item : orderItemList) {
             OrderItemDto orderItemDto = new OrderItemDto();
             orderItemDto.setId(item.getId());
             orderItemDto.setQuantidade(item.getQuantidade());
@@ -101,18 +103,19 @@ public class OrderService {
             orderItemDtoList.add(orderItemDto);
         }
 
-      return orderItemDtoList;
+        return orderItemDtoList;
     }
 
-    public void updateOrderStatus(Integer orderId, StatusPedido status){
-        //Caso todos os itens do pedido possuam o mesmo status o pedido receberá esse status
+    public void updateOrderStatus(Integer orderId, StatusPedido status) {
+        // Caso todos os itens do pedido possuam o mesmo status o pedido receberá esse
+        // status
         List<OrderItem> orderItemList = orderItemsRepository.findAllByOrderId(orderId);
         List<StatusPedido> statusPedidoList = new ArrayList<>();
-        for(OrderItem item: orderItemList){
+        for (OrderItem item : orderItemList) {
             statusPedidoList.add(item.getStatus());
         }
 
-        if(statusPedidoList.stream().distinct().count() <= 1){
+        if (statusPedidoList.stream().distinct().count() <= 1) {
             Order order = orderRepository.findById(orderId).get();
             order.setStatus(status);
             orderRepository.save(order);
@@ -122,7 +125,7 @@ public class OrderService {
     public void updateOrderItemStatus(Integer orderItemId) {
         Optional<OrderItem> orderItem = orderItemsRepository.findById(orderItemId);
 
-        if(orderItem.isPresent()) {
+        if (orderItem.isPresent()) {
             StatusPedido status = orderItem.get().getStatus();
             if (status == StatusPedido.EMITIDO) {
                 orderItem.get().setStatus(StatusPedido.TRANSITO);
@@ -137,7 +140,7 @@ public class OrderService {
                 throw new CustomException("Item de pedido com status CONCLUÍDO");
             }
 
-        }else{
+        } else {
             throw new CustomException("Item de pedido com id " + orderItemId + " não existe");
         }
     }

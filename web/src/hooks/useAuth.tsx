@@ -57,7 +57,7 @@ export default function useAuth() {
 
         }).catch((error) => {
             console.log("erro: " + error);
-            setMessage("Email ou senha estão incorretos!")
+            setMessage("Erro")
             return error.message
         });
 

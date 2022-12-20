@@ -59,13 +59,13 @@ export function CardCart({nome, id, marca, preco, id_produto, quantidade}:PropsP
       .then(data => {
         setItemCarrinho(data);
       })
-      
+
   }).catch((error) => {
       console.log("erro: " + error);
       return error.message
   });
 }
-    
+
   function handleDecrementCart(itemId: number){
       api.post(`/carrinho/decrement/${itemId}?token=${use?.token}`,{
         headers: {
@@ -80,14 +80,14 @@ export function CardCart({nome, id, marca, preco, id_produto, quantidade}:PropsP
         .then(data => {
           setItemCarrinho(data);
         })
-        
+
     }).catch((error) => {
         console.log("erro: " + error);
         return error.message
     });
   }
-    
-    
+
+
     useEffect(() => {
       api.get(`/produto/${id_produto}/downloadPhoto`,
           { responseType: 'arraybuffer' })
@@ -102,11 +102,11 @@ export function CardCart({nome, id, marca, preco, id_produto, quantidade}:PropsP
       api.get(`/carrinho/cartItem/${id}`)
         .then(response => response.data)
         .then(data => {
+          console.log("data " + data)
           setItemCarrinho(data);
         })
     }, [])
 
-    
 
     const {formatMoney, handleRemoveCart} = useCart()
     return (
@@ -150,7 +150,7 @@ export function CardCart({nome, id, marca, preco, id_produto, quantidade}:PropsP
               viewBox="0 0 448 512"
               onClick={() => {
                 handleUpdateCart(id);
-                
+
               }}
             >
               <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />

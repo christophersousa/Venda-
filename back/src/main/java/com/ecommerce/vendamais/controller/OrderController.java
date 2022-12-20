@@ -22,18 +22,20 @@ public class OrderController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createOrder(@RequestParam("token") String token){
+    public ResponseEntity<ApiResponse> createOrder(@RequestParam("token") String token) {
+
+        System.out.println("****Cheguei aq****" + token);
         authenticationService.authenticateUser(token);
 
         User user = authenticationService.getUser(token);
-
+        System.out.println("****Usuario aq****" + user.getNomeCompleto());
         orderService.createOrder(user);
 
         return new ResponseEntity<>(new ApiResponse(true, "pedido criado com sucesso"), HttpStatus.CREATED);
     }
 
     @GetMapping("/getOrdersByUser")
-    public ResponseEntity<List<Order>> getOrdersByUser(@RequestParam("token") String token){
+    public ResponseEntity<List<Order>> getOrdersByUser(@RequestParam("token") String token) {
         authenticationService.authenticateUser(token);
 
         User user = authenticationService.getUser(token);
@@ -44,18 +46,19 @@ public class OrderController {
     }
 
     @GetMapping("/getOrderItens/{orderId}")
-    public ResponseEntity<List<OrderItemDto>> getOrderItens(@PathVariable("orderId") int orderId){
+    public ResponseEntity<List<OrderItemDto>> getOrderItens(@PathVariable("orderId") int orderId) {
         List<OrderItemDto> allItens = orderService.getOrderItens(orderId);
 
         return new ResponseEntity<>(allItens, HttpStatus.OK);
     }
 
     @PostMapping("updateStatus/{orderItemId}")
-    public ResponseEntity<ApiResponse> updateOrderItemStatus(@PathVariable("orderItemId") Integer orderItemId){
+    public ResponseEntity<ApiResponse> updateOrderItemStatus(@PathVariable("orderItemId") Integer orderItemId) {
 
         orderService.updateOrderItemStatus(orderItemId);
 
-        return new ResponseEntity<>(new ApiResponse(true, "status de item de pedido atualizado com sucesso"), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(true, "status de item de pedido atualizado com sucesso"),
+                HttpStatus.OK);
     }
 
 }

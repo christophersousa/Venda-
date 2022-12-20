@@ -14,23 +14,34 @@ public class AddressService {
     AddressRepository addressRepository;
 
     public void createAddress(AddressDto addressDto, User user) {
-        Address address = new Address();
-        address.setUf(addressDto.getUf());
-        address.setCidade(addressDto.getCidade());
-        address.setBairro(addressDto.getBairro());
-        address.setLogradouro(addressDto.getLogradouro());
-        address.setNumero(addressDto.getNumero());
-        address.setComplemento(addressDto.getComplemento());
-        address.setCep(addressDto.getCep());
-        address.setUser(user);
+        addressRepository.findById(addressDto.getId()).ifPresentOrElse(address -> {
+            address.setUf(addressDto.getUf());
+            address.setCidade(addressDto.getCidade());
+            address.setBairro(addressDto.getBairro());
+            address.setLogradouro(addressDto.getLogradouro());
+            address.setNumero(addressDto.getNumero());
+            address.setComplemento(addressDto.getComplemento());
+            address.setCep(addressDto.getCep());
+            addressRepository.save(address);
+            System.out.println("Usuario :" + address.getUser().getNomeCompleto());
+        }, () -> {
+            Address address = new Address();
+            address.setUf(addressDto.getUf());
+            address.setCidade(addressDto.getCidade());
+            address.setBairro(addressDto.getBairro());
+            address.setLogradouro(addressDto.getLogradouro());
+            address.setNumero(addressDto.getNumero());
+            address.setComplemento(addressDto.getComplemento());
+            address.setCep(addressDto.getCep());
+            address.setUser(user);
+            System.out.println("não encontrado");
+        });
 
-        addressRepository.save(address);
     }
-
 
     public Address getAddressByUser(Integer userId) {
         Address address = addressRepository.findByUserId(userId);
-        if(address == null){
+        if (address == null) {
             throw new CustomException("O usuário de id " + userId + " não possui endereco");
         }
         return address;

@@ -22,7 +22,7 @@ public class AddressController {
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createAddress(@RequestBody AddressDto addressDto,
-                                                     @RequestParam("token") String token){
+            @RequestParam("token") String token) {
         authenticationService.authenticateUser(token);
 
         User user = authenticationService.getUser(token);
@@ -33,7 +33,7 @@ public class AddressController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<Address> getAddressByUser(@RequestParam("token") String token){
+    public ResponseEntity<Address> getAddressByUser(@RequestParam("token") String token) {
         authenticationService.authenticateUser(token);
 
         User user = authenticationService.getUser(token);
@@ -42,7 +42,5 @@ public class AddressController {
 
         return new ResponseEntity<>(address, HttpStatus.OK);
     }
-
-
 
 }

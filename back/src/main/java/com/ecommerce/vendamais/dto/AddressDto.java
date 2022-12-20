@@ -1,6 +1,8 @@
 package com.ecommerce.vendamais.dto;
 
 public class AddressDto {
+    private Integer id;
+
     private String cep;
 
     private String uf;
@@ -13,16 +15,23 @@ public class AddressDto {
 
     private Integer numero;
 
-
     private String complemento;
 
-
-    public AddressDto(String cep, String uf, String cidade, String bairro, Integer numero) {
+    public AddressDto(Integer id, String cep, String uf, String cidade, String bairro, Integer numero) {
         this.cep = cep;
         this.uf = uf;
         this.cidade = cidade;
         this.bairro = bairro;
         this.numero = numero;
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCep() {

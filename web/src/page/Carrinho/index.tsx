@@ -1,10 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import api_product from "../../api/api_product";
+import { AlertMessage } from "../../components/AlertMessage";
 import { CardCart } from "../../components/CardCart";
 import { ModalAdress } from "../../components/ModalAdress";
+import { Payment } from "../../components/Payment";
 import { Context } from "../../Context/AuthContext";
 import { useCart } from "../../hooks/useCart";
+import { usePurchase } from "../../hooks/usePurchase";
 import useToggle from "../../hooks/useToggle";
 import { PropsCart } from "../../interfaces/Carrinho";
 
@@ -34,10 +37,12 @@ export function Carrinho() {
   const selectValue = useRef<HTMLSelectElement>(null)
 
   const { use } = useContext(Context);
-  const {formatMoney, handleRemoveCart, getAdrress} = useCart()
-  const { on, toggler } = useToggle(); // just added
+  const {formatMoney, getAdrress, updateAdress} = useCart()
+  const { on, toggler, show, showAlert, onPayment, showPayment } = useToggle(); // just added
+  const {purchase} = usePurchase()
   const [adress, setAdress] = useState<props>();
 
+  // const adress = getAdrress()
 
   function handleRemoveCart(itemId: number) {
     api_product.delete(`/carrinho/delete/${itemId}?token=${use?.token}`,{
@@ -68,14 +73,17 @@ export function Carrinho() {
     .then(data => {
       setProdutoCarrinho(data)
     })
-  }, [])
+  }, [purchase])
 
   useEffect(() => {
+    console.log(getAdrress() + "messagem")
     setAdress(getAdrress())
   }, adress)
 
   return (
     <div>
+
+
       {on && <ModalAdress
             toggler={toggler}
             bairro= {adress?.bairro}
@@ -84,13 +92,23 @@ export function Carrinho() {
             numero= {adress?.numero}
             cidade= {adress?.cidade}
             uf={adress?.uf}
+            id = {adress?.id}
+            show={show}
+            showAlert={showAlert}
             />}
+      {onPayment && <Payment
+                      showPayment={showPayment}
+                      totalValor={Number(Number(produtoCarrinho?.valorTotal) + metodoEnvio)}
+                      purchase={purchase}
+                      show={show}
+                      showAlert={showAlert}
+                    />}
       <div className="container mx-auto mt-10">
 
         <div className="flex shadow-md my-10">
 
           <div className="w-3/4 bg-white px-10 py-10">
-            <div className="flex flex-col border-b mt-2 pb-8">
+            <div className="flex flex-col  mt-2 pb-8">
               <h1 className="font-semibold text-2xl">Endereço</h1>
               <div className="flex justify-between border-b mt-2 pb-8 px-4 items-center">
                 <div>
@@ -106,12 +124,6 @@ export function Carrinho() {
                   Alterar
                 </p>
 
-              </div>
-            </div>
-            <div className="flex flex-col border-b mt-2 pb-8">
-              <h1 className="font-semibold text-2xl">Método de pagamento</h1>
-              <div>
-                pix
               </div>
             </div>
             <div className="flex justify-between border-b mt-2 pb-8">
@@ -150,7 +162,7 @@ export function Carrinho() {
                 </a></>
             })}
 
-              
+
 
             <Link
               to="/"
@@ -189,9 +201,12 @@ export function Carrinho() {
             <div className="border-t mt-8">
               <div className="flex font-semibold justify-between py-6 text-sm uppercase">
                 <span>Custo total</span>
-                <span>{formatMoney(Number(produtoCarrinho?.valorTotal))}</span>
+                <span>{formatMoney(Number(Number(produtoCarrinho?.valorTotal) + metodoEnvio))}</span>
               </div>
-              <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+              <button
+              className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
+              onClick={() => showPayment()}
+              >
                 Confirmar
               </button>
             </div>

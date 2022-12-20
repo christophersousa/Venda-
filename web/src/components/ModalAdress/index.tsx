@@ -1,21 +1,32 @@
 import { Input } from "@material-tailwind/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useCart } from "../../hooks/useCart";
+import { AlertMessage } from "../AlertMessage";
 
 interface props{
+  id: number;
   cep: string,
   uf: string,
   cidade: string,
   bairro: string,
   logradouro: string,
   numero: number,
-  complemento: string
-  toggler: () => void
+  complemento: string,
+  toggler: () => void,
+  show: boolean,
+  showAlert: () => void,
 }
 
 interface props2{
 
 }
-export function ModalAdress({toggler,cep, uf, cidade, bairro, logradouro, complemento, numero}:props){
+export function ModalAdress({toggler,cep, uf, cidade, bairro, logradouro, complemento, numero, id, show, showAlert}:props){
+
+  const[messeger, setMesseger] = useState<string>('Novo endereço cadastrado')
+  const {updateAdress, resultCreateAdress} = useCart()
+
+  let a = 'Novo endereço cadastrado'
 
     const {
       handleSubmit,
@@ -26,6 +37,7 @@ export function ModalAdress({toggler,cep, uf, cidade, bairro, logradouro, comple
       formState: { isValid, errors },
     } = useForm({ mode: "onChange",
     defaultValues : {
+      id: id,
       uf: uf,
       cidade: cidade,
       bairro: bairro,
@@ -35,11 +47,21 @@ export function ModalAdress({toggler,cep, uf, cidade, bairro, logradouro, comple
       complemento: complemento,
     } });
     const onSubmit = (data: any) => {
-      alert(`${data.email} cadastrado`);
+       updateAdress(data).then(() => {
+         showAlert()
+      }).catch(err => {
+        setMesseger("Ocorreu um errro")
+        showAlert()
+      });
     };
+
+    function getMesseger(){
+      return messeger
+    }
 
     return(
           <div className="static">
+
             <div
               className="fixed h-screen w-screen bg-black z-10 top-0 opacity-75"
             ></div>
@@ -54,6 +76,15 @@ export function ModalAdress({toggler,cep, uf, cidade, bairro, logradouro, comple
                       </button>
                   </div>
                   <div className=" bg-white p-8">
+                      <div className="absolute right-2 top-8 z-10">
+                          <AlertMessage
+                            showAlert={showAlert}
+                            show={show}
+                            message={getMesseger()}
+                            color="red"
+                          />
+
+                      </div>
                       <h1 className="font-bold text-center">Editar endereço</h1>
                       <form action="" className="flex flex-col gap-3 justify-start"
                         onSubmit={handleSubmit(onSubmit)}>
@@ -138,7 +169,6 @@ export function ModalAdress({toggler,cep, uf, cidade, bairro, logradouro, comple
                                   Editar
                               </button>
                           </div>
-
                       </form>
                   </div>
               </div>

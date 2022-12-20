@@ -107,28 +107,36 @@ export function useCart() {
         setAdress(data = response.data)
         return response.data
     }).catch((error) => {
-        console.log("erro: " + error);
+        console.log("erro endereço: " + error);
         return error.message
     });
     return adress;
   }
 
-  function updateAdress(data:props){
+  async function updateAdress(data:props){
     api_product.post(`/endereco/create?token=${use?.token}`,{
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': true,
         },
-    }).then((response) => {
+        id : data.id,
+        bairro: data.bairro,
+        cep: data.cep,
+        cidade: data.cidade,
+        complemento: data.complemento,
+        logradouro: data.logradouro,
+        numero: data.numero,
+        uf: data.uf
+    }).then(async (response) => {
 
         console.log("sucesso", response);
-        setResultCreateAdress(response.data.status)
-    }).catch((error) => {
+        await setResultCreateAdress("Novo endereço cadastrado")
+    }).catch(async (error) => {
         console.log("erro: " + error);
-        setResultCreateAdress(error.status)
+        await setResultCreateAdress("Ocorreu um erro!!")
     });
-    return resultCreateAdress;
+    return await resultCreateAdress;
   }
 
-  return { cart, handleCart, formatMoney, handleRemoveCart, handleUpdateCart,getAdrress };
+  return { cart, handleCart, formatMoney, handleRemoveCart, handleUpdateCart,getAdrress, handleDecrementCart, updateAdress, resultCreateAdress };
 }
