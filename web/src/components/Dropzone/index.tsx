@@ -11,7 +11,7 @@ interface Props {
 export function Dropzone({onFileUploaded}:Props) {
     const [selectedFileUrl, setSelectedFileUrl] = useState<string[]>([]);
 
-    const onDrop = useCallback(acceptedFiles => {
+    const onDrop = useCallback((acceptedFiles: any[]) => {
       const file = acceptedFiles[0];
 
       const fileUrl = URL.createObjectURL(file);

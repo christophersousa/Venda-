@@ -6,9 +6,13 @@ import com.ecommerce.vendamais.dto.cart.CartItemDto;
 import com.ecommerce.vendamais.dto.order.OrderItemDto;
 import com.ecommerce.vendamais.exceptions.CustomException;
 import com.ecommerce.vendamais.model.Address;
+import com.ecommerce.vendamais.model.Company;
+import com.ecommerce.vendamais.model.Email;
 import com.ecommerce.vendamais.model.Order;
 import com.ecommerce.vendamais.model.OrderItem;
+import com.ecommerce.vendamais.model.ProdutoEmail;
 import com.ecommerce.vendamais.model.User;
+import com.ecommerce.vendamais.model.UserEmail;
 import com.ecommerce.vendamais.repository.AddressRepository;
 import com.ecommerce.vendamais.repository.OrderItemsRepository;
 import com.ecommerce.vendamais.repository.OrderRepository;
@@ -16,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +32,9 @@ import java.util.Optional;
 public class OrderService {
     @Autowired
     CartService cartService;
+
+    @Autowired
+    PublishService publishService;
 
     @Autowired
     OrderRepository orderRepository;
@@ -58,6 +67,12 @@ public class OrderService {
         newOrder.setStatus(StatusPedido.EMITIDO);
         orderRepository.save(newOrder);
 
+        // Publish email
+        UserEmail uEmail = new UserEmail();
+        uEmail.setEmail(user.getEmail());
+        uEmail.setUsername(user.getNomeCompleto());
+        uEmail.setAddress(userAddress);
+
         // cria itens do pedido e adiciona ao pedido
         for (CartItemDto cartItemDto : cartItemDtoList) {
             // adiciona ao pedido se houver estoque disponível
@@ -71,6 +86,26 @@ public class OrderService {
                 cartItemDto.getProduto().setEstoque(cartItemDto.getProduto().getEstoque() - 1);
                 orderItem.setOrder(newOrder);
                 orderItemsRepository.save(orderItem);
+
+                // Publish email
+                ProdutoEmail pEmail = new ProdutoEmail();
+                pEmail.setEstoque(cartItemDto.getProduto().getEstoque());
+                pEmail.setNome(cartItemDto.getProduto().getNome());
+                pEmail.setValor(new BigDecimal(cartItemDto.getProduto().getPreco()));
+
+                Email emails = new Email();
+                emails.setEmail(orderItem.getCompany().getEmail());
+                emails.setNome(orderItem.getCompany().getNome());
+                emails.setUser(uEmail);
+                emails.setProduto(pEmail);
+                System.out.println("Email enviado :" + emails.toString());
+                try {
+                    publishService.publishEmail(emails);
+
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+
             } else {
                 orderRepository.delete(newOrder);
                 throw new CustomException(
@@ -143,5 +178,23 @@ public class OrderService {
         } else {
             throw new CustomException("Item de pedido com id " + orderItemId + " não existe");
         }
+    }
+
+    public List<OrderItemDto> getOrdersByCompany(Company company) {
+        List<OrderItem> orderItemList = orderItemsRepository.findAllByCompany(company);
+        List<OrderItemDto> orderItemDtoList = new ArrayList<OrderItemDto>();
+        for (OrderItem item : orderItemList) {
+            OrderItemDto orderItemDto = new OrderItemDto();
+            orderItemDto.setId(item.getId());
+            orderItemDto.setQuantidade(item.getQuantidade());
+            orderItemDto.setPreco(item.getPreco());
+            orderItemDto.setPedidoId(item.getOrder().getId());
+            orderItemDto.setEmpresaId(item.getCompany().getId());
+            orderItemDto.setProduct(item.getProduct());
+            orderItemDto.setStatusPedidoItem(item.getStatus());
+
+            orderItemDtoList.add(orderItemDto);
+        }
+        return orderItemDtoList;
     }
 }

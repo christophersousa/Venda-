@@ -1,9 +1,11 @@
 export default {
     testEnvironment: "jsdom",
     collectCoverageFrom: [
-        "src/page/**/*.tsx",
-        "src/components/**/*.tsx",
-        "src/hooks/*.tsx",
+        "!src/page/**/*.tsx",
+        "src/components/Carousel/*.tsx",
+        "src/components/CarouselProduto/*.tsx",
+        "src/components/Dropdown/*.tsx",
+        "src/hooks/useMask.tsx",
         "!src/routes/index.tsx",
         "!src/styles/*.css",
         "!src/interfaces/*.ts"

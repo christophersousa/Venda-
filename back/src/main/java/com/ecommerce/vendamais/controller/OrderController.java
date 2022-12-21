@@ -2,6 +2,7 @@ package com.ecommerce.vendamais.controller;
 
 import com.ecommerce.vendamais.common.ApiResponse;
 import com.ecommerce.vendamais.dto.order.OrderItemDto;
+import com.ecommerce.vendamais.model.Company;
 import com.ecommerce.vendamais.model.Order;
 import com.ecommerce.vendamais.model.User;
 import com.ecommerce.vendamais.service.AuthenticationService;
@@ -59,6 +60,17 @@ public class OrderController {
 
         return new ResponseEntity<>(new ApiResponse(true, "status de item de pedido atualizado com sucesso"),
                 HttpStatus.OK);
+    }
+
+    @GetMapping("/getOrdersByCompany")
+    public ResponseEntity<List<OrderItemDto>> getOrdersByCompany(@RequestParam("token") String token) {
+        authenticationService.authenticate(token);
+
+        Company company = authenticationService.getCompany(token);
+
+        List<OrderItemDto> allOrders = orderService.getOrdersByCompany(company);
+
+        return new ResponseEntity<>(allOrders, HttpStatus.OK);
     }
 
 }

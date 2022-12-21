@@ -364,7 +364,27 @@
 <a name='L299'></a><a href='#L299'>299</a>
 <a name='L300'></a><a href='#L300'>300</a>
 <a name='L301'></a><a href='#L301'>301</a>
-<a name='L302'></a><a href='#L302'>302</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -396,6 +416,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -835,8 +875,27 @@ import { CategoriaComTipo } from "../../interfaces/CategoriaComTipo";
                     &lt;hr className="border-gray-200 dark:border-gray-700 " /&gt;
                     &lt;li&gt;
                     {use?.role != "usuario" ?
-                      &lt;Link
-                        to="meusprodutos"
+                      &lt;div&gt;
+                        &lt;Link
+                          to="meusprodutos"
+                          className="
+                                          dropdown-item
+                                          text-sm
+                                          py-3
+                                          px-4
+                                          font-normal
+                                          block
+                                          w-full
+                                          whitespace-nowrap
+                                          bg-transparent
+                                          text-gray-700
+                                          hover:bg-gray-100
+                                          "
+                        &gt;
+                          Meus Produtos
+                        &lt;/Link&gt;
+                        &lt;Link
+                        to="pedidos"
                         className="
                                         dropdown-item
                                         text-sm
@@ -851,11 +910,12 @@ import { CategoriaComTipo } from "../../interfaces/CategoriaComTipo";
                                         hover:bg-gray-100
                                         "
                       &gt;
-                        Meus Produtos
+                        Pedidos
                       &lt;/Link&gt;
+                      &lt;/div&gt;
                       :
                       &lt;Link
-                        to=""
+                        to="/meuspedidos"
                         className="
                                   dropdown-item
                                   text-sm
@@ -973,7 +1033,7 @@ import { CategoriaComTipo } from "../../interfaces/CategoriaComTipo";
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-12-18T23:52:40.080Z
+                at 2022-12-21T21:42:06.756Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

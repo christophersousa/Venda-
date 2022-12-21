@@ -68,6 +68,7 @@ export function Login(){
                      }}
                     variant="outlined"
                     label="e-mail"
+                    placeholder="E-mail"
                     className="bg-gray-50 border border-gray-300 "/>
                 </div>
 
@@ -84,6 +85,7 @@ export function Login(){
                         setValue('password', e.target.value, {shouldValidate: true})
                      }}
                     label="senha"
+                    placeholder="Senha"
                     className="bg-gray-50 border border-gray-300"
                     ref={password}
                     />

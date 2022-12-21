@@ -168,8 +168,27 @@ export function Menu() {
                     <hr className="border-gray-200 dark:border-gray-700 " />
                     <li>
                     {use?.role != "usuario" ?
-                      <Link
-                        to="meusprodutos"
+                      <div>
+                        <Link
+                          to="meusprodutos"
+                          className="
+                                          dropdown-item
+                                          text-sm
+                                          py-3
+                                          px-4
+                                          font-normal
+                                          block
+                                          w-full
+                                          whitespace-nowrap
+                                          bg-transparent
+                                          text-gray-700
+                                          hover:bg-gray-100
+                                          "
+                        >
+                          Meus Produtos
+                        </Link>
+                        <Link
+                        to="pedidos"
                         className="
                                         dropdown-item
                                         text-sm
@@ -184,11 +203,12 @@ export function Menu() {
                                         hover:bg-gray-100
                                         "
                       >
-                        Meus Produtos
+                        Pedidos
                       </Link>
+                      </div>
                       :
                       <Link
-                        to=""
+                        to="/meuspedidos"
                         className="
                                   dropdown-item
                                   text-sm

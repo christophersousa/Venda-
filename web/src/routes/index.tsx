@@ -6,7 +6,9 @@ import { Cadastro } from '../page/Cadastro';
 import { Carrinho } from '../page/Carrinho';
 import {Home} from '../page/Home'
 import { Login } from '../page/Login';
+import { MeusPedidos } from '../page/MeusPedidos';
 import { MeusProdutos } from '../page/MeusProdutos';
+import { Pedidos } from '../page/Pedidos';
 import { Produto } from '../page/Produto';
 import { RegisterProduto } from '../page/RegisterProduto';
 
@@ -31,8 +33,10 @@ export const RoutesPage = () => (
     <Route path="/login" element={<Login/>} />
     <Route path="/cadastro" element={<Cadastro/>} />
     <Route path="/meusprodutos" element={<RequireAuth><MeusProdutos/></RequireAuth>} />
+    <Route path="/pedidos" element={<RequireAuth><Pedidos/></RequireAuth>} />
     <Route path="/cadastrarprodutos" element={<RequireAuth><RegisterProduto/></RequireAuth>} />
     <Route path="/produto/:produtoId" element={<Produto/>} />
     <Route path="/carrinho" element={<RequireAuth><Carrinho/></RequireAuth>} />
+    <Route path="/meuspedidos" element={<RequireAuth><MeusPedidos/></RequireAuth>} />
   </Routes>
 );

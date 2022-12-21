@@ -24,5 +24,22 @@ export function usePurchase(){
         return statusCompra
     }
 
-    return{purchase}
+    function updatePurchases(id:number){
+        api_product.post(`/pedido/updateStatus/${id}`,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': true,
+            },
+        }).then((response) => {
+            console.log("sucesso", response);
+            setStatusCompra("Compra realizada com sucesso")
+            return response.data
+        }).catch((error) => {
+            console.log("erro endereço: " + error);
+            setStatusCompra("Ocorreu um erro")
+            return error.message
+        });
+    }
+
+    return{purchase, updatePurchases}
 }
