@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  estoque: 1
+  valor: 9.99
+  nome: MyString
+
+two:
+  estoque: 1
+  valor: 9.99
+  nome: MyString
