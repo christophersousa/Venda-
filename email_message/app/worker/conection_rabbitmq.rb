@@ -11,6 +11,7 @@ class ConectionRabbitmq
         # declare a queue
         hi_q = ch1.queue("FILA_OLA_PDIST_DURAVEL", :durable => true)
         hi_q.subscribe do |delivery_info, metadata, payload|
+            puts payload
             EmailService.new(payload)
         end
     end

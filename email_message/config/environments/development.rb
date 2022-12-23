@@ -24,8 +24,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :user_name            => "", # <- Teu email macho
-    :password             => "", # <- Tua senha agora cabeçudo
+    :user_name            => "guilherme.vieira@academico.ifpb.edu.br", # <- Teu email macho
+    :password             => "Tsiifpb2018", # <- Tua senha agora cabeçudo
     :authentication       => "plain",
     :enable_starttls_auto => true
   }

@@ -1,5 +1,6 @@
 class EmailService
     def initialize(value)
+        puts value
         @email = JSON.parse(value)
 
         puts "[high] Consumed #{@email['nome']}"
