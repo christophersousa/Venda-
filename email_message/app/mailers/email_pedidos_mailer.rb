@@ -2,6 +2,7 @@ class EmailPedidosMailer < ApplicationMailer
 
     def email_pedidos_user(email)
         @email = email
+        puts email;
         mail(
             to: email['email'],
             subject: "Seu produto: #{@email['produto']['nome']}  foi adquirido por: #{@email['user']['username']}",
