@@ -68,7 +68,7 @@
 <table>
   <tr>
     <td align="center">
-      <a href="http://github.com/JohnOliver23/">
+      <a href="http://github.com/christophersousa/">
         <img src="https://avatars.githubusercontent.com/u/61100762?s=400&u=791f8def6d6d9f23809227af4c69ccd16f4a6112&v=4" width="100px;" alt="John Oliver"/>
         <br />
         <sub>
@@ -78,10 +78,10 @@
        <br />
         <a href="https://www.linkedin.com/in/christopher-silva-857205205/" title="Linkedin">@christophersousa</a>
        <br />
-       <a href="https://github.com/JohnOliver23/fastfeet-api/commits?author=tavareshenrique" title="Code">💻</a>
+       <a href="https://github.com/christophersousa/" title="Code">💻</a>
     </td>
     <td align="center">
-      <a href="http://github.com/JohnOliver23/">
+      <a href="https://github.com/GuilhermeVieiraCode">
         <img src="https://avatars.githubusercontent.com/u/44982023?v=4" width="100px;" alt="John Oliver"/>
         <br />
         <sub>
@@ -91,7 +91,7 @@
        <br />
         <a href="https://www.linkedin.com/in/guilherme-vieira-071316186/" title="Linkedin">@guilhermevieira</a>
        <br />
-       <a href="https://github.com/GuilhermeVieiraCode" title="Code">💻</a>
+       <a href="https://github.com/GuilhermeVieiraCode/" title="Code">💻</a>
     </td>
   </tr>
 </table>
